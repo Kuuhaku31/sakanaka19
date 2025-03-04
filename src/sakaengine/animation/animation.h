@@ -4,6 +4,7 @@
 #pragma once
 
 #include "base.h"
+#include "tools.h"
 
 // 位置修正回调函数
 typedef std::function<void(float& dst_x, float& dst_y, const float& src_w, const float& src_h)> CorrectivePos;

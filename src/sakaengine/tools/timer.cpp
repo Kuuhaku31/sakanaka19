@@ -1,7 +1,7 @@
 
 // timer.h
 
-#include "base.h"
+#include "tools.h"
 
 // 重启计时器
 void

@@ -3,9 +3,11 @@
 
 #pragma once
 
-#include "util.h"
+#include "imgui_setup.h"
 
 #include <string>
+
+class AnimationTemplate;
 
 class ResourcesPool
 {
