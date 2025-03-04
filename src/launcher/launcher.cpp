@@ -3,19 +3,14 @@
 
 #include "launcher.h"
 
+#include "versions.h"
+
+#include <cstdint>
 #include <cstdio>
 #include <cstring>
 
-int
-Launcher::Run()
-{
-    uint32_t version = ReadVersion();
-
-    return 0;
-}
-
 uint32_t
-Launcher::ReadVersion(const char* file_path)
+ReadVersion(const char* file_path = nullptr)
 {
     if(!file_path) file_path = ".ver";
 
@@ -33,4 +28,24 @@ Launcher::ReadVersion(const char* file_path)
     if(!strcmp(version_str, "ver-01")) return 1;
     if(!strcmp(version_str, "ver-02")) return 2;
     return -1;
+}
+
+int
+Run()
+{
+    uint32_t version = ReadVersion();
+
+    switch(version)
+    {
+    case 0:
+        printf("Version 0\n");
+        RunTest();
+        break;
+
+    default:
+        printf("Unknown version\n");
+        break;
+    }
+
+    return 0;
 }
