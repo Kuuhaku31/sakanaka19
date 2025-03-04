@@ -12,15 +12,15 @@ RunTest()
 
     static Painter& painter = Painter::Instance();
 
-    painter.Init("Runtest", IRect{ 0, 0, 800, 600 });
+    painter.Init("Runtest", IRect{ SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600 });
 
-    painter.On_frame_begin([&is_running](const Event& event) {
+    EventCallback on_begin = [&is_running](const Event& event) {
         if(event.type == SDL_QUIT) is_running = false;
-    });
+    };
 
     while(is_running)
     {
-        painter.On_frame_begin();
+        painter.On_frame_begin(on_begin);
 
         ImGui::ShowDemoWindow();
 
