@@ -3,7 +3,6 @@
 
 #include "tools.h"
 
-#include "imgui_setup.h"
 
 Object::Object(const Vector2& pos, const Vector2& vel, float mass, const Color& color)
     : movement_position(pos)
@@ -51,16 +50,6 @@ Object::On_update(float delta_time)
 void
 Object::On_render() const
 {
-    static const Painter& painter = Painter::Instance();
-
-    painter.DrawCircle(
-        movement_position.vx,
-        movement_position.vy,
-        object_radius,
-        object_color,
-        true
-
-    );
 }
 
 void

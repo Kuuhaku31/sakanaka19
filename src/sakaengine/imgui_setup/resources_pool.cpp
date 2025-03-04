@@ -1,21 +1,11 @@
 
 // resources_pool.cpp
 
-#include "resources_pool.h"
-
 #include "animation.h"
 #include "imgui_setup.h"
 
 #include "cJSON.h"
 
-ResourcesPool* ResourcesPool::instance = nullptr;
-ResourcesPool&
-ResourcesPool::Instance()
-{
-    if(instance) return *instance;
-    instance = new ResourcesPool();
-    return *instance;
-}
 
 bool
 ResourcesPool::LoadResources()

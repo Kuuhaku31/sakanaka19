@@ -4,9 +4,7 @@ project(sakaengine)
 set(PATH
     ${CMAKE_CURRENT_LIST_DIR}/base
     ${CMAKE_CURRENT_LIST_DIR}/tools
-    ${CMAKE_CURRENT_LIST_DIR}/resources
     ${CMAKE_CURRENT_LIST_DIR}/animation
-    ${CMAKE_CURRENT_LIST_DIR}/state_machine
     ${CMAKE_CURRENT_LIST_DIR}/imgui_setup
 )
 
@@ -25,6 +23,7 @@ set(IMGUI_SOURCEFILES
     ${IMGUI_BACKENDS_DIR}/imgui_impl_sdl2.cpp
     ${IMGUI_BACKENDS_DIR}/imgui_impl_sdlrenderer2.cpp
 )
+
 # 添加imgui库
 
 # 生成库

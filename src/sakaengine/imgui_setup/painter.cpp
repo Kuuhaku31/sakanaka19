@@ -5,15 +5,6 @@
 
 #define DEFAULT_CLEAR_COLOR 0x00, 0x00, 0x00, 0xFF
 
-Painter* Painter::instance = nullptr;
-
-Painter&
-Painter::Instance()
-{
-    if(instance) return *instance;
-    instance = new Painter();
-    return *instance;
-}
 
 int
 Painter::Init(const char* title, const IRect& layout)
@@ -68,11 +59,11 @@ Painter::Init(const char* title, const IRect& layout)
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 
-    imgui_io = &ImGui::GetIO();
-    imgui_io->ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
-    imgui_io->ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;  // Enable Gamepad Controls
-    imgui_io->ConfigFlags |= ImGuiConfigFlags_DockingEnable;     // Enable Docking
-    imgui_io->Fonts->AddFontDefault();
+    ImGuiIO imgui_io = ImGui::GetIO();
+    imgui_io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
+    imgui_io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;  // Enable Gamepad Controls
+    imgui_io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;     // Enable Docking
+    imgui_io.Fonts->AddFontDefault();
 
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
@@ -130,7 +121,7 @@ Painter::On_frame_end(Callback f) const
 {
     ImGui::Render(); // Rendering
 
-    SDL_RenderSetScale(renderer, imgui_io->DisplayFramebufferScale.x, imgui_io->DisplayFramebufferScale.y); // 设置渲染目标
+    SDL_RenderSetScale(renderer, ImGui::GetIO().DisplayFramebufferScale.x, ImGui::GetIO().DisplayFramebufferScale.y); // 设置渲染目标
 
     if(f)
     {
@@ -147,52 +138,10 @@ Painter::On_frame_end(Callback f) const
     SDL_RenderPresent(renderer); // 显示渲染结果
 }
 
-float
-Painter::Get_delta_time() const
-{
-    return imgui_io->DeltaTime;
-}
-
-float
-Painter::Get_frame_rate() const
-{
-    return imgui_io->Framerate;
-}
-
 bool
 Painter::Make_message_box(const char* title, const char* message) const
 {
     return SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, title, message, window);
-}
-
-void
-Painter::Set_resorces_path(const char* file_path)
-{
-    strcpy(resources_path, file_path); // 将file_path复制到resources_path
-}
-
-Texture*
-Painter::LoadTexture(const char* file_path) const
-{
-    char full_path[_MAX_PATH];
-    sprintf(full_path, "%s/%s", resources_path, file_path);
-    return IMG_LoadTexture(renderer, full_path);
-}
-
-Sound*
-Painter::LoadWAV(const char* file_path) const
-{
-    char full_path[_MAX_PATH];
-    sprintf(full_path, "%s/%s", resources_path, file_path);
-    return Mix_LoadWAV(full_path);
-}
-
-Music*
-Painter::LoadMUS(const char* file_path) const
-{
-    char full_path[_MAX_PATH];
-    sprintf(full_path, "%s/%s", resources_path, file_path);
-    return Mix_LoadMUS(full_path);
 }
 
 void

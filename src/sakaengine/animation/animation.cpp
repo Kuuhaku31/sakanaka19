@@ -3,7 +3,6 @@
 
 #include "animation.h"
 
-#include "imgui_setup.h"
 
 // 动画模板
 AnimationTemplate::AnimationTemplate(const AnimationInformation& info)

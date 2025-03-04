@@ -3,7 +3,10 @@
 
 #pragma once
 
+#include <functional>
 #include <stdint.h>
+
+typedef std::function<void()> Callback;
 
 struct IRect
 {

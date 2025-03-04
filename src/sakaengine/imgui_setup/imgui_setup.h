@@ -16,7 +16,7 @@
 #include <SDL2/SDL_mixer.h>
 #include <SDL2/SDL_ttf.h>
 
-#include <functional>
+#include <string>
 
 
 typedef SDL_Event    Event;
@@ -26,40 +26,25 @@ typedef ImFont       Font;
 typedef Mix_Chunk    Sound;
 typedef Mix_Music    Music;
 
-typedef std::function<void()>             Callback;
+class AnimationTemplate;
+
 typedef std::function<void(const Event&)> EventCallback; // 事件回调函数
 
-
 // Painter
-class Painter
+class Painter : public InstanceTem<Painter>
 {
-    friend class Config;
+    friend class InstanceTem<Painter>;
+
+    friend class ResourcesPool;
 
 public:
-    static Painter& Instance();
-
     int Init(const char* title = nullptr, const IRect& layout = IRect{ 0, 0, 0, 0 }); // 0:初始化成功
     int Quit();
 
     void On_frame_begin(EventCallback f = nullptr) const;
     void On_frame_end(Callback f = nullptr) const;
 
-public:
-    float Get_delta_time() const;
-    float Get_frame_rate() const;
-    float Get_unit_size() const;
-
-public:
     bool Make_message_box(const char* title, const char* message) const;
-
-public:
-    void     Set_resorces_path(const char* file_path);
-    Texture* LoadTexture(const char* file_path) const;
-    Sound*   LoadWAV(const char* file_path) const;
-    Music*   LoadMUS(const char* file_path) const;
-
-private:
-    char resources_path[_MAX_PATH] = "";
 
 public:
     void Create_texture(Texture*& texture, int tex_wide, int tex_high) const;
@@ -89,19 +74,39 @@ public:
 private:
     int init_flag = 1; // 1:未初始化 0:初始化成功 -1:初始化失败
 
-public:
     SDL_Window* window   = nullptr;
     Renderer*   renderer = nullptr;
-    ImGuiIO*    imgui_io = nullptr;
+
+    const View* painter_view = nullptr;
+};
+
+
+// 资源池
+class ResourcesPool : public InstanceTem<ResourcesPool>
+{
+    friend class InstanceTem<ResourcesPool>;
+
+public:
+    typedef std::unordered_map<std::string, Texture*>           TexturePool;
+    typedef std::unordered_map<std::string, Font*>              FontPool;
+    typedef std::unordered_map<std::string, Sound*>             SoundPool;
+    typedef std::unordered_map<std::string, Music*>             MusicPool;
+    typedef std::unordered_map<std::string, AnimationTemplate*> AnimationPool;
+
+public:
+    bool LoadResources();
+    bool FreeResources();
+
+    Texture*           Get_texture(std::string id) const { return texture_pool.at(id); }
+    Font*              Get_font(std::string id) const { return font_pool.at(id); }
+    Sound*             Get_sound(std::string id) const { return sound_pool.at(id); }
+    Music*             Get_music(std::string id) const { return music_pool.at(id); }
+    AnimationTemplate* Get_animation(std::string id) const { return animation_pool.at(id); }
 
 private:
-    const View* painter_view = nullptr;
-
-private: // 单例模式
-    Painter()                          = default;
-    ~Painter()                         = default;
-    Painter(const Painter&)            = delete;
-    Painter& operator=(const Painter&) = delete;
-
-    static Painter* instance;
+    FontPool      font_pool;      // 字体
+    SoundPool     sound_pool;     // 音效
+    MusicPool     music_pool;     // 音乐
+    TexturePool   texture_pool;   // 纹理
+    AnimationPool animation_pool; // 动画
 };
