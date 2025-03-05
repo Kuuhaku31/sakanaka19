@@ -24,8 +24,16 @@ struct FRect
     float h = 0;
 };
 
+class Vector2;
 struct Point
 {
+    Point() = default;
+    Point(int x, int y)
+        : px(x)
+        , py(y)
+    {
+    }
+
     int32_t px = 0;
     int32_t py = 0;
 
@@ -36,6 +44,8 @@ struct Point
 
         return *this;
     }
+
+    operator Vector2() const;
 };
 #define ORIGIN_POINT Point{ 0, 0 }
 
@@ -108,9 +118,9 @@ public:
     operator float*(); // 定义强制转换运算符，将 Vector2 转换为 float*
     operator Point() const;
 
-    void rotate(float angle);
-    void to_unit();
-    void to_zero();
+    void     rotate(float angle);
+    Vector2& to_unit();
+    Vector2& to_zero();
 
     float module() const;
 

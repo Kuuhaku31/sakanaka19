@@ -103,9 +103,6 @@ public:
     bool is_use_friction       = false;
     bool is_use_air_resistance = false;
 
-    float movement_friction       = 0.0f;
-    float movement_air_resistance = 0.0f;
-
     void Force(const Vector2& force);
     void Move(const Vector2& move);
     void Move_to(const Vector2& dst);
@@ -130,7 +127,13 @@ public:
     void Set_radius(float radius);
     void Set_color(const Color& color);
 
+    void Set_friction(float friction);
+    void Set_air_resistance(float resistance);
+
 protected:
+    float movement_friction       = 0.0f;
+    float movement_air_resistance = 0.0f;
+
     Vector2 movement_position;     // 位置
     Vector2 movement_velocity;     // 速度
     Vector2 movement_acceleration; // 加速度

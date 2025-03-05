@@ -98,7 +98,12 @@ Run()
     {
     case 0:
         printf("Version 0\n");
-        RunTest(info.resources.c_str());
+        RunSEKIBAKO(info.resources.c_str());
+        break;
+
+    case 1:
+        printf("Version 1\n");
+        RunLifeGame();
         break;
 
     default:

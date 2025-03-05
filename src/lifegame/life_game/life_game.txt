@@ -1,0 +1,412 @@
+
+#pragma once
+
+class Life_Game_1D
+{
+public:
+    void
+    SET(ShapeT<short>* s, CameraL* c)
+    {
+        life_map.Copy_shape(s);
+
+        shape_wide = s->Get_shape_wide();
+        shape_high = s->Get_shape_high();
+        shape_long = s->Get_shape_long();
+
+        camera = c;
+
+        flag.Resize_shape(2, shape_high);
+        flag.Clear();
+    }
+
+    static void
+    Iterate_static(unsigned long* map_i, unsigned long* map_o, unsigned int size)
+    {
+        // unsigned int time = size * 32 - 1;
+        // for(int i = 1; i < time; i++)
+        //{
+        //     short list = 0;
+
+        //    short subscript = i / 32;
+        //    short remainder = i % 32;
+
+        //    // 获取第一个元素中的位
+        //    unsigned long mask1 = 0xFFFFFFFF << remainder; // 创建一个掩码，其中你想要获取的位和它们右边的所有位都是1
+        //    unsigned long bits1 = map_i[subscript] & mask1; // 使用位与操作来获取你想要的位
+        //    bits1 >>= remainder; // 将获取的位移动到最右边
+
+        //    // 获取第二个元素中的位
+        //    unsigned long mask2 = 0xFFFFFFFF >> (32 - remainder); // 创建一个掩码，其中你想要获取的位和它们左边的所有位都是1
+        //    unsigned long bits2 = map_i[subscript + 1] & mask2; // 使用位与操作来获取你想要的位
+        //    bits2 <<= (32 - remainder); // 将获取的位移动到最左边
+
+        //    // 将获取的位组合在一起并存储在list的前三个位中
+        //    list |= (bits1 | bits2);
+
+        //    switch(list)
+        //    {
+        //    case 0b000: list = 0; break; // 000->0
+        //    case 0b001: list = 1; break; // 101->0
+        //    case 0b010: list = 1; break; // 110->0
+        //    case 0b011: list = 1; break; // 111->0
+        //    case 0b100: list = 1; break; // 100->1
+        //    case 0b101: list = 0; break; // 001->1
+        //    case 0b110: list = 0; break; // 010->1
+        //    case 0b111: list = 0; break; // 011->1
+        //    }
+        //
+        //    map_o[i] = list;
+
+        //    IMAGE img;
+        //    imgChange::WriteShape(&life_map, &img);
+        //    saveimage("./met/111.png", &img);
+        //    camera->Clear();
+        //    camera->Rending(&img);
+        //    camera->Photographed();
+        //}
+    }
+
+    void
+    Iterate()
+    {
+        int pointer_pp = pointer + 1;
+
+        if(pointer >= shape_high)
+        {
+            pointer    = 0;
+            pointer_pp = 1;
+        }
+
+        if(pointer_pp >= shape_high)
+        {
+            pointer_pp = 0;
+        }
+
+        for(int i = 0; i < shape_wide; i++)
+        {
+            short cell = is_alive(i, pointer);
+            life_map.Write_on(i, pointer_pp, cell);
+        }
+        pointer++;
+
+        IMAGE img;
+        imgChange::WriteShape(&life_map, &img);
+        saveimage("./met/111.png", &img);
+        camera->Clear();
+        camera->Rending(&img);
+        camera->Photographed();
+    }
+
+    short
+    Iterate_()
+    {
+        short re = 0;
+
+        // 获取左边界
+        for(int i = 0; i < shape_wide; i++)
+        {
+            if(life_map.Is_in_shape(i, pointer))
+            {
+                border_left = i;
+                break;
+            }
+        }
+
+        // 获取右边界
+        for(int i = shape_wide - 1; i >= 0; i--)
+        {
+            if(life_map.Is_in_shape(i, pointer))
+            {
+                border_righ = i;
+                break;
+            }
+        }
+
+        // 推导上一代
+        life_map.Write_on(border_righ - 1, pointer + 1, 1);
+
+        for(int i = border_righ - 1; i > border_left; i--)
+        {
+            // char c = 0;
+            // std::cout << "输入任意字符继续：";
+            // std::cin >> c;
+
+            short last = get_ancestors_far_left(i, pointer, pointer + 1);
+            life_map.Write_on(i - 1, pointer + 1, last);
+
+            camera->Clear();
+            IMAGE img;
+            imgChange::WriteShape(&life_map, &img);
+
+            unsigned long* buffer                      = GetImageBuffer(&img);
+            buffer[shape_wide * (pointer + 1) + i - 2] = 0xff0000ff;
+
+            camera->Rending(&img);
+            camera->Photographed();
+        }
+
+        short last1 = life_map.Is_in_shape(border_left + 1, pointer + 1);
+        short last2 = life_map.Is_in_shape(border_left, pointer + 1);
+        life_map.Write_on(border_left + 1, pointer + 1, 1);
+        life_map.Write_on(border_left, pointer + 1, 0);
+
+        flag.Write_on(1, pointer + 1, last1);
+        flag.Write_on(0, pointer + 1, last2);
+
+        camera->Clear();
+        IMAGE img;
+        imgChange::WriteShape(&life_map, &img);
+        camera->Rending(&img);
+        imgChange::WriteShape(&flag, &img, 0xffffffff, 0xffcccccc);
+        camera->Rending(&img);
+        camera->Photographed();
+
+        std::cout << "结束" << std::endl;
+        pointer++;
+
+        return re;
+    }
+
+    void
+    save_img()
+    {
+        IMAGE img;
+        imgChange::WriteShape(&life_map, &img);
+        saveimage("./met/save.png", &img);
+
+        camera->Clear();
+        camera->Rending(&img);
+        camera->Photographed();
+    }
+
+private:
+    CameraL* camera = nullptr;
+
+    IMAGE life_map_img;
+
+    ShapeT<short> flag;
+    ShapeT<short> life_map;
+    int           pointer = 0;
+
+    int shape_wide = 0;
+    int shape_high = 0;
+    int shape_long = 0;
+
+    int border_left = 0;
+    int border_righ = 0;
+
+    unsigned long check_time = 0;
+
+    int tem[30] = {
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        1,
+    };
+
+    short
+    get_ancestors_far_left(int x, int p_now, int p_last)
+    {
+        short list = 0;
+
+        short v1 = life_map.Is_in_shape(x + 1, p_last) ? 1 : 0;
+        short v2 = life_map.Is_in_shape(x, p_last) ? 1 : 0;
+        short v3 = life_map.Is_in_shape(x, p_now) ? 1 : 0;
+
+        list |= v1 << 0;
+        list |= v2 << 1;
+        list |= v3 << 2;
+
+        switch(list)
+        {
+            case 0b000: return 0; // 000->0
+            case 0b001: return 1; // 101->0
+            case 0b010: return 1; // 110->0
+            case 0b011: return 1; // 111->0
+            case 0b100: return 1; // 100->1
+            case 0b101: return 0; // 001->1
+            case 0b110: return 0; // 010->1
+            case 0b111: return 0; // 011->1
+
+            default:
+                // 错误
+                return -1;
+        }
+    }
+
+    // 不唯一！！！
+    short
+    get_ancegstgors_far_right(int x, int p_now, int p_last)
+    {
+        if(x < border_left)
+        {
+            return 0;
+        }
+        else if(x == border_left)
+        {
+            return 1;
+        }
+        else if(x >= border_righ - 2)
+        {
+            return -1;
+        }
+        else
+        {
+            short list = 0;
+
+            short v1 = life_map.Is_in_shape(x, p_last) ? 1 : 0;
+            short v2 = life_map.Is_in_shape(x - 1, p_last) ? 1 : 0;
+            short v3 = life_map.Is_in_shape(x, p_now) ? 1 : 0;
+
+            list |= v1 << 0;
+            list |= v2 << 1;
+            list |= v3 << 2;
+
+            short re = -3;
+
+            switch(list)
+            {
+                case 0b000: return 0; // 000->0
+                case 0b001: return 1; // 01_->0 X
+                case 0b010: return 1; // 101->0
+                case 0b011: return 1; // 11_->0
+                case 0b100: return 1; // 00_->1
+                case 0b101: return 0; // 01_->1
+                case 0b110: return 0; // 10_->1
+                case 0b111: return 0; // 11_->1
+
+                default:
+                    return -2;
+            }
+        }
+    }
+
+    short
+    is_alive(int x, int pointer_last)
+    {
+        short list = 0;
+
+        for(int i = 0; i < 3; i++)
+        {
+            short v = life_map.Is_in_shape(x - i + 1, pointer_last) ? 1 : 0;
+            list |= v << i;
+        }
+
+        switch(list)
+        {
+            case 0b000:
+                return 0;
+
+            case 0b001:
+            case 0b010:
+            case 0b011:
+            case 0b100:
+                return 1;
+
+            case 0b101:
+            case 0b110:
+            case 0b111:
+                return 0;
+
+            default:
+                return 0;
+        }
+    }
+
+    short
+    check(int pointer_now, int pointer_last)
+    {
+        for(int i = 0; i < shape_wide; i++)
+        {
+            short cell_test = is_alive(i, pointer_last);
+            short cell_now  = life_map.Is_in_shape(i, pointer_now);
+
+            if(cell_test != cell_now)
+            {
+                return 0;
+            }
+        }
+        return 1;
+    }
+
+    void
+    print_shape(
+        CameraL* camera, ShapeT<short>* shapes[], unsigned long colors[], unsigned short count = 0)
+    {
+        camera->Clear();
+        for(int i = 0; i < count; i++)
+        {
+            IMAGE img;
+            imgChange::WriteShape(shapes[i], &img, colors[i]);
+            camera->Rending(&img);
+        }
+        camera->Photographed();
+    }
+
+    //=================================================================================================
+    //=================================================================================================
+
+    void
+    test_f()
+    {
+    }
+
+    short
+    dfs(int pointer_now, int pointer_last, int n)
+    {
+    top:
+
+        if(n >= shape_wide)
+        {
+
+            IMAGE img;
+            imgChange::WriteShape(&life_map, &img);
+            camera->Clear();
+            camera->Rending(&img);
+            camera->Photographed();
+
+            // char cc = getchar();
+            check_time++;
+            // std::cout << check_time << std::endl;
+            return check(pointer_last, pointer_now);
+        }
+
+        // 如果新采点超出边界，直接跳过
+        if(n < border_left || n > border_righ)
+        {
+            n++;
+            goto top;
+        }
+
+        life_map.Write_on(n, pointer_now, 1);
+        if(dfs(pointer_now, pointer_last, n + 1))
+        {
+            return 1;
+        }
+        else
+        {
+            life_map.Write_on(n, pointer_now, 0);
+            return dfs(pointer_now, pointer_last, n + 1);
+        }
+    }
+};

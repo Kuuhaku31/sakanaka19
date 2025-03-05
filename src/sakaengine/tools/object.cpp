@@ -175,3 +175,17 @@ Object::Set_color(const Color& color)
 {
     object_color = color;
 }
+
+void
+Object::Set_friction(float friction)
+{
+    movement_friction = friction;
+    if(movement_friction < 0) movement_friction = 0;
+}
+
+void
+Object::Set_air_resistance(float resistance)
+{
+    movement_air_resistance = resistance;
+    if(movement_air_resistance < 0) movement_air_resistance = 0;
+}

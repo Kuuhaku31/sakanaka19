@@ -4,4 +4,7 @@
 #pragma once
 
 int
-RunTest(const char* resources_path);
+RunSEKIBAKO(const char* resources_path);
+
+int
+RunLifeGame();

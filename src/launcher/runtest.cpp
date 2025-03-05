@@ -3,10 +3,12 @@
 
 #include "versions.h"
 
+#include "config.h"
 #include "game.h"
 
+
 int
-RunTest(const char* resources_path)
+RunSEKIBAKO(const char* resources_path)
 {
     printf("RunTest: ");
 
@@ -19,6 +21,26 @@ RunTest(const char* resources_path)
 
     // 释放资源
     ResourcesPool::Instance().FreeResources();
+    Painter::Instance().Quit();
+
+    printf("OK\n");
+
+    return 0;
+}
+
+
+int
+RunLifeGame()
+{
+    printf("RunLifeGame: ");
+
+    // 初始化基本
+    Painter::Instance().Init("Game", IRect{ SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1600, 1200 });
+
+    // Config::Instance().Init();
+    Config::Instance().Loop();
+    // Config::Instance().Quit();
+
     Painter::Instance().Quit();
 
     printf("OK\n");

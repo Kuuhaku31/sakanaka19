@@ -110,7 +110,7 @@ Vector2::rotate(float angle)
     vy = vx * sin(angle) + vy * cos(angle);
 }
 
-void
+Vector2&
 Vector2::to_unit()
 {
     float m = module();
@@ -120,13 +120,17 @@ Vector2::to_unit()
         vx /= m;
         vy /= m;
     }
+
+    return *this;
 }
 
-void
+Vector2&
 Vector2::to_zero()
 {
     vx = 0;
     vy = 0;
+
+    return *this;
 }
 
 float

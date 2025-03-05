@@ -1,0 +1,23 @@
+
+project(test_sdl)
+add_executable(${PROJECT_NAME} test.cpp)
+
+# 添加SDL2库
+include_directories(${IMGUISETUP_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} imgui_setup)
+
+project(test_list)
+aux_source_directory(./test_list DIR_SRC)
+
+message(STATUS "DIR_SRC: ${DIR_SRC}")
+
+add_executable(${PROJECT_NAME} ${DIR_SRC})
+
+include_directories(../data_structure)
+
+ 
+project(test_0)
+aux_source_directory(./test0 TEST0_DIR_SRC)
+aux_source_directory(../version_controller TEST0_DIR_SRC)
+add_executable(${PROJECT_NAME} ${TEST0_DIR_SRC})
+include_directories(../version_controller)
