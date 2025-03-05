@@ -4,4 +4,4 @@
 #pragma once
 
 int
-RunTest();
+RunTest(const char* resources_path);

@@ -65,10 +65,6 @@ Game::PlayGame()
 void
 Game::game_init()
 {
-    // 初始化基本
-    painter.Init("Game", IRect{ SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1600, 1200 });
-    resources_pool.LoadResources("../resources/");
-
     // 初始化部件
     game_view.Set_unit_size(50.f);
 
@@ -108,9 +104,6 @@ void
 Game::game_quit()
 {
     delete player;
-
-    resources_pool.FreeResources();
-    painter.Quit();
 }
 
 void

@@ -5,41 +5,100 @@
 
 #include "versions.h"
 
-#include <cstdint>
-#include <cstdio>
-#include <cstring>
+#include <cJSON.h>
+#include <fstream>
+#include <sstream>
+#include <stdint.h>
+#include <string>
 
-uint32_t
-ReadVersion(const char* file_path = nullptr)
+
+struct InitInfo
 {
-    if(!file_path) file_path = ".ver";
+    int32_t     version = -1;
+    std::string resources;
+};
 
-    char version_str[64] = "";
-    {
-        FILE* file = fopen(file_path, "r");
-        if(!file) return -1;
+InitInfo
+ReadInfo(std::string file_path = "")
+{
+    InitInfo info;
 
-        fscanf(file, "%s", version_str);
+    if(file_path.empty()) file_path = "ver.json";
 
-        fclose(file);
+    cJSON* root = nullptr;
+
+    { // 读取 JSON 文件内容
+        std::ifstream file(file_path);
+        if(!file.is_open())
+        {
+            printf("Error: Cannot open file %s\n", file_path.c_str());
+            return info;
+        }
+
+        std::stringstream buffer;
+        buffer << file.rdbuf();
+        std::string json_content = buffer.str();
+        file.close();
+
+        root = cJSON_Parse(json_content.c_str());
+        if(root == nullptr)
+        {
+            printf("Error: Cannot parse JSON content\n");
+            return info;
+        }
     }
 
-    if(!strcmp(version_str, "ver-00")) return 0;
-    if(!strcmp(version_str, "ver-01")) return 1;
-    if(!strcmp(version_str, "ver-02")) return 2;
-    return -1;
+
+    { // 解析 JSON 文件内容
+        cJSON* version_item = cJSON_GetObjectItem(root, "version");
+        if(!version_item)
+        {
+            cJSON_Delete(root);
+            return info;
+        }
+
+        cJSON* resources_item = cJSON_GetObjectItem(root, "resources_path");
+        if(!resources_item)
+        {
+            cJSON_Delete(root);
+            return info;
+        }
+
+        std::string version_str = cJSON_GetStringValue(version_item);
+        if(version_str.empty())
+        {
+            cJSON_Delete(root);
+            return info;
+        }
+
+        if(version_str == "ver-00") info.version = 0;
+        if(version_str == "ver-01") info.version = 1;
+        if(version_str == "ver-02") info.version = 2;
+        if(version_str == "ver-03") info.version = 3;
+
+        info.resources = cJSON_GetStringValue(resources_item);
+    }
+
+    cJSON_Delete(root);
+    return info;
 }
+
 
 int
 Run()
 {
-    uint32_t version = ReadVersion();
+    InitInfo info = ReadInfo();
+    if(info.version < 0)
+    {
+        printf("Error: ReadInfo()\n");
+        return -1;
+    }
 
-    switch(version)
+    switch(info.version)
     {
     case 0:
         printf("Version 0\n");
-        RunTest();
+        RunTest(info.resources.c_str());
         break;
 
     default:
