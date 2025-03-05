@@ -2,27 +2,24 @@
 // resources_pool.cpp
 
 #include "animation.h"
-#include "imgui_setup.h"
 
 #include "cJSON.h"
 
 
 bool
-ResourcesPool::LoadResources()
+ResourcesPool::LoadResources(const std::string& resources_path)
 {
     static SDL_Renderer* renderer = Painter::Instance().renderer;
 
     static ImGuiIO& io = ImGui::GetIO();
 
-    static const char resources_path[] = "resources.json";
-
     cJSON* root = nullptr;
 
-    printf("Load Resources: %s\n", resources_path);
+    printf("Load Resources: %s\n", resources_path.c_str());
 
-    // 读取资源配置文件
-    {
-        FILE* file = fopen(resources_path, "r");
+
+    { // 读取资源配置文件
+        FILE* file = fopen((resources_path + "resources.json").c_str(), "r");
         if(!file)
         {
             printf("Error: fopen(): %s\n", strerror(errno));
@@ -44,6 +41,7 @@ ResourcesPool::LoadResources()
         fread(buffer, 1, size, file);
         buffer[size] = '\0';
 
+        // 解析 JSON
         root = cJSON_Parse(buffer);
         if(!root)
         {
@@ -57,6 +55,7 @@ ResourcesPool::LoadResources()
         fclose(file);
     }
 
+
     { // 加载纹理
         cJSON* texture_info_list = cJSON_GetObjectItem(root, "textures");
         if(cJSON_IsArray(texture_info_list))
@@ -64,13 +63,14 @@ ResourcesPool::LoadResources()
             cJSON* item = nullptr;
             cJSON_ArrayForEach(item, texture_info_list)
             {
-                const char* label = cJSON_GetObjectItem(item, "label")->valuestring;
-                const char* path  = cJSON_GetObjectItem(item, "path")->valuestring;
+                std::string label = cJSON_GetObjectItem(item, "label")->valuestring;
+                std::string path  = resources_path + cJSON_GetObjectItem(item, "path")->valuestring;
 
-                texture_pool[label] = IMG_LoadTexture(renderer, path);
+                texture_pool[label] = IMG_LoadTexture(renderer, path.c_str());
             }
         }
     }
+
 
     { // 加载字体
         cJSON* font_info_list = cJSON_GetObjectItem(root, "fonts");
@@ -79,14 +79,15 @@ ResourcesPool::LoadResources()
             cJSON* item = nullptr;
             cJSON_ArrayForEach(item, font_info_list)
             {
-                const char* label = cJSON_GetObjectItem(item, "label")->valuestring;
-                const char* path  = cJSON_GetObjectItem(item, "path")->valuestring;
+                std::string label = cJSON_GetObjectItem(item, "label")->valuestring;
+                std::string path  = resources_path + cJSON_GetObjectItem(item, "path")->valuestring;
                 double      size  = cJSON_GetObjectItem(item, "size")->valuedouble;
 
-                font_pool[label] = io.Fonts->AddFontFromFileTTF(path, size, nullptr, io.Fonts->GetGlyphRangesChineseFull());
+                font_pool[label] = io.Fonts->AddFontFromFileTTF(path.c_str(), size, nullptr, io.Fonts->GetGlyphRangesChineseFull());
             }
         }
     }
+
 
     { // 加载音效
         cJSON* sound_info_list = cJSON_GetObjectItem(root, "sounds");
@@ -95,13 +96,14 @@ ResourcesPool::LoadResources()
             cJSON* item = nullptr;
             cJSON_ArrayForEach(item, sound_info_list)
             {
-                const char* label = cJSON_GetObjectItem(item, "label")->valuestring;
-                const char* path  = cJSON_GetObjectItem(item, "path")->valuestring;
+                std::string label = cJSON_GetObjectItem(item, "label")->valuestring;
+                std::string path  = resources_path + cJSON_GetObjectItem(item, "path")->valuestring;
 
-                sound_pool[label] = Mix_LoadWAV(path);
+                sound_pool[label] = Mix_LoadWAV(path.c_str());
             }
         }
     }
+
 
     { // 加载音乐
         cJSON* music_info_list = cJSON_GetObjectItem(root, "musics");
@@ -110,13 +112,14 @@ ResourcesPool::LoadResources()
             cJSON* item = nullptr;
             cJSON_ArrayForEach(item, music_info_list)
             {
-                const char* label = cJSON_GetObjectItem(item, "label")->valuestring;
-                const char* path  = cJSON_GetObjectItem(item, "path")->valuestring;
+                std::string label = cJSON_GetObjectItem(item, "label")->valuestring;
+                std::string path  = resources_path + cJSON_GetObjectItem(item, "path")->valuestring;
 
-                music_pool[label] = Mix_LoadMUS(path);
+                music_pool[label] = Mix_LoadMUS(path.c_str());
             }
         }
     }
+
 
     { // 加载动画
         cJSON* animation_info_list = cJSON_GetObjectItem(root, "animations");
@@ -157,7 +160,9 @@ ResourcesPool::LoadResources()
         }
     }
 
+
     bool flag = true;
+
 
     // 检查加载纹理
     for(const auto& pair : texture_pool)
@@ -173,6 +178,7 @@ ResourcesPool::LoadResources()
         }
     }
 
+
     // 检查加载字体
     for(const auto& pair : font_pool)
     {
@@ -186,6 +192,7 @@ ResourcesPool::LoadResources()
             printf("Load Font: %s\n", pair.first.c_str());
         }
     }
+
 
     // 检查加载音效
     for(const auto& pair : sound_pool)
@@ -201,6 +208,7 @@ ResourcesPool::LoadResources()
         }
     }
 
+
     // 检查加载音乐
     for(const auto& pair : music_pool)
     {
@@ -215,6 +223,7 @@ ResourcesPool::LoadResources()
         }
     }
 
+
     // 检查加载动画
     for(const auto& pair : animation_pool)
     {
@@ -228,6 +237,7 @@ ResourcesPool::LoadResources()
             printf("Load Animation: %s\n", pair.first.c_str());
         }
     }
+
 
     return flag;
 }

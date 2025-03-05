@@ -94,7 +94,7 @@ public:
     typedef std::unordered_map<std::string, AnimationTemplate*> AnimationPool;
 
 public:
-    bool LoadResources();
+    bool LoadResources(const std::string& resources_path);
     bool FreeResources();
 
     Texture*           Get_texture(std::string id) const { return texture_pool.at(id); }
