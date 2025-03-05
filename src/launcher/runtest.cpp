@@ -3,29 +3,16 @@
 
 #include "versions.h"
 
-#include "imgui_setup.h"
+#include "game.h"
 
 int
 RunTest()
 {
-    bool is_running = true;
+    printf("RunTest: ");
 
-    static Painter& painter = Painter::Instance();
+    Game::Instance().PlayGame();
 
-    painter.Init("Runtest", IRect{ SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600 });
+    printf("OK\n");
 
-    EventCallback on_begin = [&is_running](const Event& event) {
-        if(event.type == SDL_QUIT) is_running = false;
-    };
-
-    while(is_running)
-    {
-        painter.On_frame_begin(on_begin);
-
-        ImGui::ShowDemoWindow();
-
-        painter.On_frame_end();
-    }
-
-    return painter.Quit();
+    return 0;
 }

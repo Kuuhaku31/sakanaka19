@@ -2,3 +2,6 @@
 bin
 lib
 build
+
+resources
+ignore
