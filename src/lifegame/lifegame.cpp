@@ -6,6 +6,22 @@
 #include "imgui_setup.h"
 
 
+void
+ImGuiConfigWindow() // ImGui 配置窗口
+{
+    ImGui::Begin("ImGui Config");
+
+    // 显示帧率
+    ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+
+    // 清屏颜色
+    static ColorF color = { 0.0f, 0.0f, 0.0f, 1.0f };
+    ImGui::ColorEdit4("Clear Color", color);
+    Painter::Instance().clear_color = color;
+
+    ImGui::End();
+}
+
 bool
 Update() // 更新
 {
@@ -23,13 +39,14 @@ Update() // 更新
     return flag;
 }
 
+
 void
 Render() // 渲染
 {
     // 渲染窗口
     ImGui::ShowDemoWindow();
+    ImGuiConfigWindow();
 }
-
 
 int
 LifeGame::Run()

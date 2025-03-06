@@ -130,7 +130,7 @@ Painter::Render(Callback draw_windows, Callback draw_background) const
     }
     else
     {
-        SDL_SetRenderDrawColor(renderer, DEFAULT_CLEAR_COLOR);
+        SDL_SetRenderDrawColor(renderer, clear_color.r, clear_color.g, clear_color.b, clear_color.a);
         SDL_RenderClear(renderer);
     }
 

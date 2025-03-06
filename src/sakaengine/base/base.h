@@ -37,7 +37,8 @@ struct Point
     int32_t px = 0;
     int32_t py = 0;
 
-    Point& operator=(const Point& p)
+    Point&
+    operator=(const Point& p)
     {
         px = p.px;
         py = p.py;
@@ -49,6 +50,9 @@ struct Point
 };
 #define ORIGIN_POINT Point{ 0, 0 }
 
+
+// 颜色
+using ColorF = float[4];
 struct Color
 {
     uint8_t r;
@@ -63,6 +67,17 @@ struct Color
         g = color.g;
         b = color.b;
         a = color.a;
+
+        return *this;
+    }
+
+    Color&
+    operator=(const ColorF& color)
+    {
+        r = static_cast<uint8_t>(color[0] * 255);
+        g = static_cast<uint8_t>(color[1] * 255);
+        b = static_cast<uint8_t>(color[2] * 255);
+        a = static_cast<uint8_t>(color[3] * 255);
 
         return *this;
     }

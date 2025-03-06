@@ -44,6 +44,10 @@ public:
     void GetInput(EventCallback f = nullptr) const;
     void Render(Callback draw_windows = nullptr, Callback draw_background = nullptr) const;
 
+    Color clear_color;
+
+    //====================================================================================================
+
     void On_frame_begin(EventCallback f = nullptr) const;
     void On_frame_end(Callback f = nullptr) const;
 
