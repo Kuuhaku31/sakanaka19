@@ -22,10 +22,20 @@ Config::Init()
 void
 Config::Loop()
 {
+    bool is_running = true;
+
+    EventCallback event_callback = [&is_running](const Event& event) {
+        if(event.type == SDL_QUIT)
+        {
+            is_running = false;
+        }
+    };
+
     // Main loop
-    while(running)
+    while(is_running)
     {
-        Painter::Instance().On_frame_begin();
+
+        Painter::Instance().On_frame_begin(event_callback);
 
         if(show_demo_window) ImGui::ShowDemoWindow(&show_demo_window);
 

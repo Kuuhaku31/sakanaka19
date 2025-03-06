@@ -41,6 +41,9 @@ public:
     int Init(const char* title = nullptr, const IRect& layout = IRect{ 0, 0, 0, 0 }); // 0:初始化成功
     int Quit();
 
+    void GetInput(EventCallback f = nullptr) const;
+    void Render(Callback draw_windows = nullptr, Callback draw_background = nullptr) const;
+
     void On_frame_begin(EventCallback f = nullptr) const;
     void On_frame_end(Callback f = nullptr) const;
 
@@ -97,11 +100,31 @@ public:
     bool LoadResources(const std::string& resources_path);
     bool FreeResources();
 
-    Texture*           Get_texture(std::string id) const { return texture_pool.at(id); }
-    Font*              Get_font(std::string id) const { return font_pool.at(id); }
-    Sound*             Get_sound(std::string id) const { return sound_pool.at(id); }
-    Music*             Get_music(std::string id) const { return music_pool.at(id); }
-    AnimationTemplate* Get_animation(std::string id) const { return animation_pool.at(id); }
+    Texture*
+    Get_texture(std::string id) const
+    {
+        return texture_pool.at(id);
+    }
+    Font*
+    Get_font(std::string id) const
+    {
+        return font_pool.at(id);
+    }
+    Sound*
+    Get_sound(std::string id) const
+    {
+        return sound_pool.at(id);
+    }
+    Music*
+    Get_music(std::string id) const
+    {
+        return music_pool.at(id);
+    }
+    AnimationTemplate*
+    Get_animation(std::string id) const
+    {
+        return animation_pool.at(id);
+    }
 
 private:
     FontPool      font_pool;      // 字体

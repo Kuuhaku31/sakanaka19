@@ -100,6 +100,46 @@ Painter::Quit()
 }
 
 void
+Painter::GetInput(EventCallback f) const
+{
+    static Event e;
+    while(SDL_PollEvent(&e))
+    {
+        if(f) f(e); // 用户自定义的回调函数，用于处理用户自定义的事件
+        ImGui_ImplSDL2_ProcessEvent(&e);
+    }
+}
+
+void
+Painter::Render(Callback draw_windows, Callback draw_background) const
+{
+    // Start the Dear ImGui frame
+    ImGui_ImplSDLRenderer2_NewFrame();
+    ImGui_ImplSDL2_NewFrame();
+    ImGui::NewFrame();
+
+    if(draw_windows) draw_windows();
+
+    ImGui::Render(); // Rendering
+
+    SDL_RenderSetScale(renderer, ImGui::GetIO().DisplayFramebufferScale.x, ImGui::GetIO().DisplayFramebufferScale.y); // 设置渲染目标
+
+    if(draw_background)
+    {
+        draw_background(); // 用户自定义的回调函数，用于渲染用户自定义的内容
+    }
+    else
+    {
+        SDL_SetRenderDrawColor(renderer, DEFAULT_CLEAR_COLOR);
+        SDL_RenderClear(renderer);
+    }
+
+    ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), renderer); // 渲染imgui
+
+    SDL_RenderPresent(renderer); // 显示渲染结果
+}
+
+void
 Painter::On_frame_begin(EventCallback f) const
 {
     static Event e;

@@ -3,8 +3,8 @@
 
 #include "versions.h"
 
-#include "config.h"
 #include "game.h"
+#include "lifegame.h"
 
 
 int
@@ -29,19 +29,15 @@ RunSEKIBAKO(const char* resources_path)
 }
 
 
+//==============================================================================
+
+
 int
 RunLifeGame()
 {
     printf("RunLifeGame: ");
 
-    // 初始化基本
-    Painter::Instance().Init("Game", IRect{ SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1600, 1200 });
-
-    // Config::Instance().Init();
-    Config::Instance().Loop();
-    // Config::Instance().Quit();
-
-    Painter::Instance().Quit();
+    LifeGame::Instance().Run();
 
     printf("OK\n");
 

@@ -94,9 +94,4 @@ public:
 
 private:
     bool is_initialized = false;
-
-private:
-private:
-    Config()  = default;
-    ~Config() = default;
 };

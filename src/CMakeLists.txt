@@ -2,6 +2,7 @@
 add_subdirectory(sakaengine)
 add_subdirectory(sekibako)
 add_subdirectory(lifegame)
+add_subdirectory(test)
 
 # 添加源文件目录
 aux_source_directory(./launcher DIR_SRC)

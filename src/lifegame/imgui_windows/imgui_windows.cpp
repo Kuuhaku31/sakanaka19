@@ -8,8 +8,6 @@
 #include "life_game_map.h"
 
 
-#include "imgui.h"
-
 // void
 // WIN_Objects_Data()
 // {
