@@ -1,5 +1,5 @@
 
-// object.cpp
+// bird.cpp
 
 #include "bird.h"
 

@@ -4,6 +4,7 @@
 #include "lifegame.h"
 
 #include "imgui_setup.h"
+// #include "life_game_map.h"
 
 
 void
@@ -22,6 +23,22 @@ ImGuiConfigWindow() // ImGui 配置窗口
     ImGui::End();
 }
 
+// void
+// ImGuiLifeGameMapWindow() // ImGui 生命游戏地图窗口
+// {
+//     ImGui::Begin("Life Game Map");
+
+//     LifeGameMap::Instance().On_render();
+//     const Texture* texture = LifeGameMap::Instance().Get_life_game_map_texture();
+
+//     if(texture)
+//     {
+//         ImGui::Image((ImTextureID)texture, ImVec2(800, 600));
+//     }
+
+//     ImGui::End();
+// }
+
 bool
 Update() // 更新
 {
@@ -34,6 +51,7 @@ Update() // 更新
     Painter::Instance().GetInput(event_callback);
 
     { // 主体更新
+      // LifeGameMap::Instance().On_update(ImGui::GetIO().DeltaTime);
     }
 
     return flag;
@@ -46,6 +64,7 @@ Render() // 渲染
     // 渲染窗口
     ImGui::ShowDemoWindow();
     ImGuiConfigWindow();
+    // ImGuiLifeGameMapWindow();
 }
 
 int
