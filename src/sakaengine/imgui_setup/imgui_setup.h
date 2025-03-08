@@ -28,7 +28,6 @@ typedef Mix_Music    Music;
 
 class AnimationTemplate;
 
-typedef std::function<void(const Event&)> EventCallback; // 事件回调函数
 
 // Painter
 class Painter : public InstanceTem<Painter>
@@ -41,14 +40,14 @@ public:
     int Init(const char* title = nullptr, const IRect& layout = IRect{ 0, 0, 0, 0 }); // 0:初始化成功
     int Quit();
 
-    void GetInput(EventCallback f = nullptr) const;
+    void GetInput(std::function<void(const Event&)> f = nullptr) const;
     void Render(Callback draw_windows = nullptr, Callback draw_background = nullptr) const;
 
     Color clear_color;
 
     //====================================================================================================
 
-    void On_frame_begin(EventCallback f = nullptr) const;
+    void On_frame_begin(std::function<void(const Event&)> f = nullptr) const;
     void On_frame_end(Callback f = nullptr) const;
 
     bool Make_message_box(const char* title, const char* message) const;

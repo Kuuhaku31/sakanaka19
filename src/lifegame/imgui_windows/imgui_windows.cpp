@@ -3,9 +3,13 @@
 
 #include "imgui_windows.h"
 
-#include "bird_manager.h"
-#include "config.h"
-#include "life_game_map.h"
+#include "sakaengine.h"
+
+#include "imgui.h"
+
+// #include "bird_manager.h"
+// #include "config.h"
+// #include "life_game_map.h"
 
 
 // void
@@ -147,82 +151,101 @@
 //     ImGui::End();
 // }
 
+// void
+// WIN_LifeGameMap(bool show_life_game_map)
+// {
+//     static Config&        config            = Config::Instance();
+//     static const Painter& painter           = Painter::Instance();
+//     static LifeGameMap&   life_game_map     = LifeGameMap::Instance();
+//     static BirdManager&   bird_manager      = BirdManager::Instance();
+//     static const Texture* life_game_map_tex = nullptr;
+
+//     static Point window_pos;
+//     static Point mouse;
+//     static Point mouse_win;
+//     static Point tex_size;
+
+//     if(!show_life_game_map) return;
+
+//     life_game_map.On_update(ImGui::GetIO().DeltaTime);
+//     life_game_map.On_render();
+
+//     life_game_map_tex = life_game_map.Get_life_game_map_texture();
+
+//     // 获取纹理的宽高
+//     tex_size = life_game_map.Get_map_size();
+
+//     // 开启窗口
+//     ImGui::SetNextWindowSize(ImVec2(tex_size.px, tex_size.py + ImGui::GetFrameHeight()));
+//     ImGui::Begin("Life Game Map Window", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+
+//     // 获取窗口、鼠标、鼠标在窗口中的位置
+//     window_pos.px = ImGui::GetWindowPos().x;
+//     window_pos.py = ImGui::GetWindowPos().y + ImGui::GetFrameHeight();
+//     mouse.px      = config.mouse_x;
+//     mouse.py      = config.mouse_y;
+//     mouse_win     = mouse - window_pos;
+
+//     life_game_map.mouse_win = mouse_win;
+
+//     // 正文
+//     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0)); // 设置窗口内边距
+//     ImGui::SetCursorPos(ImVec2(0, ImGui::GetFrameHeight()));        // 设置光标位置
+//     ImGui::Image((ImTextureID)life_game_map_tex, ImVec2(tex_size.px, tex_size.py));
+//     ImGui::PopStyleVar(); // 恢复窗口内边距
+
+//     ImGui::End();
+
+//     // Editor
+//     if(!config.show_life_game_map_editor) return;
+
+//     ImGui::Begin("Editor", &config.show_life_game_map_editor);
+//     ImGui::Text("Mouse  Pos: (%d, %d)", mouse.px, mouse.py);
+//     ImGui::Text("Mouse Win Pos: (%d, %d)", mouse_win.px, mouse_win.py);
+//     Vector2 center_pos = life_game_map.Get_view_center_position();
+
+//     Vector2 map_size  = (Vector2)life_game_map.Get_map_size();
+//     float   cell_size = life_game_map.Get_cell_size();
+
+//     // 输入
+//     ImGui::SliderFloat2("View Center", (float*)center_pos, -50, 50);
+//     ImGui::SliderFloat2("Map Wide High", (float*)map_size, 0, 2000);
+//     ImGui::InputFloat("Cell Size", &cell_size, 0.0f, 0.0f, "%.8f");
+
+//     ImGui::Checkbox("Show Bird", &bird_manager.is_show_bird);
+//     ImGui::Checkbox("Show Bird View", &bird_manager.is_show_bird_view);
+//     ImGui::Checkbox("Show Bird Line", &bird_manager.is_show_bird_line);
+//     ImGui::Checkbox("Is Birds Goto Target", &bird_manager.is_birds_goto_target);
+
+//     ImGui::DragFloat("Separation", &config.separation, 0.01f, 0.0f, 5.0f); // 分离
+//     ImGui::DragFloat("Cohesion", &config.cohesion, 0.01f, 0.0f, 5.0f);     // 凝聚
+//     ImGui::DragFloat("Rotation", &config.rotation, 0.01f, 0.0f, 5.0f);     // 旋转
+
+//     Vector2 mouse_map_pos = life_game_map.Get_mouse_map_pos();
+//     ImGui::Text("Mouse Map Pos: (%.2f, %.2f)", mouse_map_pos.vx, mouse_map_pos.vy);
+
+//     life_game_map.Set_view_center_position(center_pos);
+//     life_game_map.Set_map_size(map_size);
+//     life_game_map.Set_cell_size(cell_size);
+
+//     ImGui::End();
+// }
+
+
 void
-WIN_LifeGameMap(bool show_life_game_map)
+ImGuiConfigWindow() // ImGui 配置窗口
 {
-    static Config&        config            = Config::Instance();
-    static const Painter& painter           = Painter::Instance();
-    static LifeGameMap&   life_game_map     = LifeGameMap::Instance();
-    static BirdManager&   bird_manager      = BirdManager::Instance();
-    static const Texture* life_game_map_tex = nullptr;
+    ImGui::ShowDemoWindow();
 
-    static Point window_pos;
-    static Point mouse;
-    static Point mouse_win;
-    static Point tex_size;
+    ImGui::Begin("ImGui Config");
 
-    if(!show_life_game_map) return;
+    // 显示帧率
+    ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 
-    life_game_map.On_update(ImGui::GetIO().DeltaTime);
-    life_game_map.On_render();
-
-    life_game_map_tex = life_game_map.Get_life_game_map_texture();
-
-    // 获取纹理的宽高
-    tex_size = life_game_map.Get_map_size();
-
-    // 开启窗口
-    ImGui::SetNextWindowSize(ImVec2(tex_size.px, tex_size.py + ImGui::GetFrameHeight()));
-    ImGui::Begin("Life Game Map Window", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
-
-    // 获取窗口、鼠标、鼠标在窗口中的位置
-    window_pos.px = ImGui::GetWindowPos().x;
-    window_pos.py = ImGui::GetWindowPos().y + ImGui::GetFrameHeight();
-    mouse.px      = config.mouse_x;
-    mouse.py      = config.mouse_y;
-    mouse_win     = mouse - window_pos;
-
-    life_game_map.mouse_win = mouse_win;
-
-    // 正文
-    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0)); // 设置窗口内边距
-    ImGui::SetCursorPos(ImVec2(0, ImGui::GetFrameHeight()));        // 设置光标位置
-    ImGui::Image((ImTextureID)life_game_map_tex, ImVec2(tex_size.px, tex_size.py));
-    ImGui::PopStyleVar(); // 恢复窗口内边距
-
-    ImGui::End();
-
-    // Editor
-    if(!config.show_life_game_map_editor) return;
-
-    ImGui::Begin("Editor", &config.show_life_game_map_editor);
-    ImGui::Text("Mouse  Pos: (%d, %d)", mouse.px, mouse.py);
-    ImGui::Text("Mouse Win Pos: (%d, %d)", mouse_win.px, mouse_win.py);
-    Vector2 center_pos = life_game_map.Get_view_center_position();
-
-    Vector2 map_size  = (Vector2)life_game_map.Get_map_size();
-    float   cell_size = life_game_map.Get_cell_size();
-
-    // 输入
-    ImGui::SliderFloat2("View Center", (float*)center_pos, -50, 50);
-    ImGui::SliderFloat2("Map Wide High", (float*)map_size, 0, 2000);
-    ImGui::InputFloat("Cell Size", &cell_size, 0.0f, 0.0f, "%.8f");
-
-    ImGui::Checkbox("Show Bird", &bird_manager.is_show_bird);
-    ImGui::Checkbox("Show Bird View", &bird_manager.is_show_bird_view);
-    ImGui::Checkbox("Show Bird Line", &bird_manager.is_show_bird_line);
-    ImGui::Checkbox("Is Birds Goto Target", &bird_manager.is_birds_goto_target);
-
-    ImGui::DragFloat("Separation", &config.separation, 0.01f, 0.0f, 5.0f); // 分离
-    ImGui::DragFloat("Cohesion", &config.cohesion, 0.01f, 0.0f, 5.0f);     // 凝聚
-    ImGui::DragFloat("Rotation", &config.rotation, 0.01f, 0.0f, 5.0f);     // 旋转
-
-    Vector2 mouse_map_pos = life_game_map.Get_mouse_map_pos();
-    ImGui::Text("Mouse Map Pos: (%.2f, %.2f)", mouse_map_pos.vx, mouse_map_pos.vy);
-
-    life_game_map.Set_view_center_position(center_pos);
-    life_game_map.Set_map_size(map_size);
-    life_game_map.Set_cell_size(cell_size);
+    // 清屏颜色
+    static ColorF color = { 0.0f, 0.0f, 0.0f, 1.0f };
+    ImGui::ColorEdit4("Clear Color", color);
+    SKE::GetClearColor() = color;
 
     ImGui::End();
 }

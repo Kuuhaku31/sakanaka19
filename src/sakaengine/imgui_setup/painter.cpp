@@ -100,7 +100,7 @@ Painter::Quit()
 }
 
 void
-Painter::GetInput(EventCallback f) const
+Painter::GetInput(std::function<void(const Event&)> f) const
 {
     static Event e;
     while(SDL_PollEvent(&e))
@@ -140,7 +140,7 @@ Painter::Render(Callback draw_windows, Callback draw_background) const
 }
 
 void
-Painter::On_frame_begin(EventCallback f) const
+Painter::On_frame_begin(std::function<void(const Event&)> f) const
 {
     static Event e;
     while(SDL_PollEvent(&e))

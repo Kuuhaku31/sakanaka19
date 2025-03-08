@@ -9,5 +9,6 @@
 // void
 // WIN_Map(bool show_win_map);
 
-void
-WIN_LifeGameMap(bool show_life_game_map);
+void WIN_LifeGameMap(bool show_life_game_map);
+
+void ImGuiConfigWindow(); // ImGui 配置窗口

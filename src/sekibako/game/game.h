@@ -40,8 +40,8 @@ private:
     void on_update_view();
     void on_update_player(const float& delta_time);
 
-    EventCallback event_callback;
-    Callback      render_callback;
+    std::function<void(const Event&)> event_callback;
+    Callback                          render_callback;
 
     Object camera;
     View   game_view;

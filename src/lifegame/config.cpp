@@ -24,7 +24,7 @@ Config::Loop()
 {
     bool is_running = true;
 
-    EventCallback event_callback = [&is_running](const Event& event) {
+    std::function<void(const Event&)> event_callback = [&is_running](const Event& event) {
         if(event.type == SDL_QUIT)
         {
             is_running = false;
