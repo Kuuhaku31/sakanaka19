@@ -2,12 +2,15 @@
 project(sakaengine)
 
 set(PATH
-    ${CMAKE_CURRENT_LIST_DIR}/
-    ${CMAKE_CURRENT_LIST_DIR}/base
-    ${CMAKE_CURRENT_LIST_DIR}/tools
-    ${CMAKE_CURRENT_LIST_DIR}/animation
-    ${CMAKE_CURRENT_LIST_DIR}/imgui_setup
-    ${CMAKE_CURRENT_LIST_DIR}/events
+    ${CMAKE_CURRENT_LIST_DIR}/base/
+    ${CMAKE_CURRENT_LIST_DIR}/tools/
+    ${CMAKE_CURRENT_LIST_DIR}/animation/
+    ${CMAKE_CURRENT_LIST_DIR}/imgui_setup/
+
+    ${CMAKE_CURRENT_LIST_DIR}/engine/
+    ${CMAKE_CURRENT_LIST_DIR}/engine/classes
+    ${CMAKE_CURRENT_LIST_DIR}/engine/shared
+    ${CMAKE_CURRENT_LIST_DIR}/engine/utils
 )
 
 foreach(p ${PATH})

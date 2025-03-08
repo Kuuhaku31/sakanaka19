@@ -1,7 +1,9 @@
 
-// events.h
+// engine_classes.h
 
 #pragma once
+
+#include "base.h"
 
 
 // 0b0000 0000 0000 0001
@@ -10,6 +12,23 @@
 
 namespace sakaengine
 {
+
+
+// 启动参数
+struct EngineInitArgs
+{
+    // 窗口
+    std::string graph_title;                 // 窗口标题
+    IRect       graph_layout;                // 窗口布局
+    bool        graph_is_centered   = false; // 是否居中
+    bool        graph_is_fullscreen = false; // 是否全屏
+
+    // 资源
+    std::string resources_path; // 资源路径
+
+    // 其他
+    bool is_imgui_windows_dark = true; // 是否使用暗色主题
+};
 
 
 // 事件

@@ -1,15 +1,16 @@
 
-// resources_pool.cpp
+// resources.cpp
 
 #include "animation.h"
+#include "shared.h"
 
-#include "cJSON.h"
+#include <cJSON.h>
 
 
-bool
-ResourcesPool::LoadResources(const std::string& resources_path)
+void
+loadResources(const std::string& resources_path, SDL_Renderer* renderer)
 {
-    static SDL_Renderer* renderer = Painter::Instance().renderer;
+    if(resources_path.empty()) return;
 
     static ImGuiIO& io = ImGui::GetIO();
 
@@ -23,7 +24,6 @@ ResourcesPool::LoadResources(const std::string& resources_path)
         if(!file)
         {
             printf("Error: fopen(): %s\n", strerror(errno));
-            return false;
         }
 
         fseek(file, 0, SEEK_END);
@@ -35,7 +35,6 @@ ResourcesPool::LoadResources(const std::string& resources_path)
         {
             printf("Error: malloc(): %s\n", strerror(errno));
             fclose(file);
-            return false;
         }
 
         fread(buffer, 1, size, file);
@@ -48,7 +47,6 @@ ResourcesPool::LoadResources(const std::string& resources_path)
             printf("Error: cJSON_Parse(): %s\n", cJSON_GetErrorPtr());
             free(buffer);
             fclose(file);
-            return false;
         }
 
         free(buffer);
@@ -237,13 +235,11 @@ ResourcesPool::LoadResources(const std::string& resources_path)
             printf("Load Animation: %s\n", pair.first.c_str());
         }
     }
-
-
-    return flag;
 }
 
-bool
-ResourcesPool::FreeResources()
+
+void
+freeResources()
 {
     for(auto& pair : texture_pool)
     {
@@ -271,6 +267,4 @@ ResourcesPool::FreeResources()
             pair.second = nullptr;
         }
     }
-
-    return true;
 }

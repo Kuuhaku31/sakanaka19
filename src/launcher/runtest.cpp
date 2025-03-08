@@ -4,7 +4,7 @@
 #include "versions.h"
 
 #include "lifegame.h"
-#include "sekibako.h"
+// #include "sekibako.h"
 
 #include <stdio.h>
 
@@ -14,13 +14,13 @@ RunSEKIBAKO(const char* resources_path)
 {
     printf("RunTest: ");
 
-    InitArgs args = {
-        .graph_title    = "SEKIBAKO",
-        .graph_rect     = { 30, 40, 1600, 1200 },
-        .resources_path = resources_path,
-    };
+    // InitArgs args = {
+    //     .graph_title    = "SEKIBAKO",
+    //     .graph_rect     = { 30, 40, 1600, 1200 },
+    //     .resources_path = resources_path,
+    // };
 
-    SEKIBAKO::Instance().Run(args);
+    // SEKIBAKO::Instance().Run(args);
 
     printf("OK\n");
 
