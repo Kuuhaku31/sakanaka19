@@ -3,8 +3,10 @@
 
 #include "versions.h"
 
-#include "game.h"
 #include "lifegame.h"
+#include "sekibako.h"
+
+#include <stdio.h>
 
 
 int
@@ -12,16 +14,13 @@ RunSEKIBAKO(const char* resources_path)
 {
     printf("RunTest: ");
 
-    // 初始化基本
-    Painter::Instance().Init("Game", IRect{ SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1600, 1200 });
-    ResourcesPool::Instance().LoadResources(resources_path);
+    InitArgs args = {
+        .graph_title    = "SEKIBAKO",
+        .graph_rect     = { 30, 40, 1600, 1200 },
+        .resources_path = resources_path,
+    };
 
-    // 运行游戏
-    Game::Instance().PlayGame();
-
-    // 释放资源
-    ResourcesPool::Instance().FreeResources();
-    Painter::Instance().Quit();
+    SEKIBAKO::Instance().Run(args);
 
     printf("OK\n");
 

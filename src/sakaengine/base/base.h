@@ -235,3 +235,13 @@ private:
 
 template<typename Tem>
 Tem* InstanceTem<Tem>::instance = nullptr;
+
+
+// 启动参数
+struct InitArgs
+{
+    const char* graph_title = nullptr;
+    IRect       graph_rect;
+
+    const char* resources_path = nullptr;
+};
