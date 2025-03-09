@@ -4,7 +4,9 @@
 #include "lifegame.h"
 
 #include "imgui_windows.h"
-#include "sakaengine.h"
+
+
+Texture* painter_tex = nullptr; // 画板纹理
 
 
 bool
@@ -19,7 +21,10 @@ Update() // 更新
     SKE::ProcessEvents(event_callback);
 
     { // 主体更新
-      // LifeGameMap::Instance().On_update(ImGui::GetIO().DeltaTime);
+
+        SKE::SetRenderTarget(painter_tex);   // 设置渲染目标
+        SKE::RenderClear(painter_tex_color); // 清屏
+        SKE::SetRenderTarget();              // 设置渲染目标
     }
 
     return flag;
@@ -30,7 +35,7 @@ void
 Render() // 渲染
 {
     // 渲染窗口
-    ImGuiConfigWindow();
+    ImGuiConfigWindow(painter_tex);
     // ImGuiLifeGameMapWindow();
 }
 
@@ -45,6 +50,7 @@ LifeGame::Run()
         args.graph_is_centered = true;
 
         SKE::Init(args);
+        SKE::CreateTexture(painter_tex, 800, 600); // 创建纹理
     }
 
 
@@ -54,6 +60,7 @@ LifeGame::Run()
 
 
     {
+        SKE::DestroyTexture(painter_tex); // 销毋纹理
         SKE::Quit();
     }
 

@@ -3,20 +3,17 @@
 
 #include "imgui_windows.h"
 
-#include "sakaengine.h"
-
 #include "imgui.h"
 
 
 bool is_show_demo_window  = false;
 bool is_show_paint_window = true;
 
-
-Texture* painter_tex = nullptr; // 画板纹理
+ColorF painter_tex_color = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 
 void
-showPaintWindow() // 显示画板窗口
+showPaintWindow(Texture* text) // 显示画板窗口
 {
     if(!is_show_paint_window) return;
 
@@ -24,33 +21,15 @@ showPaintWindow() // 显示画板窗口
 
     ImGui::Text("Paint Window");
 
-
-    static Color  color;
-    static ColorF painter_tex_color = { 0.0f, 0.0f, 0.0f, 1.0f };
     ImGui::ColorEdit4("Painter Texture Color", painter_tex_color);
-    color = painter_tex_color;
 
 
     {
-        static bool is_init = false;
-
-        if(!is_init)
-        {
-            is_init = true;
-            SKE::CreateTexture(painter_tex, 800, 600); // 创建纹理
-        }
-
-        SKE::SetRenderTarget(painter_tex); // 设置渲染目标
-        SKE::RenderClear(color);           // 清屏
-        SKE::SetRenderTarget();            // 设置渲染目标
-
         int32_t w, h = 0;
-        SKE::GetTextureSize(painter_tex, w, h); // 获取纹理大小
+        SKE::GetTextureSize(text, w, h); // 获取纹理大小
 
         ImGui::Text("Texture Size: %d, %d", w, h);
-        ImGui::Image((ImTextureID)painter_tex, ImVec2(w, h));
-
-        // SKE::DestroyTexture(painter_tex); // 销毁纹理
+        ImGui::Image((ImTextureID)text, ImVec2(w, h));
     }
 
 
@@ -59,7 +38,7 @@ showPaintWindow() // 显示画板窗口
 
 
 void
-ImGuiConfigWindow() // ImGui 配置窗口
+ImGuiConfigWindow(Texture* text) // ImGui 配置窗口
 {
     if(is_show_demo_window) ImGui::ShowDemoWindow(&is_show_demo_window);
 
@@ -79,5 +58,5 @@ ImGuiConfigWindow() // ImGui 配置窗口
 
     ImGui::End();
 
-    showPaintWindow();
+    showPaintWindow(text);
 }

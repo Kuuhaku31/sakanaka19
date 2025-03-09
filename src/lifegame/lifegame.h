@@ -3,14 +3,18 @@
 
 #pragma once
 
-#include "base.h"
 
-class LifeGame : public InstanceTem<LifeGame>
+#include "sakaengine.h"
+
+
+extern Texture* painter_tex; // 画板纹理
+
+
+namespace LifeGame
 {
-    friend class InstanceTem<LifeGame>;
 
-public:
-    int Run();
 
-private:
+int Run();
+
+
 };

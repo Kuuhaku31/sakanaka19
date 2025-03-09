@@ -3,6 +3,9 @@
 
 #pragma once
 
+#include "sakaengine.h"
+
+
 // void
 // WIN_Objects_Data();
 
@@ -11,4 +14,7 @@
 
 void WIN_LifeGameMap(bool show_life_game_map);
 
-void ImGuiConfigWindow(); // ImGui 配置窗口
+
+extern ColorF painter_tex_color;
+
+void ImGuiConfigWindow(Texture* text); // ImGui 配置窗口

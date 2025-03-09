@@ -36,7 +36,7 @@ RunLifeGame()
 {
     printf("RunLifeGame: ");
 
-    LifeGame::Instance().Run();
+    LifeGame::Run();
 
     printf("OK\n");
 

@@ -64,6 +64,21 @@ struct Color
     uint8_t b;
     uint8_t a;
 
+    Color(uint8_t r = 0, uint8_t g = 0, uint8_t b = 0, uint8_t a = 0)
+        : r(r)
+        , g(g)
+        , b(b)
+        , a(a)
+    {
+    }
+    Color(const ColorF& color)
+    {
+        r = static_cast<uint8_t>(color[0] * 255);
+        g = static_cast<uint8_t>(color[1] * 255);
+        b = static_cast<uint8_t>(color[2] * 255);
+        a = static_cast<uint8_t>(color[3] * 255);
+    }
+
     Color&
     operator=(const Color& color)
     {
