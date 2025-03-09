@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "imgui_setup.h"
+#include "sakaengine.h"
 #include "tools.h"
 
 
@@ -14,7 +14,8 @@ typedef std::function<void(float& dst_x, float& dst_y, const float& src_w, const
 struct AnimationInformation
 {
     // 必须设置的参数
-    Texture*  texture;        // 纹理
+    sakaengine::Texture* texture; // 纹理
+
     uint16_t  num_x;          // 纹理横向切成多少帧
     uint16_t  num_y;          // 纹理纵向切成多少帧
     uint16_t* frame_idx_list; // 帧索引列表
@@ -23,7 +24,7 @@ struct AnimationInformation
     // 可选参数
     float frame_interval = 0.0f;  // 帧间隔
     float angle          = 0.0f;  // 渲染角度
-    float texs_size      = 0.0f;  // 渲染大小，对于这个纹理，一个单位长度等于 texs_size 个像素
+    float texture_size   = 0.0f;  // 渲染大小，对于这个纹理，一个单位长度等于 texture_size 个像素
     bool  is_loop        = false; // 是否循环播放
 
     CorrectivePos on_corrective; // 位置修正
@@ -39,7 +40,8 @@ public:
     ~AnimationTemplate();
 
 private:
-    Texture* texture;        // 纹理
+    sakaengine::Texture* texture; // 纹理
+
     Point*   frame_src_list; // 帧源列表
     uint16_t frame_w;        // 帧宽
     uint16_t frame_h;        // 帧高
@@ -47,7 +49,7 @@ private:
 
     float frame_interval = 0.1f;  // 帧间隔
     float angle          = 0.0f;  // 渲染角度
-    float texs_size      = 1.0f;  // 渲染大小，对于这个纹理，一个单位长度等于 texs_size 个像素
+    float texture_size   = 1.0f;  // 渲染大小，对于这个纹理，一个单位长度等于 texture_size 个像素
     bool  is_loop        = false; // 是否循环播放
 
     CorrectivePos on_corrective; // 位置修正
@@ -61,8 +63,12 @@ public:
     ~AnimationInstance() = default;
 
 public:
-    void On_render() const;                                                 // 渲染
-    void On_update(float delta_time) { frame_timer.On_update(delta_time); } // 更新
+    void On_render() const; // 渲染
+    void
+    On_update(float delta_time)
+    {
+        frame_timer.On_update(delta_time);
+    } // 更新
 
 public:
     void Restart();              // 重置
@@ -75,13 +81,33 @@ public:
     void Set_size_add(float size);
     void Set_size_mul(float size);
 
-    void Set_on_corrective(CorrectivePos f) { on_corrective = f; }
-    void Set_on_finished(Callback f) { on_finished = f; }
+    void
+    Set_on_corrective(CorrectivePos f)
+    {
+        on_corrective = f;
+    }
+    void
+    Set_on_finished(Callback f)
+    {
+        on_finished = f;
+    }
 
 public:
-    const float& Get_ph_w() const { return ph_w; }           // 物理宽
-    const float& Get_ph_h() const { return ph_h; }           // 物理高
-    const bool&  Is_finished() const { return is_finished; } // 动画是否结束
+    const float&
+    Get_ph_w() const
+    {
+        return ph_w;
+    } // 物理宽
+    const float&
+    Get_ph_h() const
+    {
+        return ph_h;
+    } // 物理高
+    const bool&
+    Is_finished() const
+    {
+        return is_finished;
+    } // 动画是否结束
 
 public:
     float angle; // 渲染角度
@@ -93,9 +119,9 @@ private:
     uint16_t frame_current = 0;     // 当前帧
     bool     is_finished   = false; // 动画是否结束
 
-    float texs_size; // 渲染大小
-    float ph_w;      // 物理宽
-    float ph_h;      // 物理高
+    float texture_size; // 渲染大小
+    float ph_w;         // 物理宽
+    float ph_h;         // 物理高
 
     CorrectivePos on_corrective; // 位置修正
 
@@ -105,7 +131,7 @@ private:
     inline void
     update_ph_vy()
     {
-        ph_w = animation.frame_w / texs_size;
-        ph_h = animation.frame_h / texs_size;
+        ph_w = animation.frame_w / texture_size;
+        ph_h = animation.frame_h / texture_size;
     }
 };

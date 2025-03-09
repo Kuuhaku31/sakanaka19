@@ -10,8 +10,14 @@
 #define SKE_EVENT_QUIT 0x0001
 
 
+typedef class SDL_Texture Texture; // 纹理
+
+
 namespace sakaengine
 {
+
+
+typedef Texture Texture; // 纹理
 
 
 // 启动参数

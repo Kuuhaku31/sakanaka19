@@ -2,17 +2,18 @@
 // animation.cpp
 
 #include "animation.h"
+#include "utils.h"
 
 
 // 动画模板
 AnimationTemplate::AnimationTemplate(const AnimationInformation& info)
 {
     // 必须设置的参数
-    texture   = info.texture;
-    texs_size = info.texs_size;
+    texture      = info.texture;
+    texture_size = info.texture_size;
 
     int tex_w = 0, tex_h = 0;
-    SDL_QueryTexture(texture, nullptr, nullptr, &tex_w, &tex_h);
+    SDL_QueryTexture(texture, nullptr, nullptr, &tex_w, &tex_h); // 获取纹理的宽高
 
     frame_w     = tex_w / info.num_x;
     frame_h     = tex_h / info.num_y;
@@ -32,15 +33,17 @@ AnimationTemplate::AnimationTemplate(const AnimationInformation& info)
     // 可选参数
     if(info.frame_interval > 0) frame_interval = info.frame_interval;
     angle = info.angle;
-    if(info.texs_size > 0) texs_size = info.texs_size;
+    if(info.texture_size > 0) texture_size = info.texture_size;
     is_loop       = info.is_loop;
     on_corrective = info.on_corrective;
 }
+
 
 AnimationTemplate::~AnimationTemplate()
 {
     delete[] frame_src_list;
 }
+
 
 // 动画实例
 AnimationInstance::AnimationInstance(const AnimationTemplate& animation, Callback animation_finished_callback)
@@ -71,18 +74,17 @@ AnimationInstance::AnimationInstance(const AnimationTemplate& animation, Callbac
     angle         = animation.angle;
     on_corrective = animation.on_corrective;
 
-    texs_size = animation.texs_size;
-    ph_w      = animation.frame_w / texs_size; // w 表示纹理单位长度 = 纹理像素长度 / texs_size
-    ph_h      = animation.frame_h / texs_size; // h 表示纹理单位长度 = 纹理像素长度 / texs_size
+    texture_size = animation.texture_size;
+    ph_w         = animation.frame_w / texture_size; // w 表示纹理单位长度 = 纹理像素长度 / texture_size
+    ph_h         = animation.frame_h / texture_size; // h 表示纹理单位长度 = 纹理像素长度 / texture_size
 
     on_finished = animation_finished_callback;
 }
 
+
 void
 AnimationInstance::On_render() const
 {
-    static const Painter& painter = Painter::Instance();
-
     static IRect src_rect;
     static FRect dst_rect;
 
@@ -97,8 +99,9 @@ AnimationInstance::On_render() const
     dst_rect.h = ph_h;
     if(on_corrective) on_corrective(dst_rect.x, dst_rect.y, ph_w, ph_h);
 
-    painter.DrawTexture(animation.texture, src_rect, dst_rect, angle);
+    sakaengine::DrawTexture(animation.texture, src_rect, dst_rect, angle);
 }
+
 
 void
 AnimationInstance::Restart()
@@ -108,6 +111,7 @@ AnimationInstance::Restart()
     frame_timer.Restart();
 }
 
+
 void
 AnimationInstance::Set_play_time(float t)
 {
@@ -116,11 +120,13 @@ AnimationInstance::Set_play_time(float t)
     frame_timer.Set_wait_time(t / animation.frame_count);
 }
 
+
 void
 AnimationInstance::Set_frame_interval(float interval)
 {
     frame_timer.Set_wait_time(interval);
 }
+
 
 void
 AnimationInstance::Set_frame_interval_add(float interval)
@@ -128,38 +134,42 @@ AnimationInstance::Set_frame_interval_add(float interval)
     frame_timer.Set_wait_time_add(interval);
 }
 
+
 void
 AnimationInstance::Set_frame_interval_mul(float interval)
 {
     frame_timer.Set_wait_time_mul(interval);
 }
 
+
 void
 AnimationInstance::Set_size(float size)
 {
     if(size > 0)
     {
-        texs_size = size;
+        texture_size = size;
         update_ph_vy();
     }
 }
 
+
 void
 AnimationInstance::Set_size_add(float size)
 {
-    if(texs_size + size > 0)
+    if(texture_size + size > 0)
     {
-        texs_size += size;
+        texture_size += size;
         update_ph_vy();
     }
 }
+
 
 void
 AnimationInstance::Set_size_mul(float size)
 {
     if(size > 0)
     {
-        texs_size *= size;
+        texture_size *= size;
         update_ph_vy();
     }
 }

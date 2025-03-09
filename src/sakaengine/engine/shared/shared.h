@@ -19,3 +19,6 @@ extern FontPool      font_pool;
 extern SoundPool     sound_pool;
 extern MusicPool     music_pool;
 extern AnimationPool animation_pool;
+
+// 视野
+extern View* painter_view;

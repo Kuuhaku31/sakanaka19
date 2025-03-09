@@ -17,3 +17,6 @@ FontPool      font_pool;
 SoundPool     sound_pool;
 MusicPool     music_pool;
 AnimationPool animation_pool;
+
+// 视野
+View* painter_view = nullptr;

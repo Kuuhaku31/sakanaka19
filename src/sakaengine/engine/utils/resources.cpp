@@ -148,7 +148,7 @@ loadResources(const std::string& resources_path, SDL_Renderer* renderer)
                 info.frame_count    = frame_count;
                 info.frame_interval = cJSON_GetObjectItem(item, "frame-interval")->valuedouble;
                 info.angle          = cJSON_GetObjectItem(item, "angle")->valuedouble;
-                info.texs_size      = cJSON_GetObjectItem(item, "texture-size")->valuedouble;
+                info.texture_size   = cJSON_GetObjectItem(item, "texture-size")->valuedouble;
                 info.is_loop        = cJSON_GetObjectItem(item, "is-loop")->valueint;
 
                 animation_pool[cJSON_GetObjectItem(item, "label")->valuestring] = new AnimationTemplate(info);

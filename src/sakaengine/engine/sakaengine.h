@@ -23,6 +23,12 @@ bool   IsInit(); // 是否初始化成功
 Color& GetClearColor();
 
 
+// 工具
+void GetTextureSize(Texture* texture, int32_t& w, int32_t& h); // 获取纹理大小
+
+void DrawTexture(Texture* texture, const IRect& rect_src, const FRect& rect_dst, float angle = 0.0f); // 绘制纹理
+
+
 } // namespace sakaengine
 
 
