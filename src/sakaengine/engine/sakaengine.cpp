@@ -150,3 +150,56 @@ sakaengine::DrawTexture(Texture* texture, const IRect& rect_src, const FRect& re
 
     );
 }
+
+
+void
+sakaengine::CreateTexture(Texture*& texture, int32_t tex_wide, int32_t tex_high)
+{
+    texture = SDL_CreateTexture(
+        sdl_renderer,             // 渲染器
+        SDL_PIXELFORMAT_ARGB8888, // 像素格式
+        SDL_TEXTUREACCESS_TARGET, // 纹理访问方式
+        tex_wide,
+        tex_high
+
+    );
+
+    SDL_SetTextureBlendMode(texture, SDL_BLENDMODE_BLEND); // 设置纹理混合模式，以支持透明度
+}
+
+
+void
+sakaengine::DestroyTexture(Texture*& texture)
+{
+    SDL_DestroyTexture(texture);
+}
+
+
+void
+sakaengine::SetRenderTarget(Texture* texture, const View* view)
+{
+    SDL_SetRenderTarget(sdl_renderer, texture);
+    if(view) painter_view = view;
+}
+
+
+void
+sakaengine::SetRenderColor(const Color& color)
+{
+    SDL_SetRenderDrawColor(sdl_renderer, color.r, color.g, color.b, color.a);
+}
+
+
+void
+sakaengine::RenderClear(const Color& color)
+{
+    SDL_SetRenderDrawColor(sdl_renderer, color.r, color.g, color.b, color.a);
+    SDL_RenderClear(sdl_renderer);
+}
+
+
+void
+sakaengine::RenderClear()
+{
+    SDL_RenderClear(sdl_renderer);
+}

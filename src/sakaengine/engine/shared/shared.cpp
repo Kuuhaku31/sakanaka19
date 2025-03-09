@@ -19,4 +19,4 @@ MusicPool     music_pool;
 AnimationPool animation_pool;
 
 // 视野
-View* painter_view = nullptr;
+const View* painter_view = nullptr;

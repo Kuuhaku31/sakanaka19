@@ -7,22 +7,6 @@
 #include "sakaengine.h"
 
 
-// void
-// ImGuiLifeGameMapWindow() // ImGui 生命游戏地图窗口
-// {
-//     ImGui::Begin("Life Game Map");
-
-//     LifeGameMap::Instance().On_render();
-//     const Texture* texture = LifeGameMap::Instance().Get_life_game_map_texture();
-
-//     if(texture)
-//     {
-//         ImGui::Image((ImTextureID)texture, ImVec2(800, 600));
-//     }
-
-//     ImGui::End();
-// }
-
 bool
 Update() // 更新
 {
@@ -49,6 +33,7 @@ Render() // 渲染
     ImGuiConfigWindow();
     // ImGuiLifeGameMapWindow();
 }
+
 
 int
 LifeGame::Run()

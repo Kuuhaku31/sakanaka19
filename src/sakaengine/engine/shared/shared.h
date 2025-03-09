@@ -21,4 +21,4 @@ extern MusicPool     music_pool;
 extern AnimationPool animation_pool;
 
 // 视野
-extern View* painter_view;
+extern const View* painter_view;

@@ -10,12 +10,12 @@
 struct AnimationInformation
 {
     // 必须设置的参数
-    sakaengine::Texture* texture; // 纹理
+    sakaengine::Texture* texture = nullptr; // 纹理
 
-    uint16_t  num_x;          // 纹理横向切成多少帧
-    uint16_t  num_y;          // 纹理纵向切成多少帧
-    uint16_t* frame_idx_list; // 帧索引列表
-    uint16_t  frame_count;    // 帧数
+    uint16_t  num_x          = 0;       // 纹理横向切成多少帧
+    uint16_t  num_y          = 0;       // 纹理纵向切成多少帧
+    uint16_t* frame_idx_list = nullptr; // 帧索引列表
+    uint16_t  frame_count    = 0;       // 帧数
 
     // 可选参数
     float frame_interval = 0.0f;  // 帧间隔
@@ -23,7 +23,7 @@ struct AnimationInformation
     float texture_size   = 0.0f;  // 渲染大小，对于这个纹理，一个单位长度等于 texture_size 个像素
     bool  is_loop        = false; // 是否循环播放
 
-    CorrectivePos on_corrective; // 位置修正
+    CorrectivePos on_corrective = nullptr; // 位置修正
 };
 
 
@@ -37,12 +37,12 @@ public:
     ~AnimationTemplate();
 
 private:
-    sakaengine::Texture* texture; // 纹理
+    sakaengine::Texture* texture = nullptr; // 纹理
 
-    Point*   frame_src_list; // 帧源列表
-    uint16_t frame_w;        // 帧宽
-    uint16_t frame_h;        // 帧高
-    uint16_t frame_count;    // 帧数
+    Point*   frame_src_list = nullptr; // 帧源列表
+    uint16_t frame_w        = 0;       // 帧宽
+    uint16_t frame_h        = 0;       // 帧高
+    uint16_t frame_count    = 0;       // 帧数
 
     float frame_interval = 0.1f;  // 帧间隔
     float angle          = 0.0f;  // 渲染角度
@@ -60,11 +60,9 @@ public:
     AnimationInstance(const AnimationTemplate& animation, Callback f = nullptr);
     ~AnimationInstance() = default;
 
-public:
     void On_render() const;           // 渲染
     void On_update(float delta_time); // 更新
 
-public:
     void Restart();              // 重置
     void Set_play_time(float t); // 设置播放时间
 
@@ -74,6 +72,7 @@ public:
     void Set_size(float size);
     void Set_size_add(float size);
     void Set_size_mul(float size);
+
 
     void
     Set_on_corrective(CorrectivePos f)
@@ -86,7 +85,6 @@ public:
         on_finished = f;
     }
 
-public:
     const float&
     Get_ph_w() const
     {
@@ -103,21 +101,22 @@ public:
         return is_finished;
     } // 动画是否结束
 
-public:
-    float angle; // 渲染角度
+
+    bool  is_paused = false; // 动画是否暂停
+    float angle     = 0.0f;  // 渲染角度
+
 
 private:
     const AnimationTemplate& animation;
 
-    float texture_size; // 渲染大小
-    float ph_w;         // 物理宽
-    float ph_h;         // 物理高
+    float texture_size = 0.0f; // 渲染大小
+    float ph_w         = 0.0f; // 物理宽
+    float ph_h         = 0.0f; // 物理高
 
-    CorrectivePos on_corrective; // 位置修正
+    CorrectivePos on_corrective = nullptr; // 位置修正
 
 
     uint16_t frame_current = 0;     // 当前帧
-    bool     is_paused     = false; // 动画是否暂停
     bool     is_finished   = false; // 动画是否结束
 
     float frame_pass_time = 0; // 当前帧已经过去的时间
@@ -125,7 +124,7 @@ private:
 
     Callback on_finished; // 动画结束回调
 
-private:
+
     inline void
     update_ph_vy()
     {

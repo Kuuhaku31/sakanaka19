@@ -230,22 +230,3 @@
 
 //     ImGui::End();
 // }
-
-
-void
-ImGuiConfigWindow() // ImGui 配置窗口
-{
-    ImGui::ShowDemoWindow();
-
-    ImGui::Begin("ImGui Config");
-
-    // 显示帧率
-    ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-
-    // 清屏颜色
-    static ColorF color = { 0.0f, 0.0f, 0.0f, 1.0f };
-    ImGui::ColorEdit4("Clear Color", color);
-    SKE::GetClearColor() = color;
-
-    ImGui::End();
-}
