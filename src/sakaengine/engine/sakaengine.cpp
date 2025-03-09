@@ -69,32 +69,38 @@ sakaengine::ProcessEvents(EventCallback f)
 
 
 void
-sakaengine::Render(Callback draw_windows, Callback draw_background)
+sakaengine::DrawBackground(Callback f)
 {
-    // Start the Dear ImGui frame
-    ImGui_ImplSDLRenderer2_NewFrame();
-    ImGui_ImplSDL2_NewFrame();
-    ImGui::NewFrame();
+    SDL_SetRenderTarget(sdl_renderer, nullptr);
 
-    if(draw_windows) draw_windows();
-
-    ImGui::Render(); // Rendering
-
-    SDL_RenderSetScale(sdl_renderer, ImGui::GetIO().DisplayFramebufferScale.x, ImGui::GetIO().DisplayFramebufferScale.y); // 设置渲染目标
-
-    if(draw_background)
+    if(f)
     {
-        draw_background(); // 用户自定义的回调函数，用于渲染用户自定义的内容
+        f(); // 用户自定义的回调函数，用于渲染用户自定义的内容
     }
     else
     {
         SDL_SetRenderDrawColor(sdl_renderer, clear_color.r, clear_color.g, clear_color.b, clear_color.a);
         SDL_RenderClear(sdl_renderer);
     }
+}
 
-    ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), sdl_renderer); // 渲染imgui
 
-    SDL_RenderPresent(sdl_renderer); // 显示渲染结果
+void
+sakaengine::NewFrame()
+{
+    ImGui_ImplSDLRenderer2_NewFrame();
+    ImGui_ImplSDL2_NewFrame();
+    ImGui::NewFrame();
+}
+
+
+void
+sakaengine::EndFrame()
+{
+    ImGui::Render();                                                                                                      // Rendering
+    SDL_RenderSetScale(sdl_renderer, ImGui::GetIO().DisplayFramebufferScale.x, ImGui::GetIO().DisplayFramebufferScale.y); // 设置渲染目标
+    ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), sdl_renderer);                                            // 渲染imgui
+    SDL_RenderPresent(sdl_renderer);                                                                                      // 显示渲染结果
 }
 
 

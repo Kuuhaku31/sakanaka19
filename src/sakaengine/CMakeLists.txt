@@ -5,7 +5,6 @@ set(PATH
     ${CMAKE_CURRENT_LIST_DIR}/base/
     ${CMAKE_CURRENT_LIST_DIR}/tools/
     ${CMAKE_CURRENT_LIST_DIR}/animation/
-    ${CMAKE_CURRENT_LIST_DIR}/imgui_setup/
 
     ${CMAKE_CURRENT_LIST_DIR}/engine/
     ${CMAKE_CURRENT_LIST_DIR}/engine/painter

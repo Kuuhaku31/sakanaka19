@@ -10,35 +10,17 @@ namespace LifeGame
 {
 
 
+bool is_running = true; // 是否运行
+
 Texture* painter_tex = nullptr; // 画板纹理
 View     painter_view;          // 画板视野
 
+EventCallback event_callback = [](const SKE::Event& event) {
+    if(event.type == SKE::Event::quit) is_running = false;
+};
+
 
 } // namespace LifeGame
-
-bool
-Update() // 更新
-{
-    bool flag = true;
-
-    EventCallback event_callback = [&flag](const SKE::Event& event) {
-        if(event.type == SKE::Event::quit) flag = false;
-    };
-
-    SKE::ProcessEvents(event_callback);
-
-    { // 主体更新
-
-        SKE::SetRenderTarget(LifeGame::painter_tex, &LifeGame::painter_view); // 设置渲染目标
-        SKE::RenderClear(painter_tex_color);                                  // 清屏
-
-        SKE::DrawCircle({ 400, 300 }, 100, COLOR_BLACK, true); // 绘制圆形
-
-        SKE::SetRenderTarget(); // 设置渲染目标
-    }
-
-    return flag;
-}
 
 
 void
@@ -68,8 +50,19 @@ LifeGame::Run()
     }
 
 
+    while(is_running)
     {
-        while(Update()) SKE::Render(Render);
+        SKE::NewFrame();                    // 新帧
+        SKE::ProcessEvents(event_callback); // 处理事件
+
+        SKE::SetRenderTarget(LifeGame::painter_tex, &LifeGame::painter_view); // 设置渲染目标
+        SKE::RenderClear(painter_tex_color);                                  // 清屏
+        SKE::DrawCircle({ 400, 300 }, 100, COLOR_BLACK, true);                // 绘制圆形
+
+        Render(); // 渲染
+
+        SKE::DrawBackground(); // 绘制背景
+        SKE::EndFrame();       // 结束帧
     }
 
 
