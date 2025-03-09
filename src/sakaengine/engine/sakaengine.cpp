@@ -52,23 +52,6 @@ sakaengine::Quit()
 
 
 void
-sakaengine::ProcessEvents(EventCallback f)
-{
-    SDL_Event sdl_event;
-    while(SDL_PollEvent(&sdl_event))
-    {
-        if(f)
-        {
-            Event e;
-            translateEvent(e, sdl_event);
-            f(e);
-        }
-        ImGui_ImplSDL2_ProcessEvent(&sdl_event);
-    }
-}
-
-
-void
 sakaengine::DrawBackground(Callback f)
 {
     SDL_SetRenderTarget(sdl_renderer, nullptr);
@@ -88,6 +71,13 @@ sakaengine::DrawBackground(Callback f)
 void
 sakaengine::NewFrame()
 {
+    static SDL_Event sdl_event;
+    while(SDL_PollEvent(&sdl_event))
+    {
+        if(sdl_event.type == SDL_QUIT) is_running = false;
+        ImGui_ImplSDL2_ProcessEvent(&sdl_event);
+    }
+
     ImGui_ImplSDLRenderer2_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();

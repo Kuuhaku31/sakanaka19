@@ -207,6 +207,9 @@ operator-(const Point& a, const Point& b);
 class View
 {
 public:
+    View() = default;
+    View(const Vector2& center_pos, const Vector2& size, float unit_size);
+
     void Set_view_center_position(const Vector2& pos);
     void Set_view_size(const Vector2& size);
     void Set_unit_size(float size);

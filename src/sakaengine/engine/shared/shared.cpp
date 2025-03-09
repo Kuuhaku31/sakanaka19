@@ -8,6 +8,8 @@ namespace sakaengine
 {
 
 
+bool is_running = true;
+
 // 定义全局变量
 SDL_Window*   sdl_window   = nullptr;
 SDL_Renderer* sdl_renderer = nullptr;

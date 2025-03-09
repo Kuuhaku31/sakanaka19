@@ -7,7 +7,7 @@
 
 
 // 0b0000 0000 0000 0001
-#define SKE_EVENT_QUIT 0x0001
+// #define SKE_KEY_SCANCODE_W
 
 
 typedef class SDL_Texture Texture; // 纹理

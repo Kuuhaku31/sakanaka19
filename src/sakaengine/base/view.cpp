@@ -3,6 +3,14 @@
 
 #include "base.h"
 
+View::View(const Vector2& center_pos, const Vector2& size, float unit_size)
+{
+    Set_view_center_position(center_pos);
+    Set_view_size(size);
+    Set_unit_size(unit_size);
+}
+
+
 void
 View::Set_view_center_position(const Vector2& pos)
 {

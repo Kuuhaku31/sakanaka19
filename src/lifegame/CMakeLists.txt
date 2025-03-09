@@ -1,13 +1,19 @@
 
 project(lifegame)
 
+set(PATHS
+    ${CMAKE_CURRENT_LIST_DIR}/
+    ${CMAKE_CURRENT_LIST_DIR}/map
+    ${CMAKE_CURRENT_LIST_DIR}/imgui_windows
+)
+
 # 添加源文件
-aux_source_directory(./ SRC_LIST)
-aux_source_directory(./imgui_windows SRC_LIST)
+foreach(PATH ${PATHS})
+    aux_source_directory(${PATH} SRC_LIST)
+endforeach()
 
 set(LIFEGAME_INC_PATHS
-    ${CMAKE_CURRENT_LIST_DIR}./
-    ${CMAKE_CURRENT_LIST_DIR}./imgui_windows
+    ${PATHS}
     ${SAKAENGINE_INC_PATHS}
 )
 

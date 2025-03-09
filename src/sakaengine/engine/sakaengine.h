@@ -13,14 +13,17 @@ namespace sakaengine
 {
 
 
+extern bool is_running; // 是否运行
+
+
 void Init(EngineInitArgs& args); // 初始化引擎
 void Quit();                     // 退出引擎
 
 void NewFrame(); // 新帧
 void EndFrame(); // 结束帧
 
-void ProcessEvents(EventCallback f = nullptr); // 处理事件
-void DrawBackground(Callback f = nullptr);     // 绘制背景
+void DrawBackground(Callback f = nullptr); // 绘制背景
+
 
 bool   IsInit(); // 是否初始化成功
 Color& GetClearColor();
