@@ -6,6 +6,10 @@
 #include "utils.h"
 
 
+namespace sakaengine
+{
+
+
 extern SDL_Window*   sdl_window;
 extern SDL_Renderer* sdl_renderer;
 
@@ -22,3 +26,6 @@ extern AnimationPool animation_pool;
 
 // 视野
 extern const View* painter_view;
+
+
+}; // namespace sakaengine

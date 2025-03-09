@@ -64,7 +64,7 @@ loadResources(const std::string& resources_path, SDL_Renderer* renderer)
                 std::string label = cJSON_GetObjectItem(item, "label")->valuestring;
                 std::string path  = resources_path + cJSON_GetObjectItem(item, "path")->valuestring;
 
-                texture_pool[label] = IMG_LoadTexture(renderer, path.c_str());
+                sakaengine::texture_pool[label] = IMG_LoadTexture(renderer, path.c_str());
             }
         }
     }
@@ -81,7 +81,7 @@ loadResources(const std::string& resources_path, SDL_Renderer* renderer)
                 std::string path  = resources_path + cJSON_GetObjectItem(item, "path")->valuestring;
                 double      size  = cJSON_GetObjectItem(item, "size")->valuedouble;
 
-                font_pool[label] = io.Fonts->AddFontFromFileTTF(path.c_str(), size, nullptr, io.Fonts->GetGlyphRangesChineseFull());
+                sakaengine::font_pool[label] = io.Fonts->AddFontFromFileTTF(path.c_str(), size, nullptr, io.Fonts->GetGlyphRangesChineseFull());
             }
         }
     }
@@ -97,7 +97,7 @@ loadResources(const std::string& resources_path, SDL_Renderer* renderer)
                 std::string label = cJSON_GetObjectItem(item, "label")->valuestring;
                 std::string path  = resources_path + cJSON_GetObjectItem(item, "path")->valuestring;
 
-                sound_pool[label] = Mix_LoadWAV(path.c_str());
+                sakaengine::sound_pool[label] = Mix_LoadWAV(path.c_str());
             }
         }
     }
@@ -113,7 +113,7 @@ loadResources(const std::string& resources_path, SDL_Renderer* renderer)
                 std::string label = cJSON_GetObjectItem(item, "label")->valuestring;
                 std::string path  = resources_path + cJSON_GetObjectItem(item, "path")->valuestring;
 
-                music_pool[label] = Mix_LoadMUS(path.c_str());
+                sakaengine::music_pool[label] = Mix_LoadMUS(path.c_str());
             }
         }
     }
@@ -141,7 +141,7 @@ loadResources(const std::string& resources_path, SDL_Renderer* renderer)
                     for(uint32_t i = 0; i < frame_count; i++) frame_idx_list[i] = cJSON_GetArrayItem(frame_idx_list_item, i)->valueint;
                 }
 
-                info.texture        = texture_pool[cJSON_GetObjectItem(item, "source-texture")->valuestring];
+                info.texture        = sakaengine::texture_pool[cJSON_GetObjectItem(item, "source-texture")->valuestring];
                 info.num_x          = cJSON_GetObjectItem(item, "num-x")->valueint;
                 info.num_y          = cJSON_GetObjectItem(item, "num-y")->valueint;
                 info.frame_idx_list = frame_idx_list;
@@ -151,7 +151,7 @@ loadResources(const std::string& resources_path, SDL_Renderer* renderer)
                 info.texture_size   = cJSON_GetObjectItem(item, "texture-size")->valuedouble;
                 info.is_loop        = cJSON_GetObjectItem(item, "is-loop")->valueint;
 
-                animation_pool[cJSON_GetObjectItem(item, "label")->valuestring] = new AnimationTemplate(info);
+                sakaengine::animation_pool[cJSON_GetObjectItem(item, "label")->valuestring] = new AnimationTemplate(info);
 
                 delete[] frame_idx_list;
             }
@@ -163,7 +163,7 @@ loadResources(const std::string& resources_path, SDL_Renderer* renderer)
 
 
     // 检查加载纹理
-    for(const auto& pair : texture_pool)
+    for(const auto& pair : sakaengine::texture_pool)
     {
         if(!pair.second)
         {
@@ -178,7 +178,7 @@ loadResources(const std::string& resources_path, SDL_Renderer* renderer)
 
 
     // 检查加载字体
-    for(const auto& pair : font_pool)
+    for(const auto& pair : sakaengine::font_pool)
     {
         if(!pair.second)
         {
@@ -193,7 +193,7 @@ loadResources(const std::string& resources_path, SDL_Renderer* renderer)
 
 
     // 检查加载音效
-    for(const auto& pair : sound_pool)
+    for(const auto& pair : sakaengine::sound_pool)
     {
         if(!pair.second)
         {
@@ -208,7 +208,7 @@ loadResources(const std::string& resources_path, SDL_Renderer* renderer)
 
 
     // 检查加载音乐
-    for(const auto& pair : music_pool)
+    for(const auto& pair : sakaengine::music_pool)
     {
         if(!pair.second)
         {
@@ -223,7 +223,7 @@ loadResources(const std::string& resources_path, SDL_Renderer* renderer)
 
 
     // 检查加载动画
-    for(const auto& pair : animation_pool)
+    for(const auto& pair : sakaengine::animation_pool)
     {
         if(!pair.second)
         {
@@ -241,7 +241,7 @@ loadResources(const std::string& resources_path, SDL_Renderer* renderer)
 void
 freeResources()
 {
-    for(auto& pair : texture_pool)
+    for(auto& pair : sakaengine::texture_pool)
     {
         if(pair.second)
         {
@@ -250,7 +250,7 @@ freeResources()
         }
     }
 
-    for(auto& pair : sound_pool)
+    for(auto& pair : sakaengine::sound_pool)
     {
         if(pair.second)
         {
@@ -259,7 +259,7 @@ freeResources()
         }
     }
 
-    for(auto& pair : music_pool)
+    for(auto& pair : sakaengine::music_pool)
     {
         if(pair.second)
         {

@@ -3,6 +3,11 @@
 
 #include "shared.h"
 
+
+namespace sakaengine
+{
+
+
 // 定义全局变量
 SDL_Window*   sdl_window   = nullptr;
 SDL_Renderer* sdl_renderer = nullptr;
@@ -20,3 +25,6 @@ AnimationPool animation_pool;
 
 // 视野
 const View* painter_view = nullptr;
+
+
+}; // namespace sakaengine
