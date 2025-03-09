@@ -120,39 +120,6 @@ sakaengine::GetTextureSize(Texture* texture, int32_t& w, int32_t& h)
 
 
 void
-sakaengine::DrawTexture(Texture* texture, const IRect& rect_src, const FRect& rect_dst, float angle)
-{
-    if(!painter_view) return;
-
-    float view_left_top_position_x = painter_view->Get_view_left_top_position().vx;
-    float view_left_top_position_y = painter_view->Get_view_left_top_position().vy;
-
-    float unit_size = painter_view->Get_unit_size();
-
-    static SDL_Rect src;
-    static SDL_Rect dst;
-
-    src = { rect_src.x, rect_src.y, rect_src.w, rect_src.h };
-
-    dst.x = (rect_dst.x - view_left_top_position_x) * unit_size;
-    dst.y = (rect_dst.y - view_left_top_position_y) * unit_size;
-    dst.w = rect_dst.w * unit_size;
-    dst.h = rect_dst.h * unit_size;
-
-    SDL_RenderCopyEx(
-        sdl_renderer,
-        texture,
-        &src,
-        &dst,
-        angle,
-        nullptr,
-        SDL_FLIP_NONE
-
-    );
-}
-
-
-void
 sakaengine::CreateTexture(Texture*& texture, int32_t tex_wide, int32_t tex_high)
 {
     texture = SDL_CreateTexture(
