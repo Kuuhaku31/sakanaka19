@@ -4,11 +4,7 @@
 #pragma once
 
 #include "sakaengine.h"
-#include "tools.h"
 
-
-// 位置修正回调函数
-typedef std::function<void(float& dst_x, float& dst_y, const float& src_w, const float& src_h)> CorrectivePos;
 
 // 动画信息
 struct AnimationInformation
@@ -29,6 +25,7 @@ struct AnimationInformation
 
     CorrectivePos on_corrective; // 位置修正
 };
+
 
 // 动画模板
 class AnimationTemplate
@@ -55,6 +52,7 @@ private:
     CorrectivePos on_corrective; // 位置修正
 };
 
+
 // 动画实例
 class AnimationInstance : public Vector2
 {
@@ -63,12 +61,8 @@ public:
     ~AnimationInstance() = default;
 
 public:
-    void On_render() const; // 渲染
-    void
-    On_update(float delta_time)
-    {
-        frame_timer.On_update(delta_time);
-    } // 更新
+    void On_render() const;           // 渲染
+    void On_update(float delta_time); // 更新
 
 public:
     void Restart();              // 重置
@@ -115,15 +109,19 @@ public:
 private:
     const AnimationTemplate& animation;
 
-    Timer    frame_timer;           // 帧计时器
-    uint16_t frame_current = 0;     // 当前帧
-    bool     is_finished   = false; // 动画是否结束
-
     float texture_size; // 渲染大小
     float ph_w;         // 物理宽
     float ph_h;         // 物理高
 
     CorrectivePos on_corrective; // 位置修正
+
+
+    uint16_t frame_current = 0;     // 当前帧
+    bool     is_paused     = false; // 动画是否暂停
+    bool     is_finished   = false; // 动画是否结束
+
+    float frame_pass_time = 0; // 当前帧已经过去的时间
+    float frame_interval  = 0; // 帧间隔
 
     Callback on_finished; // 动画结束回调
 

@@ -8,7 +8,9 @@
 #include <string>
 
 
-typedef std::function<void()> Callback;
+typedef std::function<void()>                                                                   Callback;      // 回调函数
+typedef std::function<void(float& dst_x, float& dst_y, const float& src_w, const float& src_h)> CorrectivePos; // 位置修正回调函数
+
 
 struct IRect
 {

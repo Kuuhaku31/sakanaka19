@@ -49,36 +49,16 @@ AnimationTemplate::~AnimationTemplate()
 AnimationInstance::AnimationInstance(const AnimationTemplate& animation, Callback animation_finished_callback)
     : animation(animation)
 {
-    // 帧切换计时器
-    frame_timer.Set_wait_time(animation.frame_interval);
-    Callback timer_callback = [&]() {
-        frame_current++;
-        if(frame_current >= animation.frame_count) // 如果超出帧数
-        {
-            if(animation.is_loop) // 如果是循环播放
-            {
-                frame_current = 0;
-            }
-            else // 如果不是循环播放
-            {
-                frame_timer.is_paused = true; // 暂停计时器
-                is_finished           = true; // 动画结束
-                frame_current         = animation.frame_count - 1;
-                if(on_finished) on_finished();
-            }
-        }
-    };
-    frame_timer.Set_on_timeout(timer_callback); // 设置回调函数
-    frame_timer.is_one_shot = false;            // 默认设置为循环播放
+    frame_interval = animation.frame_interval; // 帧间隔
 
-    angle         = animation.angle;
-    on_corrective = animation.on_corrective;
+    angle         = animation.angle;         // 渲染角度
+    on_corrective = animation.on_corrective; // 位置修正
 
     texture_size = animation.texture_size;
     ph_w         = animation.frame_w / texture_size; // w 表示纹理单位长度 = 纹理像素长度 / texture_size
     ph_h         = animation.frame_h / texture_size; // h 表示纹理单位长度 = 纹理像素长度 / texture_size
 
-    on_finished = animation_finished_callback;
+    on_finished = animation_finished_callback; // 动画结束回调
 }
 
 
@@ -104,41 +84,77 @@ AnimationInstance::On_render() const
 
 
 void
+AnimationInstance::On_update(float delta_time)
+{
+    // 如果动画暂停，则不更新
+    if(is_paused) return;
+
+    // 更新计时器
+    frame_pass_time += delta_time;
+
+    // 如果计时器超时
+    if(frame_pass_time >= frame_interval)
+    {
+        frame_pass_time -= frame_interval;
+
+        frame_current++;
+        if(frame_current >= animation.frame_count) // 如果超出帧数
+        {
+            if(animation.is_loop) // 如果是循环播放
+            {
+                frame_current = 0;
+            }
+            else // 如果不是循环播放
+            {
+                is_paused     = true; // 暂停动画
+                is_finished   = true; // 动画结束
+                frame_current = animation.frame_count - 1;
+                if(on_finished) on_finished();
+            }
+        }
+    }
+}
+
+
+void
 AnimationInstance::Restart()
 {
     is_finished   = false;
     frame_current = 0;
-    frame_timer.Restart();
+
+    frame_pass_time = 0;
 }
 
 
 void
 AnimationInstance::Set_play_time(float t)
 {
-    if(t <= 0) return;
-
-    frame_timer.Set_wait_time(t / animation.frame_count);
+    if(t < 0) t = 0;
+    frame_interval = t / animation.frame_count;
 }
 
 
 void
 AnimationInstance::Set_frame_interval(float interval)
 {
-    frame_timer.Set_wait_time(interval);
+    if(interval < 0) interval = 0;
+    frame_interval = interval;
 }
 
 
 void
 AnimationInstance::Set_frame_interval_add(float interval)
 {
-    frame_timer.Set_wait_time_add(interval);
+    frame_interval += interval;
+    if(frame_interval < 0) frame_interval = 0;
 }
 
 
 void
 AnimationInstance::Set_frame_interval_mul(float interval)
 {
-    frame_timer.Set_wait_time_mul(interval);
+    frame_interval *= interval;
+    if(frame_interval < 0) frame_interval = 0;
 }
 
 
