@@ -7,12 +7,10 @@
 
 
 void
-LifeGame::ProcessEvents()
+LifeGame::ProcessEvent()
 {
-    ImGuiIO& io = ImGui::GetIO();
-
-    if(io.KeysData[SDL_SCANCODE_ESCAPE])
+    if(ImGui::IsKeyDown(ImGuiKey_A))
     {
-        LifeGame::is_running = false;
+        printf("A\n");
     }
 }

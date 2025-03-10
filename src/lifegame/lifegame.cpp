@@ -22,19 +22,17 @@ LifeGame::Run()
     }
 
 
-    while(SKE::is_running)
+    while(SKE::IsRunning())
     {
         SKE::NewFrame(); // 新帧
 
-
+        LifeGame::ProcessEvent();    // 处理事件
         LifeGameMap::OnUpdate(0.0f); // 更新地图
         LifeGameMap::OnRender();     // 渲染地图
 
-        // 渲染窗口
-        ImGuiConfigWindow(LifeGameMap::GetMapTex());
+        ImGuiConfigWindow(LifeGameMap::GetMapTex()); // 渲染窗口
 
-        SKE::DrawBackground(); // 绘制背景
-        SKE::EndFrame();       // 结束帧
+        SKE::EndFrame(); // 结束帧
     }
 
 

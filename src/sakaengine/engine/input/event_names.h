@@ -1,0 +1,113 @@
+
+// event_names.h
+
+#pragma once
+
+
+namespace sakaengine
+{
+
+
+enum KeyName
+{
+    SKE_KEY_NAME_UNKNOWN,
+
+    SKE_KEY_NAME_RETURN,
+    SKE_KEY_NAME_ESCAPE,
+    SKE_KEY_NAME_BACKSPACE,
+    SKE_KEY_NAME_TAB,
+    SKE_KEY_NAME_SPACE,
+
+    SKE_KEY_NAME_L_CTRL,
+    SKE_KEY_NAME_L_SHIFT,
+    SKE_KEY_NAME_L_ALT,
+    SKE_KEY_NAME_R_CTRL,
+    SKE_KEY_NAME_R_SHIFT,
+    SKE_KEY_NAME_R_ALT,
+
+    SKE_KEY_NAME_LEFT,
+    SKE_KEY_NAME_UP,
+    SKE_KEY_NAME_RIGHT,
+    SKE_KEY_NAME_DOWN,
+
+    SKE_KEY_NAME_TILDE,         // ` ~
+    SKE_KEY_NAME_MINUS,         // - _
+    SKE_KEY_NAME_EQUALS,        // = +
+    SKE_KEY_NAME_LEFT_BRACKET,  // [ {
+    SKE_KEY_NAME_RIGHT_BRACKET, // ] }
+    SKE_KEY_NAME_BACKSLASH,     // \ |
+    SKE_KEY_NAME_SEMICOLON,     // ; :
+    SKE_KEY_NAME_QUOTE,         // ' "
+    SKE_KEY_NAME_COMMA,         // , <
+    SKE_KEY_NAME_PERIOD,        // . >
+    SKE_KEY_NAME_SLASH,         // / ?
+
+    SKE_KEY_NAME_A,
+    SKE_KEY_NAME_B,
+    SKE_KEY_NAME_C,
+    SKE_KEY_NAME_D,
+    SKE_KEY_NAME_E,
+    SKE_KEY_NAME_F,
+    SKE_KEY_NAME_G,
+    SKE_KEY_NAME_H,
+    SKE_KEY_NAME_I,
+    SKE_KEY_NAME_J,
+    SKE_KEY_NAME_K,
+    SKE_KEY_NAME_L,
+    SKE_KEY_NAME_M,
+    SKE_KEY_NAME_N,
+    SKE_KEY_NAME_O,
+    SKE_KEY_NAME_P,
+    SKE_KEY_NAME_Q,
+    SKE_KEY_NAME_R,
+    SKE_KEY_NAME_S,
+    SKE_KEY_NAME_T,
+    SKE_KEY_NAME_U,
+    SKE_KEY_NAME_V,
+    SKE_KEY_NAME_W,
+    SKE_KEY_NAME_X,
+    SKE_KEY_NAME_Y,
+    SKE_KEY_NAME_Z,
+
+    SKE_KEY_NAME_0,
+    SKE_KEY_NAME_1,
+    SKE_KEY_NAME_2,
+    SKE_KEY_NAME_3,
+    SKE_KEY_NAME_4,
+    SKE_KEY_NAME_5,
+    SKE_KEY_NAME_6,
+    SKE_KEY_NAME_7,
+    SKE_KEY_NAME_8,
+    SKE_KEY_NAME_9,
+
+    SKE_KEY_NAME_F1,
+    SKE_KEY_NAME_F2,
+    SKE_KEY_NAME_F3,
+    SKE_KEY_NAME_F4,
+    SKE_KEY_NAME_F5,
+    SKE_KEY_NAME_F6,
+    SKE_KEY_NAME_F7,
+    SKE_KEY_NAME_F8,
+    SKE_KEY_NAME_F9,
+    SKE_KEY_NAME_F10,
+    SKE_KEY_NAME_F11,
+    SKE_KEY_NAME_F12,
+
+    SKE_MOUSE_LEFT,
+    SKE_MOUSE_MIDDLE,
+    SKE_MOUSE_RIGHT,
+};
+
+
+enum KeyState
+{
+    SKE_KEY_STATE_UNKNOWN,
+
+    SKE_KEY_STATE_CLICK, // 点击
+    SKE_KEY_STATE_DOWN,  // 按下
+    SKE_KEY_STATE_PRESS, // 按住
+    SKE_KEY_STATE_UP,    // 抬起
+};
+
+
+} // namespace sakaengine

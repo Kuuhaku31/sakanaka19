@@ -8,7 +8,7 @@ namespace sakaengine
 {
 
 
-bool is_running = true;
+bool is_running = false;
 
 // 定义全局变量
 SDL_Window*   sdl_window   = nullptr;
@@ -27,6 +27,8 @@ AnimationPool animation_pool;
 
 // 视野
 const View* painter_view = nullptr;
+
+Callback draw_background_callback = nullptr;
 
 
 }; // namespace sakaengine

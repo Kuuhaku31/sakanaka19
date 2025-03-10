@@ -10,6 +10,8 @@ namespace sakaengine
 {
 
 
+extern bool is_running; // 是否运行
+
 extern SDL_Window*   sdl_window;
 extern SDL_Renderer* sdl_renderer;
 
@@ -26,6 +28,8 @@ extern AnimationPool animation_pool;
 
 // 视野
 extern const View* painter_view;
+
+extern Callback draw_background_callback; // 绘制背景回调
 
 
 }; // namespace sakaengine

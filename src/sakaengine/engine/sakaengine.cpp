@@ -26,6 +26,8 @@ sakaengine::Init(EngineInitArgs& args)
     }
 
     loadResources(args.resources_path, sdl_renderer);
+
+    is_running = true;
 }
 
 
@@ -52,41 +54,36 @@ sakaengine::Quit()
 
 
 void
-sakaengine::DrawBackground(Callback f)
-{
-    SDL_SetRenderTarget(sdl_renderer, nullptr);
-
-    if(f)
-    {
-        f(); // 用户自定义的回调函数，用于渲染用户自定义的内容
-    }
-    else
-    {
-        SDL_SetRenderDrawColor(sdl_renderer, clear_color.r, clear_color.g, clear_color.b, clear_color.a);
-        SDL_RenderClear(sdl_renderer);
-    }
-}
-
-
-void
 sakaengine::NewFrame()
 {
+    ImGui_ImplSDLRenderer2_NewFrame();
+    ImGui_ImplSDL2_NewFrame();
+    ImGui::NewFrame();
+
     static SDL_Event sdl_event;
     while(SDL_PollEvent(&sdl_event))
     {
         if(sdl_event.type == SDL_QUIT) is_running = false;
         ImGui_ImplSDL2_ProcessEvent(&sdl_event);
     }
-
-    ImGui_ImplSDLRenderer2_NewFrame();
-    ImGui_ImplSDL2_NewFrame();
-    ImGui::NewFrame();
 }
 
 
 void
 sakaengine::EndFrame()
 {
+    SDL_SetRenderTarget(sdl_renderer, nullptr);
+
+    if(draw_background_callback)
+    {
+        draw_background_callback();
+    }
+    else
+    {
+        SDL_SetRenderDrawColor(sdl_renderer, clear_color.r, clear_color.g, clear_color.b, clear_color.a);
+        SDL_RenderClear(sdl_renderer);
+    }
+
     ImGui::Render();                                                                                                      // Rendering
     SDL_RenderSetScale(sdl_renderer, ImGui::GetIO().DisplayFramebufferScale.x, ImGui::GetIO().DisplayFramebufferScale.y); // 设置渲染目标
     ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), sdl_renderer);                                            // 渲染imgui
@@ -101,10 +98,31 @@ sakaengine::IsInit()
 }
 
 
+bool
+sakaengine::IsRunning()
+{
+    return is_running;
+}
+
+
+void
+sakaengine::Break()
+{
+    is_running = false;
+}
+
+
 Color&
 sakaengine::GetClearColor()
 {
     return clear_color;
+}
+
+
+void
+sakaengine::SetDrawBackgroundCallback(const Callback& callback)
+{
+    draw_background_callback = callback;
 }
 
 

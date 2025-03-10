@@ -41,4 +41,3 @@ void init_imgui();
 
 void loadResources(const std::string& resources_path, SDL_Renderer* renderer);
 void freeResources();
-void translateEvent(sakaengine::Event& event, const SDL_Event& sdl_event);

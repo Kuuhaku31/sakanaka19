@@ -5,6 +5,8 @@
 
 #include "base.h"
 
+#include <SDL_events.h>
+
 
 // 0b0000 0000 0000 0001
 // #define SKE_KEY_SCANCODE_W

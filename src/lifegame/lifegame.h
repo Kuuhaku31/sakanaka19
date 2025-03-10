@@ -13,7 +13,7 @@ namespace LifeGame
 
 int Run();
 
-void ProcessEvents(); // 处理事件
+void ProcessEvent(); // 处理事件
 
 
 } // namespace LifeGame

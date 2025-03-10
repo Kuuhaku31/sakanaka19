@@ -6,27 +6,24 @@
 #include "engine_classes.h"
 
 
-typedef std::function<void(const sakaengine::Event&)> EventCallback; // 事件回调函数
-
-
 namespace sakaengine
 {
-
-
-extern bool is_running; // 是否运行
 
 
 void Init(EngineInitArgs& args); // 初始化引擎
 void Quit();                     // 退出引擎
 
+
 void NewFrame(); // 新帧
 void EndFrame(); // 结束帧
 
-void DrawBackground(Callback f = nullptr); // 绘制背景
 
+bool IsInit();    // 是否初始化成功
+bool IsRunning(); // 是否运行中
+void Break();     // 停止运行
 
-bool   IsInit(); // 是否初始化成功
 Color& GetClearColor();
+void   SetDrawBackgroundCallback(const Callback& callback); // 设置绘制背景回调
 
 
 // 工具
