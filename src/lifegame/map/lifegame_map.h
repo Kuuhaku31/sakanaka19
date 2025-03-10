@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "sakaengine.h"
+#include "lifegame.h"
 
 
 namespace LifeGameMap
@@ -36,7 +36,7 @@ struct Cell // 细胞
 void Init();
 void Quit();
 
-void OnUpdate(float delta_time);
+void OnUpdate();
 void OnRender();
 
 View&    GetMapView();

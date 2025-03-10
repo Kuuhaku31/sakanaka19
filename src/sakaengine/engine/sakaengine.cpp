@@ -112,6 +112,13 @@ sakaengine::Break()
 }
 
 
+float
+sakaengine::GetDeltaTime()
+{
+    return ImGui::GetIO().DeltaTime;
+}
+
+
 Color&
 sakaengine::GetClearColor()
 {

@@ -30,8 +30,10 @@ LifeGameMap::Quit()
 
 
 void
-LifeGameMap::OnUpdate(float delta_time)
+LifeGameMap::OnUpdate()
 {
+    LifeGameMap::map_view.MoveXby(LifeGame::move_dir.vx * LifeGame::move_speed);
+    LifeGameMap::map_view.MoveYby(LifeGame::move_dir.vy * LifeGame::move_speed);
 }
 
 

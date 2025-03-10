@@ -203,12 +203,32 @@ Point
 operator-(const Point& a, const Point& b);
 
 
+class Position
+{
+public:
+    float x = 0;
+    float y = 0;
+
+    void MoveTo(float x, float y);
+    void MoveBy(float dx, float dy);
+    void MoveTo(const Vector2& p);
+    void MoveBy(const Vector2& d);
+    void MoveTo(const Point& p);
+    void MoveBy(const Point& d);
+};
+
+
 // 视野
 class View
 {
 public:
     View() = default;
     View(const Vector2& center_pos, const Vector2& size, float unit_size);
+
+    void MoveXto(float x);
+    void MoveYto(float y);
+    void MoveXby(float dx);
+    void MoveYby(float dy);
 
     void Set_view_center_position(const Vector2& pos);
     void Set_view_size(const Vector2& size);

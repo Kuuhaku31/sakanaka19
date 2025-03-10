@@ -3,6 +3,8 @@
 
 #include "imgui_windows.h"
 
+#include "lifegame.h"
+
 #include "imgui.h"
 
 
@@ -25,6 +27,10 @@ showPaintWindow(Texture* text) // 显示画板窗口
 
 
     {
+        // 显示速度
+        ImGui::Text("Move Speed: %.2f", LifeGame::move_speed);
+        ImGui::Text("Move Dir: %.2f, %.2f", LifeGame::move_dir.vx, LifeGame::move_dir.vy);
+
         int32_t w, h = 0;
         SKE::GetTextureSize(text, w, h); // 获取纹理大小
 

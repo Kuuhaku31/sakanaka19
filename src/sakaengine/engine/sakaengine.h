@@ -22,6 +22,8 @@ bool IsInit();    // 是否初始化成功
 bool IsRunning(); // 是否运行中
 void Break();     // 停止运行
 
+float GetDeltaTime(); // 获取时间间隔
+
 Color& GetClearColor();
 void   SetDrawBackgroundCallback(const Callback& callback); // 设置绘制背景回调
 

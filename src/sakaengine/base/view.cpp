@@ -10,6 +10,37 @@ View::View(const Vector2& center_pos, const Vector2& size, float unit_size)
     Set_unit_size(unit_size);
 }
 
+void
+View::MoveXto(float x)
+{
+    view_center_position.vx       = x;
+    view_left_top_position.vx     = view_center_position.vx - view_size_half.vx;
+    view_right_bottom_position.vx = view_center_position.vx + view_size_half.vx;
+}
+
+void
+View::MoveYto(float y)
+{
+    view_center_position.vy       = y;
+    view_left_top_position.vy     = view_center_position.vy - view_size_half.vy;
+    view_right_bottom_position.vy = view_center_position.vy + view_size_half.vy;
+}
+
+void
+View::MoveXby(float dx)
+{
+    view_center_position.vx += dx;
+    view_left_top_position.vx     = view_center_position.vx - view_size_half.vx;
+    view_right_bottom_position.vx = view_center_position.vx + view_size_half.vx;
+}
+
+void
+View::MoveYby(float dy)
+{
+    view_center_position.vy += dy;
+    view_left_top_position.vy     = view_center_position.vy - view_size_half.vy;
+    view_right_bottom_position.vy = view_center_position.vy + view_size_half.vy;
+}
 
 void
 View::Set_view_center_position(const Vector2& pos)
