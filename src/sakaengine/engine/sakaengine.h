@@ -9,7 +9,6 @@
 namespace sakaengine
 {
 
-
 void Init(EngineInitArgs& args); // 初始化引擎
 void Quit();                     // 退出引擎
 
@@ -18,9 +17,9 @@ void NewFrame(); // 新帧
 void EndFrame(); // 结束帧
 
 
-bool IsInit();    // 是否初始化成功
-bool IsRunning(); // 是否运行中
-void Break();     // 停止运行
+bool IsInit();        // 是否初始化成功
+bool IsRunning();     // 是否运行中
+void Break();         // 停止运行
 
 float GetDeltaTime(); // 获取时间间隔
 
@@ -29,7 +28,7 @@ void   SetDrawBackgroundCallback(const Callback& callback); // 设置绘制背�
 
 
 // 工具
-void GetTextureSize(Texture* texture, int32_t& w, int32_t& h); // 获取纹理大小
+void GetTextureSize(Texture* texture, int32_t& w, int32_t& h);                // 获取纹理大小
 
 void CreateTexture(Texture*& texture, int32_t tex_wide, int32_t tex_high);    // 创建纹理
 void DestroyTexture(Texture*& texture);                                       // 销毁纹理

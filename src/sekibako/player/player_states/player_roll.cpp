@@ -14,11 +14,12 @@ PlayerStatesRoll::PlayerStatesRoll(Player& player)
 {
     static ResourcesPool& resources_pool = ResourcesPool::Instance();
 
-    static Callback timer_callback = [&player]() {
+    static Callback timer_callback = [&player]()
+    {
         // 退出翻滚状态
         if(CONTROLER_GET(player.player_controler, PLAYER_CONTROL_PRESS_DASH) &&
-            player.is_try_move_x_on_one_dir() &&
-            (player.movement_velocity.vx > player.dash_min_speed || player.movement_velocity.vx < -player.dash_min_speed))
+           player.is_try_move_x_on_one_dir() &&
+           (player.movement_velocity.vx > player.dash_min_speed || player.movement_velocity.vx < -player.dash_min_speed))
         {
             // 1. 如果按住冲刺键
             // 2. 且有水平速度

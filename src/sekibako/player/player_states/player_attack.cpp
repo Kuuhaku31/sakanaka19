@@ -18,7 +18,8 @@ PlayerStatesAttack::PlayerStatesAttack(Player& player)
     : StateNode(PLAYER_STATE_ATTACK)
     , player(player)
 {
-    static Callback timer_callback = [&player]() {
+    static Callback timer_callback = [&player]()
+    {
         // 攻击动作计时结束，退出攻击状态
         if(!player.is_on_ground) // 如果不在地面
         {
@@ -49,16 +50,15 @@ PlayerStatesAttack::PlayerStatesAttack(Player& player)
 
     // 攻击效果等待计时器初始化
     attack_effect_wait_timer.is_one_shot = true;
-    attack_effect_wait_timer.Set_on_timeout([&]() {
+    attack_effect_wait_timer.Set_on_timeout([&]()
+                                            {
         attack_box->enable = true;
-        attack_effect_timer.Restart();
-    }); // 攻击效果等待计时结束，有效攻击碰撞盒
+        attack_effect_timer.Restart(); }); // 攻击效果等待计时结束，有效攻击碰撞盒
 
     // 攻击效果计时器初始化
     attack_effect_timer.is_one_shot = true;
-    attack_effect_timer.Set_on_timeout([&]() {
-        attack_box->enable = false;
-    }); // 攻击效果计时结束，无效攻击碰撞盒
+    attack_effect_timer.Set_on_timeout([&]()
+                                       { attack_box->enable = false; }); // 攻击效果计时结束，无效攻击碰撞盒
 }
 
 PlayerStatesAttack::~PlayerStatesAttack()

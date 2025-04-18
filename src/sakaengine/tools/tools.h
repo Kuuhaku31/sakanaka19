@@ -33,9 +33,9 @@ public:
     const bool&  Get_is_shotted() const { return is_shotted; }
 
 private:
-    float pass_time  = 0;     // 计时器已经过去的时间
-    float wait_time  = 0;     // 计时器等待的时间
-    bool  is_shotted = false; // 计时器是否已经触发过一次
+    float pass_time  = 0;          // 计时器已经过去的时间
+    float wait_time  = 0;          // 计时器等待的时间
+    bool  is_shotted = false;      // 计时器是否已经触发过一次
 
     Callback on_timeout = nullptr; // 超时回调函数
 };
@@ -134,12 +134,12 @@ protected:
     float movement_friction       = 0.0f;
     float movement_air_resistance = 0.0f;
 
-    Vector2 movement_position;     // 位置
-    Vector2 movement_velocity;     // 速度
-    Vector2 movement_acceleration; // 加速度
-    float   movement_mass = 0;     // 质量（为0时视为质量无穷大）
-    float   object_radius = 0;     // 半径
-    Color   object_color;          // 颜色
+    Vector2 movement_position;       // 位置
+    Vector2 movement_velocity;       // 速度
+    Vector2 movement_acceleration;   // 加速度
+    float   movement_mass = 0;       // 质量（为0时视为质量无穷大）
+    float   object_radius = 0;       // 半径
+    Color   object_color;            // 颜色
 
     Vector2 acceleration_last_frame; // 上一帧的加速度
 };

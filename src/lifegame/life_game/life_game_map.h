@@ -10,16 +10,16 @@ class LifeGameMap : public InstanceTem<LifeGameMap>
     friend class InstanceTem<LifeGameMap>;
 
 public:
-    struct Cell // 细胞
+    struct Cell    // 细胞
     {
         Point idx; // 索引
 
         bool is_alive  = false;
         bool is_marked = false; // 是否被标记
 
-        int count = 0; // 数量
+        int count = 0;          // 数量
 
-        Color cell_color; //= { 0.75, 0.75, 0.75, 1.0f };
+        Color cell_color;       //= { 0.75, 0.75, 0.75, 1.0f };
 
         bool operator==(const Cell& cell) const;
         bool operator<(const Cell& cell) const;
@@ -72,16 +72,16 @@ public:
     const View* Get_life_map_view() const;
 
 private:
-    View life_map_view; // 地图视野
+    View life_map_view;                   // 地图视野
 
-    float camera_size_ratio = 0; // 相机大小比例
+    float camera_size_ratio = 0;          // 相机大小比例
 
     Vector2 camera_size;                  // 相机大小
     Vector2 camera_size_half;             // 相机大小的一半
     Vector2 camera_left_top_position;     // 相机左上角位置
     Vector2 camera_right_bottom_position; // 相机右下角位置
 
-    Point map_size; // 地图宽高（显示在屏幕上的）
+    Point map_size;                       // 地图宽高（显示在屏幕上的）
 
 public:
     const MapCells& Get_map_cells() const;

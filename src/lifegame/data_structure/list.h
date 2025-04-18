@@ -5,7 +5,7 @@
 #include <functional>
 #include <utility>
 
-template<typename Tem>
+template <typename Tem>
 struct ListNode
 {
     ListNode* prev = nullptr; // 前驱指针
@@ -13,7 +13,7 @@ struct ListNode
     Tem*      data;
 };
 
-template<typename Tem>
+template <typename Tem>
 class List
 {
 public:
@@ -23,7 +23,7 @@ public:
     List(Compare less, Compare equal);
     ~List();
 
-    template<typename... Args>
+    template <typename... Args>
     void Insert(Args&&... args);
 
     Tem* Pop_back();
@@ -33,7 +33,7 @@ private:
     ListNode<Tem>* head = nullptr; // 头指针
     ListNode<Tem>* tail = nullptr; // 尾指针
 
-    int size = 0; // 链表大小
+    int size = 0;                  // 链表大小
 
     Compare less;
     Compare equal;

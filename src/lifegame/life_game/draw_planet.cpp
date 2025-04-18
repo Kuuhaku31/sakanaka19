@@ -53,37 +53,37 @@ draw_planet_in_test_rect()
     float dx_right = rect_right - planet_center_x; // 行星中心到矩形右边的距离
     float theta_r1 = 0;                            // 矩形右边与圆的可能焦点，用圆心角表示，单位为弧度
     float theta_r2 = 0;
-    bool  is_r1    = false; // 是否有焦点
+    bool  is_r1    = false;                        // 是否有焦点
     bool  is_r2    = false;
 
 
     float dy_down  = rect_down - planet_center_y; // 行星中心到矩形下边的距离
     float theta_d1 = 0;                           // 矩形下边与圆的可能焦点，用圆心角表示，单位为弧度
     float theta_d2 = 0;
-    bool  is_d1    = false; // 是否有焦点
+    bool  is_d1    = false;                       // 是否有焦点
     bool  is_d2    = false;
 
 
     float dx_left  = rect_left - planet_center_x; // 行星中心到矩形左边的距离
     float theta_l1 = 0;                           // 矩形左边与圆的可能焦点，用圆心角表示，单位为弧度
     float theta_l2 = 0;
-    bool  is_l1    = false; // 是否有焦点
+    bool  is_l1    = false;                       // 是否有焦点
     bool  is_l2    = false;
 
 
     float dy_top   = rect_top - planet_center_y; // 行星中心到矩形上边的距离
     float theta_t1 = 0;                          // 矩形上边与圆的可能焦点，用圆心角表示，单位为弧度
     float theta_t2 = 0;
-    bool  is_t1    = false; // 是否有焦点
+    bool  is_t1    = false;                      // 是否有焦点
     bool  is_t2    = false;
 
 
-    if(dx_right < planet_radius) // 如果行星中心到矩形右边的距离小于行星半径
+    if(dx_right < planet_radius)                                // 如果行星中心到矩形右边的距离小于行星半径
     {
         float dy = sqrt(planet_radius_2 - dx_right * dx_right); // 矩形右边与圆的焦点到行星中心的垂直距禋
 
-        float r1 = planet_center_y - dy; // 矩形右边与圆的可能焦点1的y坐标
-        float r2 = planet_center_y + dy; // 矩形右边与圆的可能焦点2的y坐标
+        float r1 = planet_center_y - dy;                        // 矩形右边与圆的可能焦点1的y坐标
+        float r2 = planet_center_y + dy;                        // 矩形右边与圆的可能焦点2的y坐标
 
         if(r1 > rect_top && r1 < rect_down)
         {
@@ -101,12 +101,12 @@ draw_planet_in_test_rect()
         }
     }
 
-    if(dy_down < planet_radius) // 如果行星中心到矩形下边的距离小于行星半径
+    if(dy_down < planet_radius)                               // 如果行星中心到矩形下边的距离小于行星半径
     {
         float dx = sqrt(planet_radius_2 - dy_down * dy_down); // 矩形下边与圆的焦点到行星中心的水平距离
 
-        float d1 = planet_center_x + dx; // 矩形下边与圆的可能焦点1的x坐标
-        float d2 = planet_center_x - dx; // 矩形下边与圆的可能焦点2的x坐标
+        float d1 = planet_center_x + dx;                      // 矩形下边与圆的可能焦点1的x坐标
+        float d2 = planet_center_x - dx;                      // 矩形下边与圆的可能焦点2的x坐标
 
         if(d1 > rect_left && d1 < rect_right)
         {
@@ -125,12 +125,12 @@ draw_planet_in_test_rect()
         }
     }
 
-    if(dx_left < planet_radius) // 如果行星中心到矩形左边的距离小于行星半径
+    if(dx_left < planet_radius)                               // 如果行星中心到矩形左边的距离小于行星半径
     {
         float dy = sqrt(planet_radius_2 - dx_left * dx_left); // 矩形左边与圆的焦点到行星中心的垂直距禋
 
-        float l1 = planet_center_y + dy; // 矩形左边与圆的可能焦点1的y坐标
-        float l2 = planet_center_y - dy; // 矩形左边与圆的可能焦点2的y坐标
+        float l1 = planet_center_y + dy;                      // 矩形左边与圆的可能焦点1的y坐标
+        float l2 = planet_center_y - dy;                      // 矩形左边与圆的可能焦点2的y坐标
 
         if(l1 > rect_top && l1 < rect_down)
         {
@@ -148,12 +148,12 @@ draw_planet_in_test_rect()
         }
     }
 
-    if(dy_top < planet_radius) // 如果行星中心到矩形上边的距离小于行星半径
+    if(dy_top < planet_radius)                              // 如果行星中心到矩形上边的距离小于行星半径
     {
         float dx = sqrt(planet_radius_2 - dy_top * dy_top); // 矩形上边与圆的焦点到行星中心的水平距离
 
-        float t1 = planet_center_x - dx; // 矩形上边与圆的可能焦点1的x坐标
-        float t2 = planet_center_x + dx; // 矩形上边与圆的可能焦点2的x坐标
+        float t1 = planet_center_x - dx;                    // 矩形上边与圆的可能焦点1的x坐标
+        float t2 = planet_center_x + dx;                    // 矩形上边与圆的可能焦点2的x坐标
 
         if(t1 > rect_left && t1 < rect_right)
         {
@@ -201,7 +201,7 @@ draw_planet_in_test_rect()
         }
     }
 
-    if(first != -1) // 说明有圆和矩形有交点
+    if(first != -1)        // 说明有圆和矩形有交点
     {
         if(first % 2 == 0) // 如果 first 是偶数，说明是起点是下一个交点
         {
@@ -306,7 +306,7 @@ draw_planet_in_test_rect_II()
 
         Vector2 dir = test_rect_center - planet.Get_position();
 
-        dir = dir.to_unit();
+        dir  = dir.to_unit();
         dir *= planet_radius;
         dir += planet.Get_position();
 

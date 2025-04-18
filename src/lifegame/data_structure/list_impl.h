@@ -7,7 +7,7 @@
 
 
 // 构造函数定义
-template<typename Tem>
+template <typename Tem>
 inline List<Tem>::List(Compare less, Compare equal)
     : less(less)
     , equal(equal)
@@ -15,7 +15,7 @@ inline List<Tem>::List(Compare less, Compare equal)
 }
 
 // 析构函数定义
-template<typename Tem>
+template <typename Tem>
 List<Tem>::~List()
 {
     ListNode<Tem>* temp = nullptr;
@@ -29,8 +29,8 @@ List<Tem>::~List()
 }
 
 
-template<typename Tem>
-template<typename... Args>
+template <typename Tem>
+template <typename... Args>
 inline void
 List<Tem>::Insert(Args&&... args) // 保证从小到大排序，二分查找
 {
@@ -68,7 +68,7 @@ List<Tem>::Insert(Args&&... args) // 保证从小到大排序，二分查找
     }
 }
 
-template<typename Tem>
+template <typename Tem>
 inline Tem*
 List<Tem>::Pop_back()
 {
@@ -97,7 +97,7 @@ List<Tem>::Pop_back()
     return data;
 }
 
-template<typename Tem>
+template <typename Tem>
 inline Tem*
 List<Tem>::Pop_front()
 {

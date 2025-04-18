@@ -44,7 +44,7 @@ init_imgui()
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 
-    ImGuiIO imgui_io = ImGui::GetIO();
+    ImGuiIO imgui_io      = ImGui::GetIO();
     imgui_io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
     imgui_io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;  // Enable Gamepad Controls
     imgui_io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;     // Enable Docking

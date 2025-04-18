@@ -51,14 +51,14 @@ AnimationInstance::AnimationInstance(const AnimationTemplate& animation, Callbac
 {
     frame_interval = animation.frame_interval; // 帧间隔
 
-    angle         = animation.angle;         // 渲染角度
-    on_corrective = animation.on_corrective; // 位置修正
+    angle         = animation.angle;           // 渲染角度
+    on_corrective = animation.on_corrective;   // 位置修正
 
     texture_size = animation.texture_size;
     ph_w         = animation.frame_w / texture_size; // w 表示纹理单位长度 = 纹理像素长度 / texture_size
     ph_h         = animation.frame_h / texture_size; // h 表示纹理单位长度 = 纹理像素长度 / texture_size
 
-    on_finished = animation_finished_callback; // 动画结束回调
+    on_finished = animation_finished_callback;       // 动画结束回调
 }
 
 
@@ -100,11 +100,11 @@ AnimationInstance::On_update(float delta_time)
         frame_current++;
         if(frame_current >= animation.frame_count) // 如果超出帧数
         {
-            if(animation.is_loop) // 如果是循环播放
+            if(animation.is_loop)                  // 如果是循环播放
             {
                 frame_current = 0;
             }
-            else // 如果不是循环播放
+            else                      // 如果不是循环播放
             {
                 is_paused     = true; // 暂停动画
                 is_finished   = true; // 动画结束

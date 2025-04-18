@@ -80,7 +80,7 @@ Shape::Shape_merge(Shape* s, std::function<void(int&, int&)> f, int dx, int dy)
 
     if(R > 0)
     {
-        wide -= R;
+        wide   -= R;
         B_skip += R;
     }
     if(R < 0)
@@ -89,13 +89,13 @@ Shape::Shape_merge(Shape* s, std::function<void(int&, int&)> f, int dx, int dy)
     }
     if(L > 0)
     {
-        A_skip += L;
+        A_skip  += L;
         A_start += L;
     }
     if(L < 0)
     {
-        wide += L;
-        B_skip -= L;
+        wide    += L;
+        B_skip  -= L;
         B_start -= L;
     }
     if(B > 0)
@@ -108,7 +108,7 @@ Shape::Shape_merge(Shape* s, std::function<void(int&, int&)> f, int dx, int dy)
     }
     if(T < 0)
     {
-        high += T;
+        high    += T;
         B_start -= s->shape_wide * T;
     }
 

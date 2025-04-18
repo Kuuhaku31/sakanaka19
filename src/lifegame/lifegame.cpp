@@ -35,15 +35,15 @@ LifeGame::Run()
 
     while(SKE::IsRunning())
     {
-        SKE::NewFrame(); // 新帧
+        SKE::NewFrame();                             // 新帧
 
-        LifeGame::ProcessEvent(); // 处理事件
-        LifeGameMap::OnUpdate();  // 更新地图
-        LifeGameMap::OnRender();  // 渲染地图
+        LifeGame::ProcessEvent();                    // 处理事件
+        LifeGameMap::OnUpdate();                     // 更新地图
+        LifeGameMap::OnRender();                     // 渲染地图
 
         ImGuiConfigWindow(LifeGameMap::GetMapTex()); // 渲染窗口
 
-        SKE::EndFrame(); // 结束帧
+        SKE::EndFrame();                             // 结束帧
     }
 
 

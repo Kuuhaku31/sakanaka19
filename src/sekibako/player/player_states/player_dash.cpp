@@ -60,7 +60,7 @@ PlayerStatesDash::On_update(float delta_time)
         // 时，才能冲刺
         player.movement_acceleration += (player.get_facing_vector() * player.dash_acceleration);
     }
-    else // 否则退出冲刺状态
+    else                                // 否则退出冲刺状态
     {
         if(player.movement_velocity.vx) // 如果速度不为0
         {

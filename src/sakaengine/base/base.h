@@ -167,7 +167,7 @@ public:
 #define VECTOR2_UNIT_RIGHT Vector2{ 1.0f, 0.0f }
 
 
-template<typename Tem>
+template <typename Tem>
 void
 swap(Tem& a, Tem& b)
 {
@@ -249,12 +249,12 @@ private:
     Vector2 view_left_top_position;     // 视野左上角位置
     Vector2 view_right_bottom_position; // 视野右下角位置
 
-    float unit_size = 1.0f; // 一个单位长度的大小（像素）
+    float unit_size = 1.0f;             // 一个单位长度的大小（像素）
 };
 
 
 // 单例模板
-template<typename Tem>
+template <typename Tem>
 class InstanceTem
 {
 public:
@@ -275,7 +275,7 @@ private:
     static Tem* instance;
 };
 
-template<typename Tem>
+template <typename Tem>
 Tem* InstanceTem<Tem>::instance = nullptr;
 
 

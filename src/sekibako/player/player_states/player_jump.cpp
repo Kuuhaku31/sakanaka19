@@ -18,7 +18,8 @@ PlayerStatesJump::PlayerStatesJump(Player& player)
 
     // 动画
     player_jump = new AnimationInstance(*resources_pool.Get_animation(Ani_SEKIBAKO_jump_R));
-    player_jump->Set_on_finished([&player]() { player.Switch_to_state(PLAYER_STATE_LEVIATE); }); // 跳跃动画结束，切换到 leviate 状态
+    player_jump->Set_on_finished([&player]()
+                                 { player.Switch_to_state(PLAYER_STATE_LEVIATE); }); // 跳跃动画结束，切换到 leviate 状态
 }
 
 PlayerStatesJump::~PlayerStatesJump()

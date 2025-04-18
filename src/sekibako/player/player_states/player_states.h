@@ -139,7 +139,7 @@ public:
 
 private:
     Player& player;
-    Timer   roll_timer; // 翻滚计时器
+    Timer   roll_timer;                       // 翻滚计时器
 
     AnimationInstance* roll_effect = nullptr; // 翻滚效果
 };
@@ -209,10 +209,10 @@ public:
 private:
     Player& player;
     // Timer   attack_action_timer;      // 攻击动作计时器
-    Timer attack_effect_wait_timer; // 攻击效果等待计时器
-    Timer attack_effect_timer;      // 攻击效果计时器
+    Timer attack_effect_wait_timer;     // 攻击效果等待计时器
+    Timer attack_effect_timer;          // 攻击效果计时器
 
     CollisionBox* attack_box = nullptr; // 攻击碰撞盒
 
-    AnimationInstance* player_attack; // 攻击动画
+    AnimationInstance* player_attack;   // 攻击动画
 };

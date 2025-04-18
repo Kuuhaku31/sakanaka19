@@ -14,16 +14,16 @@ extern View     map_view; // 地图视野
 extern Texture* map_tex;  // 地图纹理
 
 
-struct Cell // 细胞
+struct Cell    // 细胞
 {
     Point idx; // 索引
 
     bool is_alive  = false;
     bool is_marked = false; // 是否被标记
 
-    int count = 0; // 数量
+    int count = 0;          // 数量
 
-    Color cell_color; //= { 0.75, 0.75, 0.75, 1.0f };
+    Color cell_color;       //= { 0.75, 0.75, 0.75, 1.0f };
 
     bool operator==(const Cell& cell) const;
     bool operator<(const Cell& cell) const;

@@ -24,14 +24,14 @@ class CollisionBox : public FRect
     };
 
 public:
-    bool enable = false; // 是否启用碰撞盒
+    bool enable = false;           // 是否启用碰撞盒
 
-    Callback on_collision; // 碰撞回调函数
+    Callback on_collision;         // 碰撞回调函数
 
     Layer layer_src = Layer::None; // 源碰撞层
     Layer layer_dst = Layer::None; // 目标碰撞层
 
-private: // 保证只有碰撞管理器可以创建和销毁碰撞盒
+private:                           // 保证只有碰撞管理器可以创建和销毁碰撞盒
     CollisionBox()  = default;
     ~CollisionBox() = default;
 };

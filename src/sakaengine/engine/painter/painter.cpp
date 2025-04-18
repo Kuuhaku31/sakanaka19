@@ -240,12 +240,12 @@ DrawPartialCircle(SDL_Renderer* renderer, int centerX, int centerY, int radius, 
 
         if(err <= 0) // 计算下一个点
         {
-            y += 1;
+            y   += 1;
             err += 2 * y + 1;
         }
         if(err > 0)
         {
-            x -= 1;
+            x   -= 1;
             err -= 2 * x + 1;
         }
     }

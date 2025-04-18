@@ -84,11 +84,11 @@ public:
     PlayerControler player_controler = 0; // 角色控制器
 
 private:
-    bool is_try_move_x() const;            // 角色是否至少按下一个水平移动键
-    bool is_try_move_x_on_one_dir() const; // 角色是否只按下一个水平移动键
-    bool is_back_to_velocity() const;      // 角色面朝方向是否背对速度
-    bool is_try_walk() const;              // 角色是否尝试行走
-    bool is_try_run() const;               // 角色是否尝试奔跑
+    bool is_try_move_x() const;               // 角色是否至少按下一个水平移动键
+    bool is_try_move_x_on_one_dir() const;    // 角色是否只按下一个水平移动键
+    bool is_back_to_velocity() const;         // 角色面朝方向是否背对速度
+    bool is_try_walk() const;                 // 角色是否尝试行走
+    bool is_try_run() const;                  // 角色是否尝试奔跑
 
     const Vector2& get_try_move_dir() const;  // 获取角色尝试移动的方向
     const Vector2& get_facing_vector() const; // 获取角色面朝方向
@@ -98,8 +98,8 @@ private:
     Facing_Dir facing_dir = Facing_Dir::Right; // 朝向
     Action_Dir action_dir = Action_Dir::Right; // 动作朝向
 
-    bool is_Lock_facing_dir = false; // 是否锁定朝向
-    bool is_lock_action_dir = false; // 是否锁定动作朝向
+    bool is_Lock_facing_dir = false;           // 是否锁定朝向
+    bool is_lock_action_dir = false;           // 是否锁定动作朝向
 
     // 移动
     float current_move_acceleration = 0.0f;  // 当前移动加速度

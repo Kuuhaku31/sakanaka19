@@ -26,11 +26,13 @@ Game::Game()
 {
     clear_color = { 0x00, 0x00, 0x33, 0xFF };
 
-    event_callback = [this](const Event& e) {
+    event_callback = [this](const Event& e)
+    {
         if(e.type == SDL_QUIT) is_running = false;
     };
 
-    render_callback = [this]() {
+    render_callback = [this]()
+    {
         painter.Render_clear(clear_color);
         painter.Render_target(nullptr, &game_view);
 
@@ -159,7 +161,7 @@ Game::on_update_view()
 {
     static Vector2 view_size;
 
-    view_size = Vector2{ ImGui::GetIO().DisplaySize.x, ImGui::GetIO().DisplaySize.y };
+    view_size  = Vector2{ ImGui::GetIO().DisplaySize.x, ImGui::GetIO().DisplaySize.y };
     view_size /= game_view.Get_unit_size();
     game_view.Set_view_size(view_size);
     game_view.Set_view_center_position(camera.Get_position());

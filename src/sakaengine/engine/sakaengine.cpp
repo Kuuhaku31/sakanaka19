@@ -46,10 +46,10 @@ sakaengine::Quit()
 
     Mix_CloseAudio(); // 关闭音频设备
 
-    TTF_Quit(); // 退出TTF
-    Mix_Quit(); // 退出Mixer
-    IMG_Quit(); // 退出IMG
-    SDL_Quit(); // 退出SDL
+    TTF_Quit();       // 退出TTF
+    Mix_Quit();       // 退出Mixer
+    IMG_Quit();       // 退出IMG
+    SDL_Quit();       // 退出SDL
 }
 
 

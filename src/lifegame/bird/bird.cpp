@@ -226,7 +226,7 @@ Bird::find_view_birds()
     for(Point idx : view_cell_idxs) // 遍历 view_cell_idxs
     {
         const BirdManager::BirdList& tile_birds = bird_manager.Tile_find_birds(idx);
-        for(Bird* bird : tile_birds) // 遍历 tile_birds
+        for(Bird* bird : tile_birds)   // 遍历 tile_birds
         {
             if(bird == this) continue; // 如果是自己，跳过
 

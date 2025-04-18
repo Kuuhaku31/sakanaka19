@@ -73,9 +73,9 @@ Planet::set_cell(const Point& p)
 
     LifeGameMap::Cell* cell = life_map.Get_cell(p);
 
-    cell->is_alive = true;
-    cell->count += 10;
-    cell->cell_color = { 255, 0, 0, 255 };
+    cell->is_alive    = true;
+    cell->count      += 10;
+    cell->cell_color  = { 255, 0, 0, 255 };
 }
 
 void
