@@ -35,8 +35,8 @@ showPaintWindow(Texture* text, const View& map_view) // 显示画板窗口
         SKE::GetTextureSize(text, w, h); // 获取纹理大小
 
         // 显示视野大小
-        ImGui::Text("View Size: %.2f, %.2f", map_view.Get_view_size().vx, map_view.Get_view_size().vy);
-        ImGui::Text("View Center: %.2f, %.2f", map_view.Get_view_center_position().vx, map_view.Get_view_center_position().vy);
+        ImGui::Text("View Size: %.2f, %.2f", map_view.size().vx, map_view.size().vy);
+        ImGui::Text("View Center: %.2f, %.2f", map_view.centerPos().vx, map_view.centerPos().vy);
 
         ImGui::Text("Texture Size: %d, %d", w, h);
         ImGui::Image((ImTextureID)text, ImVec2(w, h));

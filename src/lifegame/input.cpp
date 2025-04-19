@@ -33,10 +33,10 @@ LifeGame::ProcessEvent()
     // [ ] 调整大小
     if(ImGui::IsKeyDown(ImGuiKey_Q))
     {
-        LifeGameMap::map_view.Set_view_size(LifeGameMap::map_view.Get_view_size() + Vector2{ 1, 1 });
+        LifeGameMap::map_view.SetUnitSize(LifeGameMap::map_view.unitSize() * 1.1f);
     }
     if(ImGui::IsKeyDown(ImGuiKey_E))
     {
-        LifeGameMap::map_view.Set_view_size(LifeGameMap::map_view.Get_view_size() - Vector2{ 1, 1 });
+        LifeGameMap::map_view.SetUnitSize(LifeGameMap::map_view.unitSize() * 0.9f);
     }
 }

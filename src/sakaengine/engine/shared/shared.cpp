@@ -27,6 +27,7 @@ AnimationPool animation_pool;
 
 // 视野
 const View* painter_view = nullptr;
+ViewOffset  view_offset  = { 0 }; // 视野偏移
 
 Callback draw_background_callback = nullptr;
 

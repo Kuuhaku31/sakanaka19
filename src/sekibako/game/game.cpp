@@ -123,12 +123,12 @@ Game::input_event()
         if(ImGui::IsKeyDown(ImGuiKey_L)) move_dir += VECTOR2_UNIT_RIGHT;
 
         move_dir.to_unit();
-        move_dir /= (game_view.Get_unit_size() * 0.1f);
+        move_dir /= (game_view.unit_size() * 0.1f);
         camera.Move(move_dir);
 
         // 控制摄像机的视野大小
         // , .
-        float size = game_view.Get_unit_size();
+        float size = game_view.unit_size();
         if(ImGui::IsKeyDown(ImGuiKey_Comma)) size *= 0.99f;
         if(ImGui::IsKeyDown(ImGuiKey_Period)) size *= 1.01f;
         game_view.Set_unit_size(size);
@@ -162,7 +162,7 @@ Game::on_update_view()
     static Vector2 view_size;
 
     view_size  = Vector2{ ImGui::GetIO().DisplaySize.x, ImGui::GetIO().DisplaySize.y };
-    view_size /= game_view.Get_unit_size();
+    view_size /= game_view.unit_size();
     game_view.Set_view_size(view_size);
     game_view.Set_view_center_position(camera.Get_position());
 }

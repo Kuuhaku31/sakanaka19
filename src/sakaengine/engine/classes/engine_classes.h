@@ -16,7 +16,8 @@ namespace sakaengine
 {
 
 
-typedef Texture Texture; // 纹理
+typedef Texture Texture;       // 纹理
+typedef int32_t ViewOffset[2]; // x, y 偏移量
 
 
 // 启动参数

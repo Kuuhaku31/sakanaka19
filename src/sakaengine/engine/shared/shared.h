@@ -27,9 +27,9 @@ extern MusicPool     music_pool;
 extern AnimationPool animation_pool;
 
 // 视野
-extern const View* painter_view;
+extern const View* painter_view;          // 视野
+extern ViewOffset  view_offset;           // 视野偏移
 
 extern Callback draw_background_callback; // 绘制背景回调
-
 
 }; // namespace sakaengine

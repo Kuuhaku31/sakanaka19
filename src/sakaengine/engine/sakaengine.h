@@ -26,6 +26,7 @@ float GetDeltaTime(); // 获取时间间隔
 Color& GetClearColor();
 void   SetDrawBackgroundCallback(const Callback& callback); // 设置绘制背景回调
 
+void SetViewOffset(const ViewOffset offset);                // 设置视野偏移
 
 // 工具
 void GetTextureSize(Texture* texture, int32_t& w, int32_t& h);                // 获取纹理大小

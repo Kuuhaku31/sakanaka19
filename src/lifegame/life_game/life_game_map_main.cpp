@@ -29,7 +29,7 @@ LifeGameMap::on_update_map_mouse()
 
         // 更新鼠标在地图中的位置
         // mouse_map_pos = (Vector2)mouse_win / cell_size + view_left_top_position;
-        mouse_map_pos = (Vector2)mouse_win / life_map_view.Get_unit_size() + life_map_view.Get_view_left_top_position();
+        mouse_map_pos = (Vector2)mouse_win / life_map_view.unit_size() + life_map_view.Get_view_left_top_position();
 
         // 更新选中的细胞索引，注意当坐标小于0时，向上取整
         selected_cell_idx.px = mouse_map_pos.vx >= 0 ? (int)mouse_map_pos.vx : (int)mouse_map_pos.vx - 1;
@@ -90,10 +90,10 @@ LifeGameMap::On_update(float delta_time)
     static BirdManager&   bird_manager   = BirdManager::Instance();
     static PlanetManager& planet_manager = PlanetManager::Instance();
 
-    float cell_size = life_map_view.Get_unit_size();
+    float cell_size = life_map_view.unit_size();
 
-    Vector2 view_center_position = life_map_view.Get_view_center_position();
-    Vector2 view_size_half       = life_map_view.Get_view_size_half();
+    Vector2 view_center_position = life_map_view.centerPos();
+    Vector2 view_size_half       = life_map_view.halfSize();
 
     if(config.is_P_clicked)
     {
@@ -173,10 +173,10 @@ LifeGameMap::On_update(float delta_time)
 void
 LifeGameMap::On_render() const
 {
-    float cell_size = life_map_view.Get_unit_size();
+    float cell_size = life_map_view.unit_size();
 
-    Vector2 view_center_position = life_map_view.Get_view_center_position();
-    Vector2 view_size_half       = life_map_view.Get_view_size_half();
+    Vector2 view_center_position = life_map_view.centerPos();
+    Vector2 view_size_half       = life_map_view.halfSize();
 
     Vector2 view_left_top_position     = life_map_view.Get_view_left_top_position();
     Vector2 view_right_bottom_position = life_map_view.Get_view_right_bottom_position();

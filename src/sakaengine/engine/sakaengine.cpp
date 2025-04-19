@@ -129,6 +129,12 @@ sakaengine::SetDrawBackgroundCallback(const Callback& callback)
     draw_background_callback = callback;
 }
 
+void
+sakaengine::SetViewOffset(const ViewOffset offset)
+{
+    view_offset[0] = offset[0];
+    view_offset[1] = offset[1];
+}
 
 void
 sakaengine::GetTextureSize(Texture* texture, int32_t& w, int32_t& h)

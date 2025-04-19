@@ -222,34 +222,48 @@ public:
 class View
 {
 public:
-    View() = default;
-    View(const Vector2& center_pos, const Vector2& size, float unit_size);
+    View(const FRect& rect, float uSize);
 
-    void MoveXto(float x);
-    void MoveYto(float y);
-    void MoveXby(float dx);
-    void MoveYby(float dy);
+    void MoveCenterTo(float x, float y);
+    void MoveBy(float dx, float dy);
 
-    void Set_view_center_position(const Vector2& pos);
-    void Set_view_size(const Vector2& size);
-    void Set_unit_size(float size);
+    void SetW(float w);
+    void SetH(float h);
 
-    const Vector2& Get_view_center_position() const;
-    const Vector2& Get_view_size() const;
-    const Vector2& Get_view_size_half() const;
-    const Vector2& Get_view_left_top_position() const;
-    const Vector2& Get_view_right_bottom_position() const;
+    void SetUnitSize(float size);
 
-    const float& Get_unit_size() const;
+    Vector2 centerPos() const { return Vector2{ view_center_x, view_center_y }; }
+    Vector2 size() const { return Vector2{ view_size_w, view_size_h }; }
+    Vector2 halfSize() const { return Vector2{ view_half_w, view_half_h }; }
+
+    float viewLeft() const { return view_left; }
+    float viewTop() const { return view_top; }
+    float viewRight() const { return view_right; }
+    float viewBottom() const { return view_bottom; }
+    float viewCenterX() const { return view_center_x; }
+    float viewCenterY() const { return view_center_y; }
+
+    float viewSizeW() const { return view_size_w; }
+    float viewHalfW() const { return view_half_w; }
+    float viewSizeH() const { return view_size_h; }
+    float viewHalfH() const { return view_half_h; }
+
+    float unitSize() const { return unit_size; }
 
 private:
-    Vector2 view_center_position;       // 视野中心位置
-    Vector2 view_size;                  // 视野宽高
-    Vector2 view_size_half;             // 视野宽高的一半
-    Vector2 view_left_top_position;     // 视野左上角位置
-    Vector2 view_right_bottom_position; // 视野右下角位置
+    float view_left;     // 视野左边界 x 坐标
+    float view_top;      // 视野上边界 y 坐标
+    float view_right;    // 视野右边界 x 坐标
+    float view_bottom;   // 视野下边界 y 坐标
+    float view_center_x; // 视野中心位置 x 坐标
+    float view_center_y; // 视野中心位置 y 坐标
 
-    float unit_size = 1.0f;             // 一个单位长度的大小（像素）
+    float view_size_w;   // 视野宽度
+    float view_half_w;   // 视野宽度的一半
+    float view_size_h;   // 视野高度
+    float view_half_h;   // 视野高度的一半
+
+    float unit_size;     // 一个单位长度的大小（像素）
 };
 
 

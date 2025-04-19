@@ -3,103 +3,84 @@
 
 #include "base.h"
 
-View::View(const Vector2& center_pos, const Vector2& size, float unit_size)
+View::View(const FRect& rect, float uSize)
 {
-    Set_view_center_position(center_pos);
-    Set_view_size(size);
-    Set_unit_size(unit_size);
+    view_left   = rect.x;
+    view_top    = rect.y;
+    view_right  = rect.x + rect.w;
+    view_bottom = rect.y + rect.h;
+
+    view_center_x = (view_left + view_right) / 2.0f;
+    view_center_y = (view_top + view_bottom) / 2.0f;
+
+    view_size_w = rect.w;
+    view_size_h = rect.h;
+    view_half_w = view_size_w / 2.0f;
+    view_half_h = view_size_h / 2.0f;
+
+    unit_size = uSize;
 }
 
 void
-View::MoveXto(float x)
+View::MoveCenterTo(float x, float y)
 {
-    view_center_position.vx       = x;
-    view_left_top_position.vx     = view_center_position.vx - view_size_half.vx;
-    view_right_bottom_position.vx = view_center_position.vx + view_size_half.vx;
+    view_center_x = x;
+    view_center_y = y;
+
+    view_left   = view_center_x - view_half_w;
+    view_top    = view_center_y - view_half_h;
+    view_right  = view_center_x + view_half_w;
+    view_bottom = view_center_y + view_half_h;
 }
 
 void
-View::MoveYto(float y)
+View::MoveBy(float dx, float dy)
 {
-    view_center_position.vy       = y;
-    view_left_top_position.vy     = view_center_position.vy - view_size_half.vy;
-    view_right_bottom_position.vy = view_center_position.vy + view_size_half.vy;
+    view_center_x += dx;
+    view_center_y += dy;
+
+    view_left   = view_center_x - view_half_w;
+    view_top    = view_center_y - view_half_h;
+    view_right  = view_center_x + view_half_w;
+    view_bottom = view_center_y + view_half_h;
 }
 
 void
-View::MoveXby(float dx)
+View::SetW(float w)
 {
-    view_center_position.vx       += dx;
-    view_left_top_position.vx      = view_center_position.vx - view_size_half.vx;
-    view_right_bottom_position.vx  = view_center_position.vx + view_size_half.vx;
+    view_size_w = w;
+    view_half_w = w / 2.0f;
+
+    view_left  = view_center_x - view_half_w;
+    view_right = view_center_x + view_half_w;
 }
 
 void
-View::MoveYby(float dy)
+View::SetH(float h)
 {
-    view_center_position.vy       += dy;
-    view_left_top_position.vy      = view_center_position.vy - view_size_half.vy;
-    view_right_bottom_position.vy  = view_center_position.vy + view_size_half.vy;
+    view_size_h = h;
+    view_half_h = h / 2.0f;
+
+    view_top    = view_center_y - view_half_h;
+    view_bottom = view_center_y + view_half_h;
 }
 
 void
-View::Set_view_center_position(const Vector2& pos)
+View::SetUnitSize(float size)
 {
-    view_center_position = pos;
+    static float ratio;
 
-    view_left_top_position     = view_center_position - view_size_half;
-    view_right_bottom_position = view_center_position + view_size_half;
-}
+    ratio = unit_size / size;
 
-void
-View::Set_view_size(const Vector2& size)
-{
-    view_size      = size;
-    view_size_half = size / 2;
-
-    view_left_top_position     = view_center_position - view_size_half;
-    view_right_bottom_position = view_center_position + view_size_half;
-}
-
-void
-View::Set_unit_size(float size)
-{
     unit_size = size;
-    if(unit_size <= 0) unit_size = 1.0f;
-}
 
-const Vector2&
-View::Get_view_center_position() const
-{
-    return view_center_position;
-}
+    view_size_w *= ratio;
+    view_size_h *= ratio;
+    view_half_w *= ratio;
+    view_half_h *= ratio;
 
-const Vector2&
-View::Get_view_size() const
-{
-    return view_size;
-}
-
-const Vector2&
-View::Get_view_size_half() const
-{
-    return view_size_half;
-}
-
-const Vector2&
-View::Get_view_left_top_position() const
-{
-    return view_left_top_position;
-}
-
-const Vector2&
-View::Get_view_right_bottom_position() const
-{
-    return view_right_bottom_position;
-}
-
-const float&
-View::Get_unit_size() const
-{
-    return unit_size;
+    view_left   = view_center_x - view_half_w;
+    view_top    = view_center_y - view_half_h;
+    view_right  = view_center_x + view_half_w;
+    view_bottom = view_center_y + view_half_h;
 }

@@ -77,8 +77,8 @@ Debuger::ImGuiWin_Debug(bool* is_open)
 
     { // 视野参数
         const View& view = game.game_view;
-        ImGui::Text("一单位距离显示为: %.2f个像素", view.Get_unit_size());
-        ImGui::Text("View Center Position: (%.2f, %.2f)", view.Get_view_center_position().vx, view.Get_view_center_position().vy);
+        ImGui::Text("一单位距离显示为: %.2f个像素", view.unitSize());
+        ImGui::Text("View Center Position: (%.2f, %.2f)", view.centerPos().vx, view.centerPos().vy);
     }
 
     ImGui::Separator();
