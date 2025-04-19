@@ -74,10 +74,7 @@ sakaengine::EndFrame()
 {
     SDL_SetRenderTarget(sdl_renderer, nullptr);
 
-    if(draw_background_callback)
-    {
-        draw_background_callback();
-    }
+    if(draw_background_callback) draw_background_callback();
     else
     {
         SDL_SetRenderDrawColor(sdl_renderer, clear_color.r, clear_color.g, clear_color.b, clear_color.a);

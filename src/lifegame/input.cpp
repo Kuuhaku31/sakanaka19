@@ -29,4 +29,14 @@ LifeGame::ProcessEvent()
         LifeGame::move_dir.vx += 1;
     }
     LifeGame::move_dir.to_unit();
+
+    // [ ] 调整大小
+    if(ImGui::IsKeyDown(ImGuiKey_Q))
+    {
+        LifeGameMap::map_view.Set_view_size(LifeGameMap::map_view.Get_view_size() + Vector2{ 1, 1 });
+    }
+    if(ImGui::IsKeyDown(ImGuiKey_E))
+    {
+        LifeGameMap::map_view.Set_view_size(LifeGameMap::map_view.Get_view_size() - Vector2{ 1, 1 });
+    }
 }

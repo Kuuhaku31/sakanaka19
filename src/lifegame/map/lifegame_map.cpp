@@ -45,6 +45,20 @@ LifeGameMap::OnRender()
 
     SKE::DrawLine(1, +1, 0, { 0x99, 0x99, 0xcc, 0xff });
     SKE::DrawLine(1, -1, 0, { 0xcc, 0x99, 0x99, 0xff });
+    SKE::DrawLine(1, 1.5, 100, { 0xcc, 0x99, 0x99, 0xff });
+
+    Vector2 view_LT_pos = map_view.Get_view_left_top_position();
+    Vector2 view_RB_pos = map_view.Get_view_right_bottom_position();
+
+    for(int x = int(view_LT_pos.vx) - int(view_LT_pos.vx) % 100; x < view_RB_pos.vx; x += 100)
+    {
+        SKE::DrawLine(Vector2(x, view_LT_pos.vy), Vector2(x, view_RB_pos.vy), { 0x99, 0x99, 0xcc, 0xff });
+    }
+
+    for(int y = int(view_LT_pos.vy) - int(view_LT_pos.vy) % 100; y < view_RB_pos.vy; y += 100)
+    {
+        SKE::DrawLine(Vector2(view_LT_pos.vx, y), Vector2(view_RB_pos.vx, y), { 0x99, 0x99, 0xcc, 0xff });
+    }
 }
 
 

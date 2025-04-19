@@ -117,7 +117,7 @@
 //     ImGui::InputFloat4("cohesion", &config.cohesion);
 
 //     ImGui::SetCursorPos(ImVec2(text_offset, ImGui::GetCursorPosY()));
-//     ImGui::Text("zuan");
+//     ImGui::Text("z uan");
 //     ImGui::SameLine();
 //     ImGui::InputFloat4("rotation", &config.rotation);
 

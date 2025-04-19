@@ -15,7 +15,7 @@ ColorF painter_tex_color = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 
 void
-showPaintWindow(Texture* text) // 显示画板窗口
+showPaintWindow(Texture* text, const View& map_view) // 显示画板窗口
 {
     if(!is_show_paint_window) return;
 
@@ -34,6 +34,10 @@ showPaintWindow(Texture* text) // 显示画板窗口
         int32_t w, h = 0;
         SKE::GetTextureSize(text, w, h); // 获取纹理大小
 
+        // 显示视野大小
+        ImGui::Text("View Size: %.2f, %.2f", map_view.Get_view_size().vx, map_view.Get_view_size().vy);
+        ImGui::Text("View Center: %.2f, %.2f", map_view.Get_view_center_position().vx, map_view.Get_view_center_position().vy);
+
         ImGui::Text("Texture Size: %d, %d", w, h);
         ImGui::Image((ImTextureID)text, ImVec2(w, h));
     }
@@ -44,7 +48,7 @@ showPaintWindow(Texture* text) // 显示画板窗口
 
 
 void
-ImGuiConfigWindow(Texture* text) // ImGui 配置窗口
+ImGuiConfigWindow(Texture* text, const View& map_view) // ImGui 配置窗口
 {
     if(is_show_demo_window) ImGui::ShowDemoWindow(&is_show_demo_window);
 
@@ -64,5 +68,5 @@ ImGuiConfigWindow(Texture* text) // ImGui 配置窗口
 
     ImGui::End();
 
-    showPaintWindow(text);
+    showPaintWindow(text, map_view);
 }

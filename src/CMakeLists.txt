@@ -1,5 +1,6 @@
 
 add_subdirectory(sakaengine)
+
 # add_subdirectory(sekibako)
 add_subdirectory(lifegame)
 add_subdirectory(test)
@@ -11,6 +12,7 @@ set(DIR_SRC ${DIR_SRC} ./main.cpp)
 # 添加头文件目录
 include_directories(
     ./launcher
+
     # ${SEKIBAKO_INC_PATHS}
     ${LIFEGAME_INC_PATHS}
 )
@@ -18,9 +20,10 @@ include_directories(
 # 添加依赖
 # 添加sekibako库
 link_libraries(
-    # sekibako 
+
+    # sekibako
     lifegame
-    )
+)
 
 # 创建可执行文件
 add_executable(sakanaka19 ${DIR_SRC})
