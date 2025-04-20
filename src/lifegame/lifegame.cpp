@@ -12,9 +12,12 @@ namespace LifeGame
 {
 
 
-float   move_speed = 5; // 移动速度
-Vector2 move_dir;       // 移动方向
+float   move_speed = 5;                       // 移动速度
+Vector2 move_dir;                             // 移动方向
 
+uint32_t view_display_size[2] = { 400, 300 }; // 视野显示大小
+
+bool is_show_view = true;                     // 是否显示生命游戏地图
 
 } // namespace LifeGame
 
@@ -35,16 +38,17 @@ LifeGame::Run()
 
     while(SKE::IsRunning())
     {
-        SKE::NewFrame();                                                                              // 新帧
+        SKE::NewFrame();                // 新帧
 
-        ImGuiConfigWindow(LifeGameMap::GetMapTex(), LifeGameMap::map_view, LifeGameMap::view_offset); // 渲染窗口
+        ImGuiConfigWindow();            // 渲染窗口
 
-        LifeGame::ProcessEvent();                                                                     // 处理事件
-        LifeGameMap::OnUpdate();                                                                      // 更新地图
-        LifeGameMap::OnRender();                                                                      // 渲染地图
+        LifeGame::ProcessEvent();       // 处理事件
+        LifeGameMap::OnUpdate();        // 更新地图
+        LifeGameMap::OnRender();        // 渲染地图
 
+        ImGuiViewWindow(&is_show_view); // 渲染视图窗口
 
-        SKE::EndFrame(); // 结束帧
+        SKE::EndFrame();                // 结束帧
     }
 
 

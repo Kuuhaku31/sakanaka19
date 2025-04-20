@@ -11,6 +11,12 @@
 typedef std::function<void()>                                                                   Callback;      // 回调函数
 typedef std::function<void(float& dst_x, float& dst_y, const float& src_w, const float& src_h)> CorrectivePos; // 位置修正回调函数
 
+struct Size
+{
+    uint32_t w = 0; // 宽度
+    uint32_t h = 0; // 高度
+};
+
 
 struct IRect
 {
@@ -222,10 +228,12 @@ public:
 class View
 {
 public:
-    View(const FRect& rect, float uSize);
+    View(Size display_size, const FRect& rect);
 
     void MoveCenterTo(float x, float y);
     void MoveBy(float dx, float dy);
+
+    void SetDisplaySize(Size display_size);
 
     void SetW(float w);
     void SetH(float h);
@@ -236,6 +244,7 @@ public:
     Vector2 size() const { return Vector2{ view_size_w, view_size_h }; }
     Vector2 halfSize() const { return Vector2{ view_half_w, view_half_h }; }
     FRect   rect() const { return FRect{ view_left, view_top, view_size_w, view_size_h }; }
+    Size    displaySize() const { return Size{ display_w, display_h }; }
 
     float viewLeft() const { return view_left; }
     float viewTop() const { return view_top; }
@@ -265,6 +274,9 @@ private:
     float view_half_h;   // 视野高度的一半
 
     float unit_size;     // 一个单位长度的大小（像素）
+
+    uint32_t display_w;  // 显示大小宽度
+    uint32_t display_h;  // 显示大小高度
 };
 
 

@@ -8,9 +8,9 @@ namespace LifeGameMap
 {
 
 
-View            map_view    = View({ 0, 0, 400, 300 }, 1.0f); // 地图视野
-SKE::ViewOffset view_offset = { 10, 10 };                     // 视野偏移
-Texture*        map_tex     = nullptr;                        // 地图纹理
+View            map_view    = View({ 400, 300 }, { 0, 0, 400, 300 }); // 地图视野
+SKE::ViewOffset view_offset = { 10, 10 };                             // 视野偏移
+Texture*        map_tex     = nullptr;                                // 地图纹理
 
 
 } // namespace LifeGameMap
@@ -33,6 +33,7 @@ LifeGameMap::Quit()
 void
 LifeGameMap::OnUpdate()
 {
+    LifeGameMap::map_view.SetDisplaySize({ LifeGame::view_display_size[0], LifeGame::view_display_size[1] }); // 设置视野显示大小
     LifeGameMap::map_view.MoveBy(LifeGame::move_dir.vx * LifeGame::move_speed, LifeGame::move_dir.vy * LifeGame::move_speed);
 }
 
@@ -76,7 +77,7 @@ LifeGameMap::GetMapView()
 }
 
 
-Texture*
+const Texture*
 LifeGameMap::GetMapTex()
 {
     return map_tex;

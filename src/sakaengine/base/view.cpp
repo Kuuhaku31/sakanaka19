@@ -3,7 +3,7 @@
 
 #include "base.h"
 
-View::View(const FRect& rect, float uSize)
+View::View(Size display_size, const FRect& rect)
 {
     view_left   = rect.x;
     view_top    = rect.y;
@@ -18,7 +18,10 @@ View::View(const FRect& rect, float uSize)
     view_half_w = view_size_w / 2.0f;
     view_half_h = view_size_h / 2.0f;
 
-    unit_size = uSize;
+    display_w = display_size.w;
+    display_h = display_size.h;
+
+    unit_size = view_size_w / display_w;
 }
 
 void
@@ -46,6 +49,29 @@ View::MoveBy(float dx, float dy)
 }
 
 void
+View::SetDisplaySize(Size display_size)
+{
+    static float ratioW = 0.0f;
+    static float ratioH = 0.0f;
+
+    ratioW = float(display_size.w) / float(display_w);
+    ratioH = float(display_size.h) / float(display_h);
+
+    view_size_w *= ratioW;
+    view_size_h *= ratioH;
+    view_half_w *= ratioW;
+    view_half_h *= ratioH;
+
+    view_left   = view_center_x - view_half_w;
+    view_top    = view_center_y - view_half_h;
+    view_right  = view_center_x + view_half_w;
+    view_bottom = view_center_y + view_half_h;
+
+    display_w = display_size.w;
+    display_h = display_size.h;
+}
+
+void
 View::SetW(float w)
 {
     view_size_w = w;
@@ -68,11 +94,9 @@ View::SetH(float h)
 void
 View::SetUnitSize(float size)
 {
-    static float ratio;
+    static float ratio = 0.0f;
 
     ratio = unit_size / size;
-
-    unit_size = size;
 
     view_size_w *= ratio;
     view_size_h *= ratio;
@@ -83,4 +107,6 @@ View::SetUnitSize(float size)
     view_top    = view_center_y - view_half_h;
     view_right  = view_center_x + view_half_w;
     view_bottom = view_center_y + view_half_h;
+
+    unit_size = size;
 }

@@ -40,8 +40,8 @@ void Quit();
 void OnUpdate();
 void OnRender();
 
-View&    GetMapView();
-Texture* GetMapTex();
+View&          GetMapView();
+const Texture* GetMapTex();
 
 
 } // namespace LifeGameMap
