@@ -235,6 +235,7 @@ public:
     Vector2 centerPos() const { return Vector2{ view_center_x, view_center_y }; }
     Vector2 size() const { return Vector2{ view_size_w, view_size_h }; }
     Vector2 halfSize() const { return Vector2{ view_half_w, view_half_h }; }
+    FRect   rect() const { return FRect{ view_left, view_top, view_size_w, view_size_h }; }
 
     float viewLeft() const { return view_left; }
     float viewTop() const { return view_top; }

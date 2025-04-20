@@ -15,7 +15,7 @@ ColorF painter_tex_color = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 
 void
-showPaintWindow(Texture* text, const View& map_view) // 显示画板窗口
+showPaintWindow(Texture* text, const View& map_view, const SKE::ViewOffset& offset) // 显示画板窗口
 {
     if(!is_show_paint_window) return;
 
@@ -25,6 +25,7 @@ showPaintWindow(Texture* text, const View& map_view) // 显示画板窗口
 
     ImGui::ColorEdit4("Painter Texture Color", painter_tex_color);
 
+    ImGui::DragInt2("View Offset", (int*)offset, 1, -1000, 1000); // 拖动视野偏移
 
     {
         // 显示速度
@@ -48,7 +49,7 @@ showPaintWindow(Texture* text, const View& map_view) // 显示画板窗口
 
 
 void
-ImGuiConfigWindow(Texture* text, const View& map_view) // ImGui 配置窗口
+ImGuiConfigWindow(Texture* text, const View& map_view, const SKE::ViewOffset& offset) // ImGui 配置窗口
 {
     if(is_show_demo_window) ImGui::ShowDemoWindow(&is_show_demo_window);
 
@@ -68,5 +69,5 @@ ImGuiConfigWindow(Texture* text, const View& map_view) // ImGui 配置窗口
 
     ImGui::End();
 
-    showPaintWindow(text, map_view);
+    showPaintWindow(text, map_view, offset);
 }

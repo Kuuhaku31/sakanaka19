@@ -8,8 +8,9 @@ namespace LifeGameMap
 {
 
 
-View     map_view({ 0, 0, 400, 300 }, 1.0f); // 地图视野
-Texture* map_tex = nullptr;                  // 地图纹理
+View            map_view    = View({ 0, 0, 400, 300 }, 1.0f); // 地图视野
+SKE::ViewOffset view_offset = { 10, 10 };                     // 视野偏移
+Texture*        map_tex     = nullptr;                        // 地图纹理
 
 
 } // namespace LifeGameMap
@@ -19,8 +20,6 @@ void
 LifeGameMap::Init()
 {
     SKE::CreateTexture(map_tex, 800, 600); // 创建纹理
-    SKE::ViewOffset offset = { 100, 200 };
-    SKE::SetViewOffset(offset);            // 设置视野偏移
 }
 
 
@@ -41,8 +40,12 @@ LifeGameMap::OnUpdate()
 void
 LifeGameMap::OnRender()
 {
-    SKE::SetRenderTarget(map_tex, &map_view);     // 设置渲染目标
-    SKE::RenderClear({ 0x33, 0x33, 0x33, 0xff }); // 清屏
+    SKE::SetRenderTarget(map_tex, &map_view);                          // 设置渲染目标
+    SKE::SetViewOffset(&view_offset);                                  // 设置视野偏移
+
+    SKE::RenderClear({ 0x33, 0x33, 0x33, 0xff });                      // 清屏
+
+    SKE::DrawRect(map_view.rect(), { 0x11, 0x11, 0x11, 0xff }, false); // 绘制背景
 
     SKE::DrawLine(1, +1, 0, { 0x99, 0x99, 0xcc, 0xff });
     SKE::DrawLine(1, -1, 0, { 0xcc, 0x99, 0x99, 0xff });

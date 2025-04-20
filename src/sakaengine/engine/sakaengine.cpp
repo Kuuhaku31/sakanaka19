@@ -130,10 +130,9 @@ sakaengine::SetDrawBackgroundCallback(const Callback& callback)
 }
 
 void
-sakaengine::SetViewOffset(const ViewOffset offset)
+sakaengine::SetViewOffset(const ViewOffset* offset)
 {
-    view_offset[0] = offset[0];
-    view_offset[1] = offset[1];
+    view_offset = offset;
 }
 
 void
@@ -170,7 +169,7 @@ void
 sakaengine::SetRenderTarget(Texture* texture, const View* view)
 {
     SDL_SetRenderTarget(sdl_renderer, texture);
-    if(view) painter_view = view;
+    painter_view = view;
 }
 
 
