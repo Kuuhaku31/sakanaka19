@@ -33,6 +33,8 @@ LifeGame::Run()
         LifeGameMap::Init();
 
         SKE::LoadConfig("config.json", ProcessInitConfig);
+
+        LifeGameMap::map_view_zoom = LifeGameMap::map_view.unitSize(); // 设置视野单位大小
     }
 
 

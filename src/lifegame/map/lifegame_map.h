@@ -11,6 +11,7 @@ namespace LifeGameMap
 
 
 extern View   map_view;          // 地图视野
+extern float  map_view_zoom;     // 地图视野缩放
 extern Size   display_size;      // 显示大小
 extern Size   view_display_size; // 视野显示大小
 extern Offset view_offset;       // 视野偏移

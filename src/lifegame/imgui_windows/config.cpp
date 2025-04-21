@@ -32,6 +32,9 @@ ImGuiConfigWindow(bool* is_show) // ImGui 配置窗口
     ImGui::DragInt2("View Offset", (int32_t*)LifeGameMap::view_offset, 1, -1000, 1000);           // 拖动视野偏移
     ImGui::DragInt2("View Display Size", (int32_t*)LifeGameMap::view_display_size, 1, 100, 2000); // 拖动视野显示大小
 
+
+    ImGui::SliderFloat("Map View Zoom", &LifeGameMap::map_view_zoom, 0.1f, 10.0f); // 拖动视野缩放
+
     {
         // 显示速度
         ImGui::Text("Move Speed: %.2f", LifeGame::move_speed);
