@@ -27,6 +27,8 @@ ImGuiConfigWindow(bool* is_show) // ImGui 配置窗口
     ImGui::Checkbox("Show Demo Window", &is_show_demo_window);                             // 显示demo窗口
     ImGui::Checkbox("Show View Window", &LifeGame::is_show_view);                          // 显示demo窗口
 
+    ImGui::DragInt2("Display Size", (int*)LifeGame::display_size, 1, 100, 2000);           // 拖动显示大小
+
     ImGui::DragInt2("View Offset", (int*)LifeGameMap::view_offset, 1, -1000, 1000);        // 拖动视野偏移
     ImGui::DragInt2("View Display Size", (int*)LifeGame::view_display_size, 1, 100, 2000); // 拖动视野显示大小
 
@@ -35,15 +37,14 @@ ImGuiConfigWindow(bool* is_show) // ImGui 配置窗口
         ImGui::Text("Move Speed: %.2f", LifeGame::move_speed);
         ImGui::Text("Move Dir: %.2f, %.2f", LifeGame::move_dir.vx, LifeGame::move_dir.vy);
 
-        int32_t w, h = 0;
-        SKE::GetTextureSize(LifeGameMap::map_tex, w, h); // 获取纹理大小
+        Size size = SKE::GetTextureSize(LifeGameMap::map_tex); // 获取纹理大小
 
         // 显示视野大小
         ImGui::Text("View Size: %.2f, %.2f", LifeGameMap::map_view.size().vx, LifeGameMap::map_view.size().vy);
         ImGui::Text("View Unit Size: %.2f", LifeGameMap::map_view.unitSize());
         ImGui::Text("View Center: %.2f, %.2f", LifeGameMap::map_view.centerPos().vx, LifeGameMap::map_view.centerPos().vy);
 
-        ImGui::Text("Texture Size: %d, %d", w, h);
+        ImGui::Text("Texture Size: %d, %d", size.w, size.h);
     }
 
 

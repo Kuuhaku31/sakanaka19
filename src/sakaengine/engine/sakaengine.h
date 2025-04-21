@@ -29,9 +29,9 @@ void   SetDrawBackgroundCallback(const Callback& callback); // 设置绘制背�
 void SetViewOffset(const ViewOffset* offset);               // 设置视野偏移
 
 // 工具
-void GetTextureSize(Texture* texture, int32_t& w, int32_t& h);                // 获取纹理大小
+Size GetTextureSize(Texture* texture);                                        // 获取纹理大小
 
-void CreateTexture(Texture*& texture, int32_t tex_wide, int32_t tex_high);    // 创建纹理
+void CreateTexture(Texture*& texture, const Size& size);                      // 创建纹理
 void DestroyTexture(Texture*& texture);                                       // 销毁纹理
 void SetRenderTarget(Texture* texture = nullptr, const View* view = nullptr); // 设置渲染目标
 void SetRenderColor(const Color& color = COLOR_BLACK);                        // 渲染颜色

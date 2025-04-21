@@ -13,6 +13,18 @@ typedef std::function<void(float& dst_x, float& dst_y, const float& src_w, const
 
 struct Size
 {
+    Size() = default;
+    Size(uint32_t w, uint32_t h)
+        : w(w)
+        , h(h)
+    {
+    }
+    Size(int32_t w, int32_t h)
+        : w(w)
+        , h(h)
+    {
+    }
+
     uint32_t w = 0; // 宽度
     uint32_t h = 0; // 高度
 };

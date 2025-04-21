@@ -19,7 +19,7 @@ Texture*        map_tex     = nullptr;                                // 地图�
 void
 LifeGameMap::Init()
 {
-    SKE::CreateTexture(map_tex, 800, 600); // 创建纹理
+    SKE::CreateTexture(map_tex, Size(800, 600)); // 创建纹理
 }
 
 
@@ -33,6 +33,8 @@ LifeGameMap::Quit()
 void
 LifeGameMap::OnUpdate()
 {
+    LifeGameMap::ReSizeTexture({ LifeGame::display_size[0], LifeGame::display_size[1] });                     // 重置纹理大小
+
     LifeGameMap::map_view.SetDisplaySize({ LifeGame::view_display_size[0], LifeGame::view_display_size[1] }); // 设置视野显示大小
     LifeGameMap::map_view.MoveBy(LifeGame::move_dir.vx * LifeGame::move_speed, LifeGame::move_dir.vy * LifeGame::move_speed);
 }
@@ -69,6 +71,12 @@ LifeGameMap::OnRender()
     }
 }
 
+void
+LifeGameMap::ReSizeTexture(const Size& size)
+{
+    if(map_tex) SKE::DestroyTexture(map_tex);
+    SKE::CreateTexture(map_tex, size); // 创建纹理
+}
 
 View&
 LifeGameMap::GetMapView()

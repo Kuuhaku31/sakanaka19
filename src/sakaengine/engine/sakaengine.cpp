@@ -135,22 +135,24 @@ sakaengine::SetViewOffset(const ViewOffset* offset)
     view_offset = offset;
 }
 
-void
-sakaengine::GetTextureSize(Texture* texture, int32_t& w, int32_t& h)
+Size
+sakaengine::GetTextureSize(Texture* texture)
 {
+    static int32_t w = 0, h = 0;
     SDL_QueryTexture(texture, nullptr, nullptr, &w, &h);
+
+    return Size(w, h);
 }
 
 
 void
-sakaengine::CreateTexture(Texture*& texture, int32_t tex_wide, int32_t tex_high)
+sakaengine::CreateTexture(Texture*& texture, const Size& size)
 {
     texture = SDL_CreateTexture(
         sdl_renderer,             // 渲染器
         SDL_PIXELFORMAT_ARGB8888, // 像素格式
         SDL_TEXTUREACCESS_TARGET, // 纹理访问方式
-        tex_wide,
-        tex_high
+        size.w, size.h            // 纹理大小
 
     );
 

@@ -40,6 +40,8 @@ void Quit();
 void OnUpdate();
 void OnRender();
 
+void ReSizeTexture(const Size& size); // 重置纹理大小
+
 View&          GetMapView();
 const Texture* GetMapTex();
 

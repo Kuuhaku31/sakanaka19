@@ -15,6 +15,7 @@ namespace LifeGame
 float   move_speed = 5;                       // 移动速度
 Vector2 move_dir;                             // 移动方向
 
+uint32_t display_size[2]      = { 800, 600 }; // 显示大小
 uint32_t view_display_size[2] = { 400, 300 }; // 视野显示大小
 
 bool is_show_view = true;                     // 是否显示生命游戏地图
