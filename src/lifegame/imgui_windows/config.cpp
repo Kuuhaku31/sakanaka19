@@ -24,13 +24,13 @@ ImGuiConfigWindow(bool* is_show) // ImGui 配置窗口
     // 显示帧率
     ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 
-    ImGui::Checkbox("Show Demo Window", &is_show_demo_window);                             // 显示demo窗口
-    ImGui::Checkbox("Show View Window", &LifeGame::is_show_view);                          // 显示demo窗口
+    ImGui::Checkbox("Show Demo Window", &is_show_demo_window);                                    // 显示demo窗口
+    ImGui::Checkbox("Show View Window", &LifeGame::is_show_view);                                 // 显示demo窗口
 
-    ImGui::DragInt2("Display Size", (int*)LifeGame::display_size, 1, 100, 2000);           // 拖动显示大小
+    ImGui::DragInt2("Display Size", (int32_t*)LifeGameMap::display_size, 1, 100, 2000);           // 拖动显示大小
 
-    ImGui::DragInt2("View Offset", (int*)LifeGameMap::view_offset, 1, -1000, 1000);        // 拖动视野偏移
-    ImGui::DragInt2("View Display Size", (int*)LifeGame::view_display_size, 1, 100, 2000); // 拖动视野显示大小
+    ImGui::DragInt2("View Offset", (int32_t*)LifeGameMap::view_offset, 1, -1000, 1000);           // 拖动视野偏移
+    ImGui::DragInt2("View Display Size", (int32_t*)LifeGameMap::view_display_size, 1, 100, 2000); // 拖动视野显示大小
 
     {
         // 显示速度

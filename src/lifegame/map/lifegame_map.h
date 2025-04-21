@@ -10,9 +10,12 @@ namespace LifeGameMap
 {
 
 
-extern View            map_view;    // 地图视野
-extern SKE::ViewOffset view_offset; // 视野偏移
-extern Texture*        map_tex;     // 地图纹理
+extern View   map_view;          // 地图视野
+extern Size   display_size;      // 显示大小
+extern Size   view_display_size; // 视野显示大小
+extern Offset view_offset;       // 视野偏移
+
+extern Texture* map_tex;         // 地图纹理
 
 
 struct Cell    // 细胞

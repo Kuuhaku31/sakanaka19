@@ -4,8 +4,6 @@
 #include "animation.h"
 #include "shared.h"
 
-#include <cJSON.h>
-
 
 void
 loadResources(const std::string& resources_path, SDL_Renderer* renderer)

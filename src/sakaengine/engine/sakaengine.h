@@ -9,13 +9,15 @@
 namespace sakaengine
 {
 
-void Init(EngineInitArgs& args); // 初始化引擎
-void Quit();                     // 退出引擎
+void Init(EngineInitArgs& args);                                               // 初始化引擎
+void Quit();                                                                   // 退出引擎
+
+void LoadConfig(const std::string& path, std::function<void(cJSON*)> process); // 加载配置
+void SaveConfig(const std::string& path, std::function<void(cJSON*)> process); // 保存配置
 
 
-void NewFrame(); // 新帧
-void EndFrame(); // 结束帧
-
+void NewFrame();      // 新帧
+void EndFrame();      // 结束帧
 
 bool IsInit();        // 是否初始化成功
 bool IsRunning();     // 是否运行中
@@ -26,7 +28,7 @@ float GetDeltaTime(); // 获取时间间隔
 Color& GetClearColor();
 void   SetDrawBackgroundCallback(const Callback& callback); // 设置绘制背景回调
 
-void SetViewOffset(const ViewOffset* offset);               // 设置视野偏移
+void SetViewOffset(const Offset* offset);                   // 设置视野偏移
 
 // 工具
 Size GetTextureSize(Texture* texture);                                        // 获取纹理大小

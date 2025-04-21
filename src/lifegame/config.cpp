@@ -1,72 +1,110 @@
 
 // config.cpp
 
-#include "config.h"
+#include "lifegame.h"
+#include "lifegame_map.h"
 
-// #include "imgui_setup.h"
 
-#include "imgui_windows.h"
-
-// static Painter& painter = Painter::Instance();
-// static ResourcesManager& resources_manager = ResourcesManager::Instance();
-
-int
-Config::Init()
+inline void
+load_size(cJSON* root_item, const char* label, Size& size)
 {
-    // if(painter.Init()) return 1;
-    // if(!resources_manager.LoadResources(resources_path)) return 2;
+    static cJSON* target_item = nullptr;
+    static cJSON* value_item  = nullptr;
 
-    return 0;
+    target_item = cJSON_GetObjectItem(root_item, label);
+    if(!target_item || !cJSON_IsObject(target_item)) return;
+
+    value_item = cJSON_GetObjectItem(target_item, "w");
+    if(value_item && cJSON_IsNumber(value_item)) size.w = value_item->valueint;
+    value_item = cJSON_GetObjectItem(target_item, "h");
+    if(value_item && cJSON_IsNumber(value_item)) size.h = value_item->valueint;
+}
+
+inline void
+load_offset(cJSON* root_item, const char* label, Offset& offset)
+{
+    static cJSON* target_item = nullptr;
+    static cJSON* value_item  = nullptr;
+
+    target_item = cJSON_GetObjectItem(root_item, label);
+    if(!target_item || !cJSON_IsObject(target_item)) return;
+
+    value_item = cJSON_GetObjectItem(target_item, "dx");
+    if(value_item && cJSON_IsNumber(value_item)) offset.dx = value_item->valueint;
+    value_item = cJSON_GetObjectItem(target_item, "dy");
+    if(value_item && cJSON_IsNumber(value_item)) offset.dy = value_item->valueint;
+}
+
+inline void
+load_view(cJSON* root_item, const char* label, View& view)
+{
+    static cJSON* target_item = nullptr;
+    static cJSON* value_item  = nullptr;
+
+    target_item = cJSON_GetObjectItem(root_item, label);
+    if(!target_item || !cJSON_IsObject(target_item)) return;
+
+    value_item = cJSON_GetObjectItem(target_item, "center_x");
+    if(value_item && cJSON_IsNumber(value_item)) view.MoveCenterTo(value_item->valuedouble, view.viewCenterY());
+    value_item = cJSON_GetObjectItem(target_item, "center_y");
+    if(value_item && cJSON_IsNumber(value_item)) view.MoveCenterTo(view.viewCenterX(), value_item->valuedouble);
+    value_item = cJSON_GetObjectItem(target_item, "unit_size");
+    if(value_item && cJSON_IsNumber(value_item)) view.SetUnitSize(value_item->valuedouble);
+}
+
+
+inline void
+save_size(cJSON* root_item, const char* label, const Size& size)
+{
+    static cJSON* node = nullptr;
+
+    node = cJSON_CreateObject();
+    cJSON_AddItemToObject(node, "w", cJSON_CreateNumber(size.w));
+    cJSON_AddItemToObject(node, "h", cJSON_CreateNumber(size.h));
+
+    cJSON_AddItemToObject(root_item, label, node);
+}
+
+inline void
+save_offset(cJSON* item, const char* label, const Offset& offset)
+{
+    static cJSON* node = nullptr;
+
+    node = cJSON_CreateObject();
+    cJSON_AddItemToObject(node, "dx", cJSON_CreateNumber(offset.dx));
+    cJSON_AddItemToObject(node, "dy", cJSON_CreateNumber(offset.dy));
+
+    cJSON_AddItemToObject(item, label, node);
+}
+
+inline void
+save_view(cJSON* root_item, const char* label, const View& view)
+{
+    static cJSON* node = nullptr;
+
+    node = cJSON_CreateObject();
+    cJSON_AddItemToObject(node, "center_x", cJSON_CreateNumber(view.viewCenterX()));
+    cJSON_AddItemToObject(node, "center_y", cJSON_CreateNumber(view.viewCenterY()));
+    cJSON_AddItemToObject(node, "unit_size", cJSON_CreateNumber(view.unitSize()));
+
+    cJSON_AddItemToObject(root_item, label, node);
+}
+
+
+void
+LifeGame::ProcessInitConfig(cJSON* root)
+{
+    load_size(root, "display_size", LifeGameMap::display_size);
+    load_size(root, "view_display_size", LifeGameMap::view_display_size);
+    load_offset(root, "view_offset", LifeGameMap::view_offset);
+    load_view(root, "map_view", LifeGameMap::map_view);
 }
 
 void
-Config::Loop()
+LifeGame::ProcessSaveConfig(cJSON* root)
 {
-    // bool is_running = true;
-
-    // std::function<void(const Event&)> event_callback = [&is_running](const Event& event) {
-    //     if(event.type == SDL_QUIT)
-    //     {
-    //         is_running = false;
-    //     }
-    // };
-
-    // // Main loop
-    // while(is_running)
-    // {
-
-    //     Painter::Instance().On_frame_begin(event_callback);
-
-    //     if(show_demo_window) ImGui::ShowDemoWindow(&show_demo_window);
-
-    //     // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
-    //     {
-    //         ImGui::Begin("Hello, Editor!");                    // Create a window called "Hello, world!" and append into it.
-    //         ImGui::Checkbox("Demo Window", &show_demo_window); // Edit bools storing our window open/close state
-    //         ImGui::Checkbox("Map Window", &show_another_window);
-    //         ImGui::Checkbox("Life Game Map", &show_life_game_map);
-    //         ImGui::Checkbox("Life Game Editor", &show_life_game_map_editor);
-    //         ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-    //         ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-    //         ImGui::End();
-    //     }
-
-    //     // WIN_Map(show_another_window);
-
-    //     // if(show_win_objects_data)
-    //     // {
-    //     //     WIN_Objects_Data();
-    //     // }
-
-    //     WIN_LifeGameMap(show_life_game_map);
-
-    //     Painter::Instance().On_frame_end();
-    // }
-}
-
-int
-Config::Quit()
-{
-    // return painter.Quit();
-    return 0;
+    save_size(root, "display_size", LifeGameMap::display_size);
+    save_size(root, "view_display_size", LifeGameMap::view_display_size);
+    save_offset(root, "view_offset", LifeGameMap::view_offset);
+    save_view(root, "map_view", LifeGameMap::map_view);
 }

@@ -83,10 +83,10 @@ sakaengine::DrawLine(float A, float B, float C, const Color& color)
     lineRGBA(
         sdl_renderer,
 
-        (*view_offset)[0] + (start_x - view_x1) * unit_size,
-        (*view_offset)[1] + (start_y - view_y1) * unit_size,
-        (*view_offset)[0] + (end_x - view_x1) * unit_size,
-        (*view_offset)[1] + (end_y - view_y1) * unit_size,
+        view_offset->dx + (start_x - view_x1) * unit_size,
+        view_offset->dy + (start_y - view_y1) * unit_size,
+        view_offset->dx + (end_x - view_x1) * unit_size,
+        view_offset->dy + (end_y - view_y1) * unit_size,
 
         color.r,
         color.g,
@@ -186,10 +186,10 @@ sakaengine::DrawLine(Vector2 start, Vector2 end, const Color& color)
     lineRGBA(
         sdl_renderer,
 
-        (*view_offset)[0] + (start_x - view_x1) * unit_size,
-        (*view_offset)[1] + (start_y - view_y1) * unit_size,
-        (*view_offset)[0] + (end_x - view_x1) * unit_size,
-        (*view_offset)[1] + (end_y - view_y1) * unit_size,
+        view_offset->dx + (start_x - view_x1) * unit_size,
+        view_offset->dy + (start_y - view_y1) * unit_size,
+        view_offset->dx + (end_x - view_x1) * unit_size,
+        view_offset->dy + (end_y - view_y1) * unit_size,
 
         color.r,
         color.g,
@@ -214,8 +214,8 @@ sakaengine::DrawArc(const Vector2& center, float radius, float start_angle, floa
     arcRGBA(
         sdl_renderer,
 
-        (*view_offset)[0] + (center.vx - view_left_top_position_x) * unit_size,
-        (*view_offset)[1] + (center.vy - view_left_top_position_y) * unit_size,
+        view_offset->dx + (center.vx - view_left_top_position_x) * unit_size,
+        view_offset->dy + (center.vy - view_left_top_position_y) * unit_size,
 
         radius * unit_size,
         start_angle,
@@ -297,8 +297,8 @@ sakaengine::DrawCircle(const Vector2& center, float radius, const Color& color, 
             DrawPartialCircle(
                 sdl_renderer,
 
-                (*view_offset)[0] + (center.vx - view_left_top_position_x) * unit_size,
-                (*view_offset)[1] + (center.vy - view_left_top_position_y) * unit_size,
+                view_offset->dx + (center.vx - view_left_top_position_x) * unit_size,
+                view_offset->dy + (center.vy - view_left_top_position_y) * unit_size,
 
                 radius * unit_size,
 
@@ -319,8 +319,8 @@ sakaengine::DrawCircle(const Vector2& center, float radius, const Color& color, 
             DrawPartialCircle(
                 sdl_renderer,
 
-                (*view_offset)[0] + (center.vx - view_left_top_position_x) * unit_size,
-                (*view_offset)[1] + (center.vy - view_left_top_position_y) * unit_size,
+                view_offset->dx + (center.vx - view_left_top_position_x) * unit_size,
+                view_offset->dy + (center.vy - view_left_top_position_y) * unit_size,
 
                 radius * unit_size,
 
@@ -354,8 +354,8 @@ sakaengine::DrawCircle(const Vector2& center, float radius, const Color& color, 
         filledCircleRGBA(
             sdl_renderer,
 
-            (*view_offset)[0] + (center.vx - view_left_top_position_x) * unit_size,
-            (*view_offset)[1] + (center.vy - view_left_top_position_y) * unit_size,
+            view_offset->dx + (center.vx - view_left_top_position_x) * unit_size,
+            view_offset->dy + (center.vy - view_left_top_position_y) * unit_size,
 
             radius * unit_size,
 
@@ -393,10 +393,10 @@ sakaengine::DrawRect(const FRect& rect, const Color& color, bool is_solid)
         boxRGBA(
             sdl_renderer,
 
-            (*view_offset)[0] + (rect.x - view_left_top_position_x) * unit_size,
-            (*view_offset)[1] + (rect.y - view_left_top_position_y) * unit_size,
-            (*view_offset)[0] + (rect.x + rect.w - view_left_top_position_x) * unit_size,
-            (*view_offset)[1] + (rect.y + rect.h - view_left_top_position_y) * unit_size,
+            view_offset->dx + (rect.x - view_left_top_position_x) * unit_size,
+            view_offset->dy + (rect.y - view_left_top_position_y) * unit_size,
+            view_offset->dx + (rect.x + rect.w - view_left_top_position_x) * unit_size,
+            view_offset->dy + (rect.y + rect.h - view_left_top_position_y) * unit_size,
 
             color.r,
             color.g,
@@ -424,12 +424,12 @@ sakaengine::DrawTriangle(const Vector2& a, const Vector2& b, const Vector2& c, c
         aatrigonRGBA(
             sdl_renderer,
 
-            (*view_offset)[0] + (a.vx - view_left_top_position_x) * unit_size,
-            (*view_offset)[1] + (a.vy - view_left_top_position_y) * unit_size,
-            (*view_offset)[0] + (b.vx - view_left_top_position_x) * unit_size,
-            (*view_offset)[1] + (b.vy - view_left_top_position_y) * unit_size,
-            (*view_offset)[0] + (c.vx - view_left_top_position_x) * unit_size,
-            (*view_offset)[1] + (c.vy - view_left_top_position_y) * unit_size,
+            view_offset->dx + (a.vx - view_left_top_position_x) * unit_size,
+            view_offset->dy + (a.vy - view_left_top_position_y) * unit_size,
+            view_offset->dx + (b.vx - view_left_top_position_x) * unit_size,
+            view_offset->dy + (b.vy - view_left_top_position_y) * unit_size,
+            view_offset->dx + (c.vx - view_left_top_position_x) * unit_size,
+            view_offset->dy + (c.vy - view_left_top_position_y) * unit_size,
 
             color.r,
             color.g,
@@ -443,12 +443,12 @@ sakaengine::DrawTriangle(const Vector2& a, const Vector2& b, const Vector2& c, c
         filledTrigonRGBA(
             sdl_renderer,
 
-            (*view_offset)[0] + (a.vx - view_left_top_position_x) * unit_size,
-            (*view_offset)[1] + (a.vy - view_left_top_position_y) * unit_size,
-            (*view_offset)[0] + (b.vx - view_left_top_position_x) * unit_size,
-            (*view_offset)[1] + (b.vy - view_left_top_position_y) * unit_size,
-            (*view_offset)[0] + (c.vx - view_left_top_position_x) * unit_size,
-            (*view_offset)[1] + (c.vy - view_left_top_position_y) * unit_size,
+            view_offset->dx + (a.vx - view_left_top_position_x) * unit_size,
+            view_offset->dy + (a.vy - view_left_top_position_y) * unit_size,
+            view_offset->dx + (b.vx - view_left_top_position_x) * unit_size,
+            view_offset->dy + (b.vy - view_left_top_position_y) * unit_size,
+            view_offset->dx + (c.vx - view_left_top_position_x) * unit_size,
+            view_offset->dy + (c.vy - view_left_top_position_y) * unit_size,
 
             color.r,
             color.g,
@@ -476,10 +476,10 @@ sakaengine::DrawTexture(Texture* texture, const IRect& rect_src, const FRect& re
 
     src = { rect_src.x, rect_src.y, rect_src.w, rect_src.h };
 
-    dst.x = (*view_offset)[0] + (rect_dst.x - view_left_top_position_x) * unit_size;
-    dst.y = (*view_offset)[1] + (rect_dst.y - view_left_top_position_y) * unit_size;
-    dst.w = (*view_offset)[0] + rect_dst.w * unit_size;
-    dst.h = (*view_offset)[1] + rect_dst.h * unit_size;
+    dst.x = view_offset->dx + (rect_dst.x - view_left_top_position_x) * unit_size;
+    dst.y = view_offset->dy + (rect_dst.y - view_left_top_position_y) * unit_size;
+    dst.w = view_offset->dx + rect_dst.w * unit_size;
+    dst.h = view_offset->dy + rect_dst.h * unit_size;
 
     SDL_RenderCopyEx(
         sdl_renderer,

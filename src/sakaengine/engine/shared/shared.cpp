@@ -26,8 +26,8 @@ MusicPool     music_pool;
 AnimationPool animation_pool;
 
 // 视野
-const View*       painter_view = nullptr;
-const ViewOffset* view_offset  = nullptr; // 视野偏移
+const View*   painter_view = nullptr;
+const Offset* view_offset  = nullptr; // 视野偏移
 
 Callback draw_background_callback = nullptr;
 

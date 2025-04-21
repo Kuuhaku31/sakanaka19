@@ -17,6 +17,8 @@ foreach(p ${PATH})
     aux_source_directory(${p} DIR_LIB_SRC)
 endforeach()
 
+message(STATUS "DIR_LIB_SRC: ${DIR_LIB_SRC}")
+
 include_directories(${PATH})
 
 # 添加依赖

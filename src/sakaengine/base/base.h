@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <cJSON.h>
 #include <functional>
 #include <stdint.h>
 #include <string>
@@ -10,6 +11,21 @@
 
 typedef std::function<void()>                                                                   Callback;      // 回调函数
 typedef std::function<void(float& dst_x, float& dst_y, const float& src_w, const float& src_h)> CorrectivePos; // 位置修正回调函数
+
+struct Offset
+{
+    Offset() = default;
+    Offset(int32_t dx, int32_t dy)
+        : dx(dx)
+        , dy(dy)
+    {
+    }
+
+    int32_t dx = 0; // 偏移量
+    int32_t dy = 0; // 偏移量
+
+    operator int32_t*() { return (int*)this; }
+};
 
 struct Size
 {
@@ -27,6 +43,9 @@ struct Size
 
     uint32_t w = 0; // 宽度
     uint32_t h = 0; // 高度
+
+    operator int32_t*() { return (int32_t*)this; }
+    operator uint32_t*() { return (uint32_t*)this; }
 };
 
 

@@ -130,7 +130,7 @@ sakaengine::SetDrawBackgroundCallback(const Callback& callback)
 }
 
 void
-sakaengine::SetViewOffset(const ViewOffset* offset)
+sakaengine::SetViewOffset(const Offset* offset)
 {
     view_offset = offset;
 }
